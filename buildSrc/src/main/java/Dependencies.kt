@@ -2,7 +2,7 @@ object Version {
   const val kotlin = "1.3.31"
   const val appcompat = "1.0.2"
   const val ktx = "1.0.2"
-  const val constraintlayout = "1.1.3"
+  const val constraintLayout = "1.1.3"
   const val material = "1.0.0"
   const val junit4 = "4.12"
   const val test_runner = "1.1.1"
@@ -17,7 +17,7 @@ object Dependencies {
   //  AndroidX
   private const val appcompat = "androidx.appcompat:appcompat:${Version.appcompat}"
   private const val ktx = "androidx.core:core-ktx:${Version.ktx}"
-  private const val constraintlayout = "androidx.constraintlayout:constraintlayout:${Version.constraintlayout}"
+  private const val constraintLayout = "androidx.constraintlayout:constraintlayout:${Version.constraintLayout}"
 
   //  material
   private const val material = "com.google.android.material:material:${Version.material}"
@@ -31,7 +31,7 @@ object Dependencies {
   private const val test_runner = "androidx.test:runner:${Version.test_runner}"
   private const val espresso = "androidx.test.espresso:espresso-core:${Version.espresso}"
 
-  val standard: List<String> = listOf(kotlin_stdlib, appcompat, ktx, constraintlayout, material)
+  val standard: List<String> = listOf(kotlin_stdlib, appcompat, ktx, constraintLayout, material)
   val test_standard: List<String> = listOf(junit4)
   val android_test_standard: List<String> = listOf(androidXTestCore, androidXTestJunit, test_runner, espresso)
 }
