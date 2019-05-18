@@ -1,5 +1,5 @@
 plugins {
-  id("com.android.feature")
+  id("com.android.library")
 }
 apply(from = "../buildSrc/android.kts")
 
