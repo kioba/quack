@@ -1,4 +1,4 @@
-package io.github.kioba.posts
+package io.github.kioba.feed
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

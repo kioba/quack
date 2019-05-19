@@ -1,4 +1,4 @@
-package io.github.kioba.posts
+package io.github.kioba.feed
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -18,6 +18,6 @@ class ExampleInstrumentedTest {
     // Context of the app under test.
     val appContext = InstrumentationRegistry.getInstrumentation().targetContext
 
-    assertEquals("io.github.kioba.posts.test", appContext.packageName)
+    assertEquals("io.github.kioba.feed.test", appContext.packageName)
   }
 }

@@ -25,6 +25,9 @@ object Version {
   // androidX
   const val androidXLifecycle = "2.0.0"
 
+  // Arrow
+  const val arrow = "0.9.0"
+
 }
 
 object Dependencies {
@@ -32,8 +35,8 @@ object Dependencies {
   private const val kotlin_stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Version.kotlin}"
 
   //  AndroidX
-  private const val appcompat = "androidx.appcompat:appcompat:${Version.androidXAppcompat}"
-  private const val coreKtx = "androidx.core:core-ktx:${Version.coreKtx}"
+  private const val androidXAppcompat = "androidx.appcompat:appcompat:${Version.androidXAppcompat}"
+  private const val androidXCoreKtx = "androidx.core:core-ktx:${Version.coreKtx}"
 
   // androidX recyclerView
   private const val recyclerView = "androidx.recyclerview:recyclerview:${Version.androidXRecyclerview}"
@@ -50,6 +53,15 @@ object Dependencies {
   //  material
   private const val material = "com.google.android.material:material:${Version.material}"
 
+  // Arrow
+  private const val arrowCoreData = "io.arrow-kt:arrow-core-data:${Version.arrow}"
+  private const val arrowCoreExtensions = "io.arrow-kt:arrow-core-extensions:${Version.arrow}"
+  private const val arrowSyntax = "io.arrow-kt:arrow-syntax:${Version.arrow}"
+  private const val arrowTypeclasses = "io.arrow-kt:arrow-typeclasses:${Version.arrow}"
+  private const val arrowExtrasData = "io.arrow-kt:arrow-extras-data:${Version.arrow}"
+  private const val arrowExtrasExtensions = "io.arrow-kt:arrow-extras-extensions:${Version.arrow}"
+
+
   //  unit test
   private const val junit4 = "junit:junit:${Version.junit4}"
 
@@ -62,13 +74,19 @@ object Dependencies {
   val standard_kapt: List<String> = listOf(lifecycleCompiler)
   val standard: List<String> = listOf(
     kotlin_stdlib,
-    appcompat,
-    coreKtx,
+    androidXAppcompat,
+    androidXCoreKtx,
     constraintLayout,
     material,
     lifecycleViewModelKtx,
     lifecycleExtensions,
-    recyclerView
+    recyclerView,
+    arrowCoreData,
+    arrowCoreExtensions,
+    arrowSyntax,
+    arrowTypeclasses,
+    arrowExtrasData,
+    arrowExtrasExtensions
   )
   val test_standard: List<String> = listOf(junit4)
   val android_test_standard: List<String> = listOf(androidXTestCore, androidXTestJunit, test_runner, espresso)

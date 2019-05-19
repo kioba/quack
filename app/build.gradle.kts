@@ -16,6 +16,8 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
+    implementation(project(":feed"))
+
     Dependencies.standard.forEach { implementation(it) }
     Dependencies.standard_kapt.forEach { kapt(it) }
 

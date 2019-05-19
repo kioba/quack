@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/posts_root"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/posts_recycler"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:listitem="@layout/view_feed_post"/>
+
+  <com.google.android.material.bottomappbar.BottomAppBar
+    android:id="@+id/posts_bar"
+    style="@style/Widget.MaterialComponents.BottomAppBar"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_gravity="bottom"
+    app:fabAlignmentMode="center"
+    app:hideOnScroll="true"
+    app:layout_scrollFlags="scroll|enterAlways"
+    app:navigationIcon="@drawable/ic_face_black_24dp"/>
+
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:id="@+id/posts_fab"
+    style="@style/Widget.MaterialComponents.FloatingActionButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/ic_filter_list_black_24dp"
+    app:fabSize="auto"
+    app:layout_anchor="@id/posts_bar"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
