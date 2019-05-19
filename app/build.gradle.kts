@@ -20,8 +20,8 @@ dependencies {
     implementation(project(":core"))
 
     Dependencies.standard.forEach { implementation(it) }
-    Dependencies.standard_kapt.forEach { kapt(it) }
+  Dependencies.standardKapt.forEach { kapt(it) }
 
-    Dependencies.test_standard.forEach { testImplementation(it) }
-    Dependencies.android_test_standard.forEach { androidTestImplementation(it) }
+  Dependencies.testStandard.forEach { testImplementation(it) }
+  Dependencies.testAndroidStandard.forEach { androidTestImplementation(it) }
 }
