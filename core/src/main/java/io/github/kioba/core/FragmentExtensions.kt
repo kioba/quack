@@ -4,6 +4,6 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 
 
-fun FragmentManager.execute(transaction: FragmentTransaction.() -> Unit) {
+inline fun FragmentManager.execute(transaction: FragmentTransaction.() -> Unit) {
   beginTransaction().apply(transaction).commit()
 }
