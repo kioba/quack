@@ -28,6 +28,9 @@ object Version {
   // Arrow
   const val arrow = "0.9.0"
 
+  // Dagger
+  const val dagger = "2.22.1"
+
 }
 
 object Dependencies {
@@ -39,16 +42,20 @@ object Dependencies {
   private const val androidXCoreKtx = "androidx.core:core-ktx:${Version.coreKtx}"
 
   // androidX recyclerView
-  private const val recyclerView = "androidx.recyclerview:recyclerview:${Version.androidXRecyclerview}"
+  private const val recyclerView =
+    "androidx.recyclerview:recyclerview:${Version.androidXRecyclerview}"
 
   // androidX constraintLayout
-  private const val constraintLayout = "androidx.constraintlayout:constraintlayout:${Version.androidXConstraintLayout}"
+  private const val constraintLayout =
+    "androidx.constraintlayout:constraintlayout:${Version.androidXConstraintLayout}"
 
   // androidX Architecture components
-  private const val lifecycleExtensions = "androidx.lifecycle:lifecycle-extensions:${Version.androidXLifecycle}"
+  private const val lifecycleExtensions =
+    "androidx.lifecycle:lifecycle-extensions:${Version.androidXLifecycle}"
   private const val lifecycleViewModelKtx =
     "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.androidXLifecycle}" // use -ktx for Kotlin
-  private const val lifecycleCompiler = "androidx.lifecycle:lifecycle-compiler:${Version.androidXLifecycle}"
+  private const val lifecycleCompiler =
+    "androidx.lifecycle:lifecycle-compiler:${Version.androidXLifecycle}"
 
   //  material
   private const val material = "com.google.android.material:material:${Version.material}"
@@ -61,6 +68,16 @@ object Dependencies {
   private const val arrowExtrasData = "io.arrow-kt:arrow-extras-data:${Version.arrow}"
   private const val arrowExtrasExtensions = "io.arrow-kt:arrow-extras-extensions:${Version.arrow}"
 
+  // Dagger
+  private const val dagger = "com.google.dagger:dagger:${Version.dagger}"
+  private const val daggerAndroid = "com.google.dagger:dagger-android:${Version.dagger}"
+  private const val daggerAndroidSupport =
+    "com.google.dagger:dagger-android-support:${Version.dagger}"
+
+  private const val daggerCompoler = "com.google.dagger:dagger-compiler:${Version.dagger}"
+  private const val daggerAndroidProcessor =
+    "com.google.dagger:dagger-android-processor:${Version.dagger}"
+
 
   //  unit test
   private const val junit4 = "junit:junit:${Version.junit4}"
@@ -68,10 +85,15 @@ object Dependencies {
   //  android test
   private const val androidXTestCore = "androidx.test:core:${Version.androidXTest}"
   private const val androidXTestJunit = "androidx.test.ext:junit:${Version.androidXTest}"
-  private const val test_runner = "androidx.test:runner:${Version.test_runner}"
+  private const val testRunner = "androidx.test:runner:${Version.test_runner}"
   private const val espresso = "androidx.test.espresso:espresso-core:${Version.espresso}"
 
-  val standard_kapt: List<String> = listOf(lifecycleCompiler)
+  val standardKapt: List<String> = listOf(
+    lifecycleCompiler,
+    daggerCompoler,
+    daggerAndroidProcessor
+  )
+
   val standard: List<String> = listOf(
     kotlin_stdlib,
     androidXAppcompat,
@@ -86,8 +108,18 @@ object Dependencies {
     arrowSyntax,
     arrowTypeclasses,
     arrowExtrasData,
-    arrowExtrasExtensions
+    arrowExtrasExtensions,
+    dagger,
+    daggerAndroid,
+    daggerAndroidSupport
   )
-  val test_standard: List<String> = listOf(junit4)
-  val android_test_standard: List<String> = listOf(androidXTestCore, androidXTestJunit, test_runner, espresso)
+
+  val testStandard: List<String> = listOf(junit4)
+
+  val testAndroidStandard: List<String> = listOf(
+    androidXTestCore,
+    androidXTestJunit,
+    testRunner,
+    espresso
+  )
 }
