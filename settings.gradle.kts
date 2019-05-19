@@ -1,1 +1,1 @@
-include(":app", ":posts", ":core", ":detail")
+include(":app", ":feed", ":core", ":detail")

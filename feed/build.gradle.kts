@@ -2,8 +2,8 @@ plugins {
   id("com.android.library")
   id("kotlin-android")
   id("kotlin-kapt")
+  id("kotlin-android-extensions")
 }
-
 apply(from = "../buildSrc/android.kts")
 
 dependencies {
