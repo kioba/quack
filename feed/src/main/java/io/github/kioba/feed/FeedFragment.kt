@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
-import kotlinx.android.synthetic.main.fragment_posts.*
+import kotlinx.android.synthetic.main.fragment_feed.*
 
 class FeedFragment : Fragment() {
 
@@ -25,16 +25,16 @@ class FeedFragment : Fragment() {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View =
-    inflater.inflate(R.layout.fragment_posts, container, false)
+    inflater.inflate(R.layout.fragment_feed, container, false)
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    posts_recycler.layoutManager = LinearLayoutManager(requireContext())
-    posts_recycler.adapter = adapter
-    posts_recycler.addItemDecoration(DividerItemDecoration(requireContext(), VERTICAL))
+    feed_recycler.layoutManager = LinearLayoutManager(requireContext())
+    feed_recycler.adapter = adapter
+    feed_recycler.addItemDecoration(DividerItemDecoration(requireContext(), VERTICAL))
 
-    posts_bar.setNavigationOnClickListener {
+    feed_bar.setNavigationOnClickListener {
       AboutBottomSheet().show(childFragmentManager, "AboutBottomSheet")
     }
   }
