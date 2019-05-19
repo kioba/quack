@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
 class PlaceholderSdk : IPlaceholderSdk {
 
   companion object {
-    private const val api: String = "http://jsonplaceholder.typicode.com"
+    private const val api: String = "https://jsonplaceholder.typicode.com"
   }
 
   private val logInterceptor =
