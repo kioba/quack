@@ -11,5 +11,26 @@ android {
       minifyEnabled = true
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
     }
+
+    getByName("debug") {
+      testCoverageEnabled = true
+    }
   }
+
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+  }
+
+
+  testOptions {
+    unitTests {
+      all {
+        testLogging {
+          events("passed", "skipped", "failed")
+        }
+      }
+    }
+  }
+
 }
