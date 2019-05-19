@@ -6,6 +6,7 @@ import io.github.kioba.feed.mvi_models.FeedLoading
 import io.github.kioba.feed.mvi_models.FeedResult
 import io.github.kioba.feed.mvi_models.FeedSuccess
 import io.github.kioba.feed.mvi_models.InitialFeedIntent
+import io.github.kioba.placeholder.IPlaceholderSdk
 import io.reactivex.FlowableTransformer
 import io.reactivex.Scheduler
 

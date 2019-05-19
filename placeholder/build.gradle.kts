@@ -12,6 +12,8 @@ dependencies {
   implementation(project(":core"))
 
   Dependencies.standard.forEach { implementation(it) }
+  Dependencies.networking.forEach { implementation(it) }
+
   Dependencies.standardKapt.forEach { kapt(it) }
 
   Dependencies.testStandard.forEach { testImplementation(it) }

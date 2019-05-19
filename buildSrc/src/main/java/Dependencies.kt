@@ -1,4 +1,5 @@
 object Version {
+
   const val kotlin = "1.3.31"
 
   // Unit Test
@@ -41,6 +42,13 @@ object Version {
 
   // Dagger
   const val dagger = "2.22.1"
+
+  //Networking
+  const val retrofit = "2.4.0"
+  const val rxjava2Adapter = "1.0.0"
+  const val gsonConverter = "2.4.0"
+  const val gson = "2.8.5"
+  const val interceptor = "3.11.0"
 
 }
 
@@ -105,16 +113,25 @@ object Dependencies {
     "com.google.dagger:dagger-android-processor:${Version.dagger}"
 
 
+  // Networking
+  private const val retrofit = "com.squareup.retrofit2:retrofit:${Version.retrofit}"
+  private const val loggingInterceptor =
+    "com.squareup.okhttp3:logging-interceptor:${Version.interceptor}"
+  private const val gson = "com.google.code.gson:gson:${Version.gson}"
+  private const val gsonConverter = "com.squareup.retrofit2:converter-gson:${Version.gsonConverter}"
+  private const val rxjava2Adapter =
+    "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${Version.rxjava2Adapter}"
+
   //  unit test
   private const val junit4 = "junit:junit:${Version.junit4}"
   private const val mockK = "io.mockk:mockk:${Version.mockK}"
-
 
   //  android test
   private const val androidXTestCore = "androidx.test:core:${Version.androidXTest}"
   private const val androidXTestJunit = "androidx.test.ext:junit:${Version.androidXTest}"
   private const val testRunner = "androidx.test:runner:${Version.test_runner}"
   private const val espresso = "androidx.test.espresso:espresso-core:${Version.espresso}"
+
 
   val standardKapt: List<String> = listOf(
     lifecycleCompiler,
@@ -154,9 +171,17 @@ object Dependencies {
 
   val testAndroidStandard: List<String> =
     listOf(
-    androidXTestCore,
-    androidXTestJunit,
-    testRunner,
-    espresso
+      androidXTestCore,
+      androidXTestJunit,
+      testRunner,
+      espresso
+    )
+
+  val networking: List<String> = listOf(
+    retrofit,
+    loggingInterceptor,
+    gson,
+    gsonConverter,
+    rxjava2Adapter
   )
 }
