@@ -28,6 +28,12 @@ object Version {
   // Arrow
   const val arrow = "0.9.0"
 
+  //RXJava
+  const val rxjava = "2.2.7"
+  const val rxandroid = "2.1.0"
+  const val rxrelay = "2.1.0"
+  const val rxbinding = "3.0.0-alpha2"
+
   // Dagger
   const val dagger = "2.22.1"
 
@@ -67,6 +73,21 @@ object Dependencies {
   private const val arrowTypeclasses = "io.arrow-kt:arrow-typeclasses:${Version.arrow}"
   private const val arrowExtrasData = "io.arrow-kt:arrow-extras-data:${Version.arrow}"
   private const val arrowExtrasExtensions = "io.arrow-kt:arrow-extras-extensions:${Version.arrow}"
+
+  // RxJava2
+  private const val rxjava = "io.reactivex.rxjava2:rxjava:${Version.rxjava}"
+  private const val rxandroid = "io.reactivex.rxjava2:rxandroid:${Version.rxandroid}"
+  private const val rxrelay = "com.jakewharton.rxrelay2:rxrelay:${Version.rxrelay}"
+
+  // RXBinding
+  private const val rxbinding = "com.jakewharton.rxbinding3:rxbinding:${Version.rxbinding}"
+  private const val rxbindingCore = "com.jakewharton.rxbinding3:rxbinding-core:${Version.rxbinding}"
+  private const val rxbindingAppcompat =
+    "com.jakewharton.rxbinding3:rxbinding-appcompat:${Version.rxbinding}"
+  private const val rxbindingRecyclerview =
+    "com.jakewharton.rxbinding3:rxbinding-recyclerview:${Version.rxbinding}"
+  private const val rxbindingMaterial =
+    "com.jakewharton.rxbinding3:rxbinding-material:${Version.rxbinding}"
 
   // Dagger
   private const val dagger = "com.google.dagger:dagger:${Version.dagger}"
@@ -109,6 +130,14 @@ object Dependencies {
     arrowTypeclasses,
     arrowExtrasData,
     arrowExtrasExtensions,
+    rxjava,
+    rxandroid,
+    rxrelay,
+    rxbinding,
+    rxbindingCore,
+    rxbindingAppcompat,
+    rxbindingRecyclerview,
+    rxbindingMaterial,
     dagger,
     daggerAndroid,
     daggerAndroidSupport
@@ -116,7 +145,8 @@ object Dependencies {
 
   val testStandard: List<String> = listOf(junit4)
 
-  val testAndroidStandard: List<String> = listOf(
+  val testAndroidStandard: List<String> =
+    listOf(
     androidXTestCore,
     androidXTestJunit,
     testRunner,
