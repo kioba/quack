@@ -1,5 +1,6 @@
 package io.github.kioba.feed
 
+import androidx.lifecycle.ViewModel
 import io.github.kioba.core.MVIViewModel
 import io.github.kioba.feed.mvi_models.FeedError
 import io.github.kioba.feed.mvi_models.FeedEvent
@@ -12,19 +13,28 @@ import io.github.kioba.feed.mvi_models.InitialFeedIntent
 import io.reactivex.Flowable
 import io.reactivex.FlowableTransformer
 import io.reactivex.processors.PublishProcessor
+import javax.inject.Inject
 
-class FeedViewModel constructor(
+typealias IFeedViewModel = MVIViewModel<FeedIntent, FeedResult, FeedEvent, FeedState>
+
+class FeedViewModel @Inject constructor(
   private val resultProcessor: IActionProcessor<FeedIntent, FeedResult>
-) : MVIViewModel<FeedIntent, FeedResult, FeedEvent, FeedState>() {
-  override val binder: PublishProcessor<FeedIntent> = PublishProcessor.create()
+) : ViewModel(), IFeedViewModel {
+  private val binder: PublishProcessor<FeedIntent> = PublishProcessor.create()
 
-  override fun state(): Flowable<FeedState> =
+  private val state by lazy {
     binder
       .compose(intentFilter())
       .compose(resultProcessor.actionTransformer)
       .scan(FeedState(), this::reducer)
       .replay(1)
       .autoConnect(0)
+  }
+
+  override fun bind(intents: Flowable<FeedIntent>) =
+    intents.subscribe(binder)
+
+  override fun state(): Flowable<FeedState> = state
 
   override fun intentFilter() = FlowableTransformer<FeedIntent, FeedIntent> { stream ->
     stream.publish { shared ->

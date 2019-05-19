@@ -1,17 +1,18 @@
 package io.github.kioba.feed
 
+import io.github.kioba.core.ISchedulers
 import io.github.kioba.feed.mvi_models.FeedError
 import io.github.kioba.feed.mvi_models.FeedIntent
 import io.github.kioba.feed.mvi_models.FeedLoading
 import io.github.kioba.feed.mvi_models.FeedResult
 import io.github.kioba.feed.mvi_models.FeedSuccess
 import io.github.kioba.feed.mvi_models.InitialFeedIntent
+import io.github.kioba.placeholder.IPlaceholderSdk
 import io.reactivex.FlowableTransformer
-import io.reactivex.Scheduler
+import javax.inject.Inject
 
-class FeedActionProcessor constructor(
-  private val mainScheduler: Scheduler,
-  private val ioScheduler: Scheduler,
+class FeedActionProcessor @Inject constructor(
+  private val schedulers: ISchedulers,
   sdk: IPlaceholderSdk
 ) :
   IActionProcessor<FeedIntent, FeedResult> {
@@ -21,8 +22,8 @@ class FeedActionProcessor constructor(
       sdk.getFeed()
         .map<FeedResult>(::FeedSuccess)
         .onErrorReturn(::FeedError)
-        .subscribeOn(ioScheduler)
-        .observeOn(mainScheduler)
+        .subscribeOn(schedulers.io)
+        .observeOn(schedulers.main)
         .startWith(FeedLoading)
     }
   }
