@@ -11,8 +11,9 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class PlaceholderSdk : IPlaceholderSdk {
+class PlaceholderSdk @Inject constructor() : IPlaceholderSdk {
 
   private val logInterceptor =
     HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }

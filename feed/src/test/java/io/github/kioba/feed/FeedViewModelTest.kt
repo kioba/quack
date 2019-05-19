@@ -1,5 +1,6 @@
 package io.github.kioba.feed
 
+import io.github.kioba.core.TestSchedulers
 import io.github.kioba.feed.mvi_models.FeedState
 import io.github.kioba.feed.mvi_models.InitialFeedIntent
 import io.github.kioba.placeholder.json_placeholder.network_models.Post
@@ -7,7 +8,6 @@ import io.mockk.clearMocks
 import io.mockk.every
 import io.mockk.mockk
 import io.reactivex.Flowable
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.TestSubscriber
 import org.junit.Before
 import org.junit.Test
@@ -32,7 +32,7 @@ class FeedViewModelTest {
     clearMocks(sdk)
 
     viewModel =
-      FeedViewModel(FeedActionProcessor(Schedulers.trampoline(), Schedulers.trampoline(), sdk))
+      FeedViewModel(FeedActionProcessor(TestSchedulers(), sdk))
     testFlowable = viewModel.state().test()
   }
 
@@ -41,7 +41,7 @@ class FeedViewModelTest {
 
     every { sdk.getFeed() } returns Flowable.just(listOf(Post.testDefault))
 
-    viewModel.binder.onNext(InitialFeedIntent)
+    viewModel.bind(Flowable.just(InitialFeedIntent))
 
     val loading = FeedState()
 
@@ -57,11 +57,11 @@ class FeedViewModelTest {
   @Test
   fun testInitialFailure() {
 
-    val error = IllegalStateException("Error Test")
+    val error = IllegalStateException("ErrorType Test")
 
     every { sdk.getFeed() } returns Flowable.error(error)
 
-    viewModel.binder.onNext(InitialFeedIntent)
+    viewModel.bind(Flowable.just(InitialFeedIntent))
 
     testFlowable
       .assertNoErrors()

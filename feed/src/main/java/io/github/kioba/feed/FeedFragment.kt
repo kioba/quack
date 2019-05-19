@@ -10,11 +10,28 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import dagger.android.support.AndroidSupportInjection
+import io.github.kioba.core.registerForDispose
+import io.github.kioba.feed.mvi_models.FeedIntent
+import io.github.kioba.feed.mvi_models.FeedState
+import io.github.kioba.feed.mvi_models.InitialFeedIntent
+import io.github.kioba.feed.recycler_views.ErrorFeedDataHolder
+import io.github.kioba.feed.recycler_views.FeedAdapter
+import io.github.kioba.feed.recycler_views.LoadingFeedDataHolder
+import io.github.kioba.feed.recycler_views.PostDataHolder
+import io.reactivex.Flowable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_feed.*
+import javax.inject.Inject
 
 class FeedFragment : Fragment() {
 
   private val adapter = FeedAdapter()
+
+  private val disposables = CompositeDisposable()
+
+  @Inject
+  lateinit var viewModel: IFeedViewModel
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
@@ -41,7 +58,54 @@ class FeedFragment : Fragment() {
     feed_recycler.addItemDecoration(DividerItemDecoration(requireContext(), VERTICAL))
 
     feed_bar.setNavigationOnClickListener {
-      AboutBottomSheet().show(childFragmentManager, "AboutBottomSheet")
+      AboutBottomSheet().show(fragmentManager!!, "AboutBottomSheet")
     }
+  }
+
+  override fun onStart() {
+    super.onStart()
+
+    viewModel.state()
+      .observeOn(AndroidSchedulers.mainThread())
+      .subscribe(this::render, this::streamError)
+      .registerForDispose(disposables)
+
+    viewModel.bind(intents())
+  }
+
+  override fun onStop() {
+    super.onStop()
+
+    disposables.clear()
+  }
+
+  /**
+   * FeedIntent events generated from the View
+   * @return stream of view intents
+   */
+  private fun intents(): Flowable<FeedIntent> = Flowable.just(InitialFeedIntent)
+
+  /**
+   * rendering function for the viewState
+   * @param state: view state
+   */
+  private fun render(state: FeedState) {
+    if (state.loading) {
+      adapter.feed = List(7) { LoadingFeedDataHolder() }
+    } else {
+      if (state.error != null) {
+        adapter.feed = listOf(ErrorFeedDataHolder())
+      } else {
+        adapter.feed = state.feed.map(::PostDataHolder)
+      }
+    }
+  }
+
+  /**
+   * report stream errors for crashlytics
+   * @param error: ErrorType which have been triggered inside the stream
+   */
+  private fun streamError(error: Throwable) {
+    throw error
   }
 }

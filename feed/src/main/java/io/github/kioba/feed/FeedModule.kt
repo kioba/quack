@@ -10,6 +10,8 @@ import dagger.Provides
 import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
 import io.github.kioba.core.ViewModelKey
+import io.github.kioba.feed.mvi_models.FeedIntent
+import io.github.kioba.feed.mvi_models.FeedResult
 
 @Module(
   includes = [FeedModule.FeedProvider::class]
@@ -26,7 +28,7 @@ interface FeedModule {
     fun provideFeatureViewModel(
       factory: ViewModelProvider.Factory,
       target: FeedFragment
-    ): FeedViewModel =
+    ): IFeedViewModel =
       ViewModelProviders.of(
         target.activity as FragmentActivity,
         factory
@@ -34,12 +36,15 @@ interface FeedModule {
   }
 
   @Module
-  abstract class FeedProvider {
+  interface FeedProvider {
 
     @Binds
     @IntoMap
     @ViewModelKey(FeedViewModel::class)
-    abstract fun provideFeedViewModel(feedViewModel: FeedViewModel): ViewModel
+    fun provideFeedViewModel(feedViewModel: FeedViewModel): ViewModel
+
+    @Binds
+    fun bindFeedActionProcessor(feedActionProcessor: FeedActionProcessor): IActionProcessor<FeedIntent, FeedResult>
   }
 
 }

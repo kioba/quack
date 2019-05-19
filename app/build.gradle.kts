@@ -16,6 +16,7 @@ android {
 dependencies {
   implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
+  implementation(project(":placeholder"))
   implementation(project(":feed"))
   implementation(project(":core"))
 
