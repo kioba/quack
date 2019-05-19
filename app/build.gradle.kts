@@ -17,6 +17,7 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     implementation(project(":feed"))
+    implementation(project(":core"))
 
     Dependencies.standard.forEach { implementation(it) }
     Dependencies.standard_kapt.forEach { kapt(it) }
