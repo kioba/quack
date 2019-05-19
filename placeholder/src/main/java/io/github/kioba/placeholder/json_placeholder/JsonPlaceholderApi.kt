@@ -12,8 +12,14 @@ interface JsonPlaceholderApi {
   @GET("/posts")
   fun getFeed(): Single<List<Post>>
 
+  @GET("/posts/{postId}")
+  fun getPost(@Path("postId") postId: Int): Single<Post>
+
   @GET("/users")
   fun getUsers(): Single<List<User>>
+
+  @GET("/users/{userId}")
+  fun getUser(@Path("userId") userId: Int): Single<User>
 
   @GET("/posts/{postId}/comments")
   fun getComments(@Path("postId") postId: Int): Single<List<Comment>>
