@@ -1,6 +1,5 @@
 package io.github.kioba.feed
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -38,12 +37,4 @@ class FeedFragment : Fragment() {
       AboutBottomSheet().show(childFragmentManager, "AboutBottomSheet")
     }
   }
-}
-
-val Context.density: Float
-  get() = resources.displayMetrics.density
-
-fun Context.dip(dip: Int): Int {
-  val scale = density
-  return (dip * scale + 0.5f).toInt()
 }
