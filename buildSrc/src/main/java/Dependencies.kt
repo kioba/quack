@@ -1,6 +1,11 @@
 object Version {
   const val kotlin = "1.3.31"
+
+  // Unit Test
+  const val mockK = "1.9"
   const val junit4 = "4.12"
+
+  // Android Test
   const val test_runner = "1.1.1"
   const val androidXTest = "1.1.0"
   const val espresso = "3.1.1"
@@ -102,6 +107,8 @@ object Dependencies {
 
   //  unit test
   private const val junit4 = "junit:junit:${Version.junit4}"
+  private const val mockK = "io.mockk:mockk:${Version.mockK}"
+
 
   //  android test
   private const val androidXTestCore = "androidx.test:core:${Version.androidXTest}"
@@ -143,7 +150,7 @@ object Dependencies {
     daggerAndroidSupport
   )
 
-  val testStandard: List<String> = listOf(junit4)
+  val testStandard: List<String> = listOf(junit4, mockK)
 
   val testAndroidStandard: List<String> =
     listOf(
