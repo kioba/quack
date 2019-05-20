@@ -50,6 +50,9 @@ object Version {
   const val gson = "2.8.5"
   const val interceptor = "3.11.0"
 
+  // Images
+  const val picasso = "2.71828"
+
 }
 
 object Dependencies {
@@ -122,6 +125,9 @@ object Dependencies {
   private const val rxjava2Adapter =
     "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${Version.rxjava2Adapter}"
 
+  // Picasso
+  private const val picasso = "com.squareup.picasso:picasso:${Version.picasso}"
+
   //  unit test
   private const val junit4 = "junit:junit:${Version.junit4}"
   private const val mockK = "io.mockk:mockk:${Version.mockK}"
@@ -164,7 +170,8 @@ object Dependencies {
     rxbindingMaterial,
     dagger,
     daggerAndroid,
-    daggerAndroidSupport
+    daggerAndroidSupport,
+    picasso
   )
 
   val testStandard: List<String> = listOf(junit4, mockK)

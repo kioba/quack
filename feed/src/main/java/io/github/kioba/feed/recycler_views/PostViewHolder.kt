@@ -3,6 +3,7 @@ package io.github.kioba.feed.recycler_views
 import android.graphics.Rect
 import android.view.View
 import android.view.ViewGroup
+import com.squareup.picasso.Picasso
 import io.github.kioba.feed.R
 import io.github.kioba.placeholder.json_placeholder.network_models.Post
 import kotlinx.android.synthetic.main.view_feed_post.view.*
@@ -31,6 +32,13 @@ class PostViewHolder(parent: ViewGroup, eventHandler: NavigationControl) :
   }
 
   override fun setAvatar(url: String) {
+    Picasso.get().cancelRequest(itemView.post_avatar)
+
+    Picasso.get()
+      .load(url)
+      .fit()
+      .centerCrop()
+      .into(itemView.post_avatar)
   }
 
   override fun setName(name: String, nickname: String) {

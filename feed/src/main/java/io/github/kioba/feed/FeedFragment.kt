@@ -12,6 +12,8 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
+import arrow.core.Option
+import arrow.core.toOption
 import androidx.transition.ChangeBounds
 import androidx.transition.ChangeImageTransform
 import androidx.transition.ChangeTransform
@@ -113,13 +115,13 @@ class FeedFragment : Fragment(), NavigationControl {
    * @param state: view state
    */
   private fun render(state: FeedState) {
-    if (state.loading) {
-      adapter.feed = List(7) { LoadingFeedDataHolder() }
+    if (state.feedLoading) {
+      adapter.feed = List(7) { PostDataHolder(Option.empty(), Option.empty(), Option.empty()) }
     } else {
-      if (state.error != null) {
+      if (state.feedError != null) {
         adapter.feed = listOf(ErrorFeedDataHolder())
       } else {
-        adapter.feed = state.feed.map(::PostDataHolder)
+        adapter.feed = state.combined.map { PostDataHolder(it.post.toOption(), it.user, it.avatar) }
       }
     }
   }

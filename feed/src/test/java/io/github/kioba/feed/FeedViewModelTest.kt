@@ -50,7 +50,7 @@ class FeedViewModelTest {
       .assertValueCount(3)
       .assertValueAt(0, loading)
       .assertValueAt(1, loading)
-      .assertValueAt(2, FeedState(loading = false, feed = listOf(Post.testDefault)))
+      .assertValueAt(2, FeedState(feedLoading = false, feed = listOf(Post.testDefault)))
       .dispose()
   }
 
@@ -68,7 +68,7 @@ class FeedViewModelTest {
       .assertValueCount(3)
       .assertValueAt(0, FeedState())
       .assertValueAt(1, FeedState())
-      .assertValueAt(2, FeedState().copy(loading = false, error = error))
+      .assertValueAt(2, FeedState().copy(feedLoading = false, feedError = error))
       .dispose()
   }
 

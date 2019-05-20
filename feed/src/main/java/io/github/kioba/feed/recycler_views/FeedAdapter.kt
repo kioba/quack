@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.ListAdapter
 import io.github.kioba.core.BaseViewHolder
 import io.github.kioba.feed.recycler_views.FeedDataHolder.FeedViewType
 import io.github.kioba.feed.recycler_views.FeedDataHolder.FeedViewType.ErrorType
-import io.github.kioba.feed.recycler_views.FeedDataHolder.FeedViewType.LoadingType
 import io.github.kioba.feed.recycler_views.FeedDataHolder.FeedViewType.PostType
 
 typealias FeedViewHolder = BaseViewHolder<FeedDataHolder, NavigationControl>
@@ -26,7 +25,6 @@ class FeedAdapter(private val feedFragment: NavigationControl) :
     when (FeedViewType.fromPosition(viewType)) {
       PostType -> PostViewHolder(parent, feedFragment)
       ErrorType -> ErrorFeedViewHolder(parent, feedFragment)
-      LoadingType -> LoadingViewHolder(parent, feedFragment)
     }
 
   override fun getItemCount(): Int = feed.size
@@ -40,9 +38,10 @@ class FeedAdapter(private val feedFragment: NavigationControl) :
         oldItem.type == newItem.type
 
       override fun areContentsTheSame(oldItem: FeedDataHolder, newItem: FeedDataHolder): Boolean =
-        oldItem is PostDataHolder && newItem is PostDataHolder && oldItem.post == newItem.post ||
-          oldItem is ErrorFeedDataHolder && newItem is ErrorFeedDataHolder ||
-          oldItem is LoadingFeedDataHolder && newItem is LoadingFeedDataHolder
+        oldItem is PostDataHolder && newItem is PostDataHolder &&
+          oldItem.post.orNull() == newItem.post.orNull() && oldItem.user.orNull() == newItem.user.orNull() &&
+          oldItem.avatar.orNull() == newItem.avatar.orNull() ||
+          oldItem is ErrorFeedDataHolder && newItem is ErrorFeedDataHolder
     }
   }
 
