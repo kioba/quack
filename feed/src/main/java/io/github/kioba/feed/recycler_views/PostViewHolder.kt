@@ -1,13 +1,28 @@
 package io.github.kioba.feed.recycler_views
 
+import android.graphics.Rect
+import android.view.View
 import android.view.ViewGroup
 import io.github.kioba.feed.R
 import kotlinx.android.synthetic.main.view_feed_post.view.*
 
-class PostViewHolder(parent: ViewGroup, eventHandler: FeedAdapter) :
+interface NavigationControl {
+  fun animateToDetail(view: View, viewRect: Rect)
+}
+
+class PostViewHolder(parent: ViewGroup, eventHandler: NavigationControl) :
   FeedViewHolder(R.layout.view_feed_post, parent, eventHandler), PostView {
+  override fun setOnClickEventHandling() {
+    itemView.setOnClickListener {
+      val viewRect = Rect()
+      itemView.getGlobalVisibleRect(viewRect)
+      eventHandler.animateToDetail(itemView, viewRect)
+    }
+  }
+
   override fun setTitle(title: String) {
     itemView.post_title.text = title
+    itemView.transitionName = title
   }
 
   override fun setBody(body: String) {
@@ -30,4 +45,5 @@ interface PostView {
   fun setBody(body: String)
   fun setAvatar(url: String)
   fun setName(name: String, nickname: String)
+  fun setOnClickEventHandling()
 }

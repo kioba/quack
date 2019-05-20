@@ -9,9 +9,10 @@ import io.github.kioba.feed.recycler_views.FeedDataHolder.FeedViewType.ErrorType
 import io.github.kioba.feed.recycler_views.FeedDataHolder.FeedViewType.LoadingType
 import io.github.kioba.feed.recycler_views.FeedDataHolder.FeedViewType.PostType
 
-typealias FeedViewHolder = BaseViewHolder<FeedDataHolder, FeedAdapter>
+typealias FeedViewHolder = BaseViewHolder<FeedDataHolder, NavigationControl>
 
-class FeedAdapter : ListAdapter<FeedDataHolder, FeedViewHolder>(diffFunction) {
+class FeedAdapter(val feedFragment: NavigationControl) :
+  ListAdapter<FeedDataHolder, FeedViewHolder>(diffFunction) {
 
   var feed: List<FeedDataHolder> = listOf()
     set(value) {
@@ -23,9 +24,9 @@ class FeedAdapter : ListAdapter<FeedDataHolder, FeedViewHolder>(diffFunction) {
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder =
     when (FeedViewType.fromPosition(viewType)) {
-      PostType -> PostViewHolder(parent, this)
-      ErrorType -> ErrorFeedViewHolder(parent, this)
-      LoadingType -> LoadingViewHolder(parent, this)
+      PostType -> PostViewHolder(parent, feedFragment)
+      ErrorType -> ErrorFeedViewHolder(parent, feedFragment)
+      LoadingType -> LoadingViewHolder(parent, feedFragment)
     }
 
   override fun getItemCount(): Int = feed.size
