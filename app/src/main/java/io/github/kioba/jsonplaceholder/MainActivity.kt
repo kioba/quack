@@ -11,8 +11,6 @@ import io.github.kioba.feed.MainNavigation
 
 class MainActivity : AppCompatActivity(), MainNavigation {
 
-  val feedFragment = FeedFragment()
-
   override fun navigateToDetails(sharedElement: Pair<View, String>, fragment: Fragment) {
     supportFragmentManager.beginTransaction()
       .setReorderingAllowed(true)
@@ -28,8 +26,10 @@ class MainActivity : AppCompatActivity(), MainNavigation {
 
     setContentView(R.layout.activity_main)
 
-    supportFragmentManager.execute {
-      replace(R.id.main_content, feedFragment)
+    if (savedInstanceState == null) {
+      supportFragmentManager.execute {
+        replace(R.id.main_content, FeedFragment())
+      }
     }
   }
 

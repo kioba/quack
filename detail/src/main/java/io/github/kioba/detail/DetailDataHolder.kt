@@ -1,13 +1,19 @@
 package io.github.kioba.detail
 
+import arrow.core.Option
 import io.github.kioba.placeholder.json_placeholder.network_models.Comment
 
 interface DetailDataHolder {
-  fun visit(holder: CommentViewHolder)
+  fun visit(view: CommentView)
 }
 
-data class CommentsDataHolder(val comment: Comment) : DetailDataHolder {
-  override fun visit(holder: CommentViewHolder) {
-
+data class CommentDataHolder(val comment: Option<Comment>) : DetailDataHolder {
+  override fun visit(view: CommentView) {
+    comment.fold(
+      ifEmpty = view::showCommentLoading,
+      ifSome = {
+        view.showComment(it.body)
+      }
+    )
   }
 }

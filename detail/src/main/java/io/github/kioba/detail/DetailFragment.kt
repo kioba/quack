@@ -10,7 +10,9 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import arrow.core.Option
 import arrow.core.toOption
+import com.squareup.picasso.Picasso
 import dagger.android.support.AndroidSupportInjection
 import io.github.kioba.core.gone
 import io.github.kioba.core.registerForDispose
@@ -35,7 +37,7 @@ class DetailFragment : Fragment() {
   @Inject
   lateinit var viewModel: IDetailViewModel
 
-  lateinit var loadingDrawable: ColorDrawable
+  private lateinit var loadingDrawable: ColorDrawable
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
@@ -113,19 +115,36 @@ class DetailFragment : Fragment() {
         detail_user_name.gone()
       }
       state.user != null -> {
+
+        detail_avatar.setImageDrawable(null)
+        Picasso
+          .get()
+          .load("https://api.adorable.io/avatars/134/" + state.user.username)
+          .fit()
+          .centerCrop()
+          .into(detail_avatar)
+
         detail_user_name.show()
         detail_user_name.background = null
-        detail_user_name.text = "%s %s".format(state.user.name, state.user.username)
+        detail_user_name.text = "%s @%s".format(state.user.name, state.user.username)
       }
     }
 
     when {
       state.isCommentsLoading -> {
+        adapter.comments = List(5) { CommentDataHolder(Option.empty()) }
+        detail_comment_text.text = requireContext().getString(R.string.loading_comments)
       }
       state.commentError != null -> {
+        adapter.comments = List(1) { CommentDataHolder(Option.empty()) }
       }
       else -> {
-
+        detail_comment_text.text = requireContext().resources.getQuantityString(
+          R.plurals.number_of_comments,
+          state.comments.size,
+          state.comments.size
+        )
+        adapter.comments = state.comments.map { CommentDataHolder(it.toOption()) }
       }
     }
   }

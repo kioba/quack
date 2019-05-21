@@ -7,4 +7,9 @@
   <string name="comment_image_content_description">Comment Image</string>
   <string name="users_avatar_content_description">Users Avatar</string>
 
+  <string name="loading_comments">loading Comments</string>
+  <plurals name="number_of_comments">
+    <item quantity="one">%d comment</item>
+    <item quantity="other">%d comments</item>
+  </plurals>
 </resources>

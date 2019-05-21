@@ -13,11 +13,10 @@ typealias FeedViewHolder = BaseViewHolder<FeedDataHolder, NavigationControl>
 class FeedAdapter(private val feedFragment: NavigationControl) :
   ListAdapter<FeedDataHolder, FeedViewHolder>(diffFunction) {
 
-  var feed: List<FeedDataHolder> = listOf()
-    set(value) {
-      field = value
-      notifyDataSetChanged()
-    }
+  var feed: List<FeedDataHolder>
+    set(value) = submitList(value)
+    get() = currentList
+
 
   override fun getItemViewType(position: Int): Int = feed[position].type.ordinal
 
