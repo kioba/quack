@@ -90,6 +90,9 @@ object Dependencies {
   private const val arrowExtrasData = "io.arrow-kt:arrow-extras-data:${Version.arrow}"
   private const val arrowExtrasExtensions = "io.arrow-kt:arrow-extras-extensions:${Version.arrow}"
 
+  private const val arrowEffectsData = "io.arrow-kt:arrow-effects-data:${Version.arrow}"
+  private const val arrowEffectsExtensions = "io.arrow-kt:arrow-effects-extensions:${Version.arrow}"
+
   // RxJava2
   private const val rxjava = "io.reactivex.rxjava2:rxjava:${Version.rxjava}"
   private const val rxandroid = "io.reactivex.rxjava2:rxandroid:${Version.rxandroid}"
@@ -160,6 +163,8 @@ object Dependencies {
     arrowTypeclasses,
     arrowExtrasData,
     arrowExtrasExtensions,
+    arrowEffectsData,
+    arrowEffectsExtensions,
     rxjava,
     rxandroid,
     rxrelay,

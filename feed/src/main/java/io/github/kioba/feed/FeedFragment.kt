@@ -12,14 +12,14 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
-import arrow.core.Option
-import arrow.core.toOption
 import androidx.transition.ChangeBounds
 import androidx.transition.ChangeImageTransform
 import androidx.transition.ChangeTransform
 import androidx.transition.Transition
 import androidx.transition.Transition.EpicenterCallback
 import androidx.transition.TransitionSet
+import arrow.core.Option
+import arrow.core.toOption
 import dagger.android.support.AndroidSupportInjection
 import io.github.kioba.core.registerForDispose
 import io.github.kioba.core.setTransitionInterpolator
@@ -29,7 +29,6 @@ import io.github.kioba.feed.mvi_models.FeedState
 import io.github.kioba.feed.mvi_models.InitialFeedIntent
 import io.github.kioba.feed.recycler_views.ErrorFeedDataHolder
 import io.github.kioba.feed.recycler_views.FeedAdapter
-import io.github.kioba.feed.recycler_views.LoadingFeedDataHolder
 import io.github.kioba.feed.recycler_views.NavigationControl
 import io.github.kioba.feed.recycler_views.PostDataHolder
 import io.github.kioba.placeholder.json_placeholder.network_models.Post

@@ -32,11 +32,10 @@ data class PostDataHolder(
   override val type: FeedViewType = PostType
 
   override fun visit(view: PostView) {
-//    view.setOnClickEventHandling(post)
-
     post.fold(
       ifEmpty = {},
       ifSome = {
+        view.setOnClickEventHandling(it)
         view.setTitle(it.title)
         view.setBody(it.body)
       }
