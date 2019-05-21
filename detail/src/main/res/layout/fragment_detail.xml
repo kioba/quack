@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:transitionName="@string/transition_name">
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+      android:id="@+id/detail_avatar"
+      android:layout_width="64dp"
+      android:layout_height="64dp"
+      android:contentDescription="@string/users_avatar_content_description"
+      android:elevation="4dp"
+      android:src="@drawable/ic_fingerprint_black_24dp"
+      app:layout_constraintBottom_toTopOf="@+id/detail_card"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@+id/detail_card"/>
+
+    <androidx.cardview.widget.CardView
+      android:id="@+id/detail_card"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="48dp"
+      android:layout_marginEnd="16dp"
+      app:layout_constraintBottom_toTopOf="@+id/detail_recycler"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+      <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/detail_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+          android:id="@+id/detail_title"
+          style="@style/TextAppearance.DetailPostTitle"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="12dp"
+          android:layout_marginTop="48dp"
+          android:layout_marginEnd="12dp"
+          android:gravity="center"
+          android:text="@string/post_title_example"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+          android:id="@+id/detail_user_name"
+          style="@style/TextAppearance.DetailUserName"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="12dp"
+          android:layout_marginTop="4dp"
+          android:layout_marginEnd="12dp"
+          android:gravity="center"
+          android:text="@string/user_name_example"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/detail_title"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+          android:id="@+id/detail_body"
+          style="@style/TextAppearance.DetailPostBody"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="12dp"
+          android:layout_marginTop="16dp"
+          android:layout_marginEnd="12dp"
+          android:layout_marginBottom="16dp"
+          android:gravity="center_horizontal"
+          android:text="@string/post_body_example"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/detail_user_name"
+          />
+
+        <ImageView
+          android:id="@+id/detail_comment_image"
+          android:layout_width="24dp"
+          android:layout_height="24dp"
+          android:layout_marginStart="12dp"
+          android:layout_marginTop="16dp"
+          android:layout_marginBottom="16dp"
+          android:contentDescription="@string/comment_image_content_description"
+          android:src="@drawable/ic_mode_comment_black_24dp"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toStartOf="@+id/detail_comment_text"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/detail_body"/>
+
+        <TextView
+          android:id="@+id/detail_comment_text"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="4dp"
+          android:text="@string/comments_example"
+          app:layout_constraintBottom_toBottomOf="@id/detail_comment_image"
+          app:layout_constraintStart_toEndOf="@+id/detail_comment_image"
+          app:layout_constraintTop_toTopOf="@+id/detail_comment_image"/>
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/detail_recycler"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/detail_card"/>
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

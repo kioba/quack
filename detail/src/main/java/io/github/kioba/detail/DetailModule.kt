@@ -1,4 +1,4 @@
-package io.github.kioba.feed
+package io.github.kioba.detail
 
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
@@ -11,16 +11,17 @@ import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
 import io.github.kioba.core.IActionProcessor
 import io.github.kioba.core.ViewModelKey
-import io.github.kioba.feed.mvi_models.FeedIntent
-import io.github.kioba.feed.mvi_models.FeedResult
+import io.github.kioba.detail.DetailModule.DetailProvider
+import io.github.kioba.detail.mvi_models.DetailIntent
+import io.github.kioba.detail.mvi_models.DetailResult
 
 @Module(
-  includes = [FeedModule.FeedProvider::class]
+  includes = [DetailProvider::class]
 )
-interface FeedModule {
+interface DetailModule {
 
   @ContributesAndroidInjector(modules = [(InjectViewModel::class)])
-  fun bindFeedFragment(): FeedFragment
+  fun bindDetailFragment(): DetailFragment
 
   @Module
   class InjectViewModel {
@@ -28,24 +29,24 @@ interface FeedModule {
     @Provides
     fun provideFeatureViewModel(
       factory: ViewModelProvider.Factory,
-      target: FeedFragment
-    ): IFeedViewModel =
+      target: DetailFragment
+    ): IDetailViewModel =
       ViewModelProviders.of(
         target.activity as FragmentActivity,
         factory
-      ).get(FeedViewModel::class.java)
+      ).get(DetailViewModel::class.java)
   }
 
   @Module
-  interface FeedProvider {
+  interface DetailProvider {
 
     @Binds
     @IntoMap
-    @ViewModelKey(FeedViewModel::class)
-    fun provideFeedViewModel(feedViewModel: FeedViewModel): ViewModel
+    @ViewModelKey(DetailViewModel::class)
+    fun provideDetailViewModel(feedViewModel: DetailViewModel): ViewModel
 
     @Binds
-    fun bindFeedActionProcessor(feedActionProcessor: FeedActionProcessor): IActionProcessor<FeedIntent, FeedResult>
+    fun bindDetailActionProcessor(feedActionProcessor: DetailActionProcessor): IActionProcessor<DetailIntent, DetailResult>
   }
 
 }

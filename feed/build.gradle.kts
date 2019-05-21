@@ -11,6 +11,7 @@ dependencies {
 
   implementation(project(":core"))
   implementation(project(":placeholder"))
+  implementation(project(":detail"))
 
   Dependencies.standard.forEach { implementation(it) }
   Dependencies.standardKapt.forEach { kapt(it) }
