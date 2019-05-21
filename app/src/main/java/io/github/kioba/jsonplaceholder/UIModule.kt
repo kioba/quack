@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import dagger.Module
 import dagger.Provides
+import io.github.kioba.detail.DetailModule
 import io.github.kioba.feed.FeedModule
 import javax.inject.Provider
 import javax.inject.Singleton
@@ -11,7 +12,8 @@ import javax.inject.Singleton
 @Module(
   includes = [
     MainModule::class,
-    FeedModule::class
+    FeedModule::class,
+    DetailModule::class
   ]
 )
 class UIModule {

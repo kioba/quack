@@ -18,6 +18,7 @@ dependencies {
 
   implementation(project(":placeholder"))
   implementation(project(":feed"))
+  implementation(project(":detail"))
   implementation(project(":core"))
 
   Dependencies.standard.forEach { implementation(it) }

@@ -43,7 +43,7 @@ interface DetailModule {
     @Binds
     @IntoMap
     @ViewModelKey(DetailViewModel::class)
-    fun provideDetailViewModel(feedViewModel: DetailViewModel): ViewModel
+    fun provideDetailViewModel(detailViewModel: DetailViewModel): ViewModel
 
     @Binds
     fun bindDetailActionProcessor(feedActionProcessor: DetailActionProcessor): IActionProcessor<DetailIntent, DetailResult>

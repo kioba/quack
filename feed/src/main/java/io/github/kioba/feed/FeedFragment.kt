@@ -161,7 +161,7 @@ class FeedFragment : Fragment(), NavigationControl {
   }
 
   companion object {
-    const val transitionDuration = 1200L
+    const val transitionDuration = 500L
     val transitionInterpolator = FastOutSlowInInterpolator()
   }
 }
