@@ -3,7 +3,6 @@ package io.github.kioba.feed
 import androidx.lifecycle.ViewModel
 import arrow.core.toOption
 import io.github.kioba.core.IActionProcessor
-import io.github.kioba.core.IActionProcessor
 import io.github.kioba.core.MVIViewModel
 import io.github.kioba.feed.mvi_models.CombinedFeed
 import io.github.kioba.feed.mvi_models.FeedContentError
