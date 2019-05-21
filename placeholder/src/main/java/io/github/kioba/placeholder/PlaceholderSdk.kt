@@ -54,8 +54,7 @@ class PlaceholderSdk @Inject constructor(
     .toFlowable()
 
   override fun getUsers(): Flowable<List<User>> =
-    userDatabase.usersStream()
-      .map { it.map(DatabaseUser::toModel) }
+    userDatabase.usersStream().map { it.map(DatabaseUser::toModel) }
       .publish { share ->
         Flowable.concat(
           share.take(1),
@@ -63,7 +62,6 @@ class PlaceholderSdk @Inject constructor(
           share.skip(1)
         )
       }.distinctUntilChanged()
-
 
   private fun syncUser(userId: Int): Flowable<User> = jsonPlaceholderApi
     .getUser(userId)
@@ -73,15 +71,11 @@ class PlaceholderSdk @Inject constructor(
     .toFlowable()
 
   override fun getUser(userId: Int): Flowable<User> =
-    userDatabase.userStream(userId)
-      .map(DatabaseUser::toModel)
-      .publish { share ->
-        Flowable.concat(
-          share.take(1),
-          syncUser(userId),
-          share.skip(1)
-        )
-      }.distinctUntilChanged()
+    Flowable.concat(
+      userDatabase.getUser(userId).map(DatabaseUser::toModel).toFlowable(),
+      syncUser(userId),
+      userDatabase.userStream(userId).map(DatabaseUser::toModel)
+    ).distinctUntilChanged()
 
   override fun getPost(postId: Int): Flowable<Post> =
     jsonPlaceholderApi

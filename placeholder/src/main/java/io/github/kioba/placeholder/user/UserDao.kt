@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Maybe
 
 @Dao
 interface UserDao {
@@ -23,6 +24,20 @@ interface UserDao {
    */
   @Query("SELECT * FROM Users")
   fun getUsers(): Flowable<List<DatabaseUser>>
+
+  /**
+   * Get a user by id.
+   * @return the user from the table with a specific id.
+   */
+  @Query("SELECT * FROM Users WHERE userid = :id")
+  fun getUserByIdMaybe(id: Int): Maybe<DatabaseUser>
+
+  /**
+   * Get all the users.
+   * @return the users from the table.
+   */
+  @Query("SELECT * FROM Users")
+  fun getUsersMaybe(): Maybe<List<DatabaseUser>>
 
   /**
    * Insert a user in the database. If the user already exists, replace it.
