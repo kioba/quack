@@ -2,17 +2,22 @@ package io.github.kioba.detail
 
 import android.animation.ObjectAnimator
 import android.content.Context
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import arrow.core.toOption
 import dagger.android.support.AndroidSupportInjection
+import io.github.kioba.core.gone
 import io.github.kioba.core.registerForDispose
+import io.github.kioba.core.show
 import io.github.kioba.detail.mvi_models.DetailIntent
 import io.github.kioba.detail.mvi_models.DetailViewState
+import io.github.kioba.detail.mvi_models.InitialDetailIntent
 import io.github.kioba.placeholder.json_placeholder.network_models.Post
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -29,6 +34,8 @@ class DetailFragment : Fragment() {
 
   @Inject
   lateinit var viewModel: IDetailViewModel
+
+  lateinit var loadingDrawable: ColorDrawable
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
@@ -53,6 +60,9 @@ class DetailFragment : Fragment() {
       duration = 850
       start()
     }
+
+    loadingDrawable =
+      ColorDrawable(ContextCompat.getColor(requireContext(), android.R.color.darker_gray))
   }
 
   override fun onStart() {
@@ -62,7 +72,7 @@ class DetailFragment : Fragment() {
       .observeOn(AndroidSchedulers.mainThread())
       .subscribe(this::render, this::streamError)
       .registerForDispose(disposables)
-    viewModel.bind(intents())
+    viewModel.bind(intents(arguments!!.toPost()))
 
   }
 
@@ -74,10 +84,10 @@ class DetailFragment : Fragment() {
 
 
   /**
-   * FeedIntent events generated from the View
+   * DetailIntent events generated from the View
    * @return stream of view intents
    */
-  private fun intents(): Flowable<DetailIntent> = Flowable.empty()
+  private fun intents(post: Post): Flowable<DetailIntent> = Flowable.just(InitialDetailIntent(post))
 
   /**
    * rendering function for the viewState
@@ -86,16 +96,26 @@ class DetailFragment : Fragment() {
   private fun render(state: DetailViewState) {
     state.post.toOption().fold(
       ifEmpty = {},
-      ifSome = {}
+      ifSome = {
+        detail_title.text = it.title
+        detail_body.text = it.body
+      }
     )
+
 
     when {
       state.isUserLoading -> {
+        detail_user_name.show()
+        detail_user_name.background = loadingDrawable
+        detail_avatar.setImageDrawable(loadingDrawable)
       }
       state.userError != null -> {
+        detail_user_name.gone()
       }
-      else -> {
-
+      state.user != null -> {
+        detail_user_name.show()
+        detail_user_name.background = null
+        detail_user_name.text = "%s %s".format(state.user.name, state.user.username)
       }
     }
 
@@ -119,9 +139,28 @@ class DetailFragment : Fragment() {
   }
 
   companion object {
-    fun post(post: Post): DetailFragment {
-      return DetailFragment()
+    private const val bodyDescription = "detailBodyDescription"
+    private const val idDescription = "detailIdDescription"
+    private const val userIdDescription = "detailUserIdDescription"
+    private const val titleDescription = "detailTitleDescription"
+
+    fun post(post: Post): DetailFragment = DetailFragment().apply {
+      arguments = Bundle().putPost(post)
     }
+
+    private fun Bundle.putPost(post: Post) = this.apply {
+      putString(bodyDescription, post.body)
+      putInt(idDescription, post.id)
+      putInt(userIdDescription, post.userId)
+      putString(titleDescription, post.title)
+    }
+
+    private fun Bundle.toPost(): Post = Post(
+      body = getString(bodyDescription)!!,
+      id = getInt(idDescription),
+      userId = getInt(userIdDescription),
+      title = getString(titleDescription)!!
+    )
   }
 }
 
