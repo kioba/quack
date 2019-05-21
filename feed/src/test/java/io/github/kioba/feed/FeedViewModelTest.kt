@@ -5,11 +5,9 @@ import io.github.kioba.core.TestSchedulers
 import io.github.kioba.feed.mvi_models.CombinedFeed
 import io.github.kioba.feed.mvi_models.FeedState
 import io.github.kioba.feed.mvi_models.InitialFeedIntent
-import io.github.kioba.placeholder.json_placeholder.network_models.Address
-import io.github.kioba.placeholder.json_placeholder.network_models.Company
-import io.github.kioba.placeholder.json_placeholder.network_models.Geo
-import io.github.kioba.placeholder.json_placeholder.network_models.Post
-import io.github.kioba.placeholder.json_placeholder.network_models.User
+import io.github.kioba.placeholder.network.network_models.Geo
+import io.github.kioba.placeholder.network.network_models.Post
+import io.github.kioba.placeholder.user.User
 import io.mockk.clearMocks
 import io.mockk.every
 import io.mockk.mockk
@@ -24,22 +22,6 @@ private val Geo.Companion.testDefault: Geo
     lng = ""
   )
 
-private val Company.Companion.testDefault: Company
-  get() = Company(
-    bs = "",
-    catchPhrase = "",
-    name = ""
-  )
-
-private val Address.Companion.testDefault: Address
-  get() = Address(
-    city = "",
-    geo = Geo.testDefault,
-    street = "",
-    suite = "",
-    zipcode = ""
-  )
-
 val Post.Companion.testDefault
   get() = Post(
     id = 1,
@@ -50,14 +32,11 @@ val Post.Companion.testDefault
 
 val User.Companion.testDefault
   get() = User(
-    address = Address.testDefault,
-    company = Company.testDefault,
     email = "jack@pearl.com",
     id = 1,
     name = "Jack Sparrow",
-    phone = "call me maybe",
     username = "Pirate",
-    website = "www.piratebay.com"
+    avatar = "BlackFlag"
   )
 
 class FeedViewModelTest {

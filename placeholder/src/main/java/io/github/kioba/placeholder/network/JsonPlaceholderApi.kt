@@ -1,8 +1,8 @@
-package io.github.kioba.placeholder.json_placeholder
+package io.github.kioba.placeholder.network
 
-import io.github.kioba.placeholder.json_placeholder.network_models.Comment
-import io.github.kioba.placeholder.json_placeholder.network_models.Post
-import io.github.kioba.placeholder.json_placeholder.network_models.User
+import io.github.kioba.placeholder.network.network_models.Comment
+import io.github.kioba.placeholder.network.network_models.Post
+import io.github.kioba.placeholder.user.NetworkUser
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -16,10 +16,10 @@ interface JsonPlaceholderApi {
   fun getPost(@Path("postId") postId: Int): Single<Post>
 
   @GET("/users")
-  fun getUsers(): Single<List<User>>
+  fun getUsers(): Single<List<NetworkUser>>
 
   @GET("/users/{userId}")
-  fun getUser(@Path("userId") userId: Int): Single<User>
+  fun getUser(@Path("userId") userId: Int): Single<NetworkUser>
 
   @GET("/posts/{postId}/comments")
   fun getComments(@Path("postId") postId: Int): Single<List<Comment>>

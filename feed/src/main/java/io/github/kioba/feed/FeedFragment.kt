@@ -31,7 +31,7 @@ import io.github.kioba.feed.recycler_views.ErrorFeedDataHolder
 import io.github.kioba.feed.recycler_views.FeedAdapter
 import io.github.kioba.feed.recycler_views.NavigationControl
 import io.github.kioba.feed.recycler_views.PostDataHolder
-import io.github.kioba.placeholder.json_placeholder.network_models.Post
+import io.github.kioba.placeholder.network.network_models.Post
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

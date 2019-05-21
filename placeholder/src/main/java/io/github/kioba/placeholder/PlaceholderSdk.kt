@@ -1,10 +1,15 @@
 package io.github.kioba.placeholder
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import io.github.kioba.placeholder.json_placeholder.JsonPlaceholderApi
-import io.github.kioba.placeholder.json_placeholder.network_models.Comment
-import io.github.kioba.placeholder.json_placeholder.network_models.Post
-import io.github.kioba.placeholder.json_placeholder.network_models.User
+import io.github.kioba.placeholder.network.JsonPlaceholderApi
+import io.github.kioba.placeholder.network.network_models.Comment
+import io.github.kioba.placeholder.network.network_models.Post
+import io.github.kioba.placeholder.user.DatabaseUser
+import io.github.kioba.placeholder.user.IUserModule
+import io.github.kioba.placeholder.user.NetworkUser
+import io.github.kioba.placeholder.user.User
+import io.github.kioba.placeholder.user.toDatabase
+import io.github.kioba.placeholder.user.toModel
 import io.reactivex.Flowable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -13,7 +18,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class PlaceholderSdk @Inject constructor() : IPlaceholderSdk {
+class PlaceholderSdk @Inject constructor(
+  private val userDatabase: IUserModule
+) : IPlaceholderSdk {
 
   private val logInterceptor =
     HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
@@ -40,16 +47,41 @@ class PlaceholderSdk @Inject constructor() : IPlaceholderSdk {
     .getFeed()
     .toFlowable()
 
-  override fun getUsers(): Flowable<List<User>> =
-    jsonPlaceholderApi
-      .getUsers()
-      .toFlowable()
+  private fun syncUsers(): Flowable<List<User>> = jsonPlaceholderApi.getUsers()
+    .map { it.map(NetworkUser::toDatabase) }
+    .flatMapCompletable(userDatabase::insertUsers)
+    .onErrorComplete()
+    .toFlowable()
 
+  override fun getUsers(): Flowable<List<User>> =
+    userDatabase.usersStream()
+      .map { it.map(DatabaseUser::toModel) }
+      .publish { share ->
+        Flowable.concat(
+          share.take(1),
+          syncUsers(),
+          share.skip(1)
+        )
+      }.distinctUntilChanged()
+
+
+  private fun syncUser(userId: Int): Flowable<User> = jsonPlaceholderApi
+    .getUser(userId)
+    .map(NetworkUser::toDatabase)
+    .flatMapCompletable(userDatabase::insertUser)
+    .onErrorComplete()
+    .toFlowable()
 
   override fun getUser(userId: Int): Flowable<User> =
-    jsonPlaceholderApi
-      .getUser(userId)
-      .toFlowable()
+    userDatabase.userStream(userId)
+      .map(DatabaseUser::toModel)
+      .publish { share ->
+        Flowable.concat(
+          share.take(1),
+          syncUser(userId),
+          share.skip(1)
+        )
+      }.distinctUntilChanged()
 
   override fun getPost(postId: Int): Flowable<Post> =
     jsonPlaceholderApi

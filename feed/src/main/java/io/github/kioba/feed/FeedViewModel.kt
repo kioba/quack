@@ -16,8 +16,8 @@ import io.github.kioba.feed.mvi_models.FeedUserError
 import io.github.kioba.feed.mvi_models.FeedUserLoading
 import io.github.kioba.feed.mvi_models.FeedUserSuccess
 import io.github.kioba.feed.mvi_models.InitialFeedIntent
-import io.github.kioba.placeholder.json_placeholder.network_models.Post
-import io.github.kioba.placeholder.json_placeholder.network_models.User
+import io.github.kioba.placeholder.network.network_models.Post
+import io.github.kioba.placeholder.user.User
 import io.reactivex.Flowable
 import io.reactivex.FlowableTransformer
 import io.reactivex.processors.PublishProcessor

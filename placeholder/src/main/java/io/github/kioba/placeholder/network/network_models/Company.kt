@@ -1,4 +1,4 @@
-package io.github.kioba.placeholder.json_placeholder.network_models
+package io.github.kioba.placeholder.network.network_models
 
 data class Company(
   val bs: String,

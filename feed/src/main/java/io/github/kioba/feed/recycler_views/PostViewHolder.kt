@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import io.github.kioba.feed.R
-import io.github.kioba.placeholder.json_placeholder.network_models.Post
+import io.github.kioba.placeholder.network.network_models.Post
 import kotlinx.android.synthetic.main.view_feed_post.view.*
 
 interface NavigationControl {

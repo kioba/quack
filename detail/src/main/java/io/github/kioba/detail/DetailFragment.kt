@@ -20,7 +20,7 @@ import io.github.kioba.core.show
 import io.github.kioba.detail.mvi_models.DetailIntent
 import io.github.kioba.detail.mvi_models.DetailViewState
 import io.github.kioba.detail.mvi_models.InitialDetailIntent
-import io.github.kioba.placeholder.json_placeholder.network_models.Post
+import io.github.kioba.placeholder.network.network_models.Post
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
