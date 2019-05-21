@@ -6,4 +6,6 @@ data class Address(
   val street: String,
   val suite: String,
   val zipcode: String
-)
+) {
+  companion object
+}

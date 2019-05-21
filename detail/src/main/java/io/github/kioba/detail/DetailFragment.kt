@@ -36,7 +36,7 @@ class DetailFragment : Fragment() {
   }
 
   companion object {
-    fun post(post: Post/*, user: User*/): DetailFragment {
+    fun post(post: Post): DetailFragment {
       return DetailFragment()
     }
   }

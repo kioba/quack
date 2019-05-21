@@ -9,4 +9,6 @@ data class User(
   val phone: String,
   val username: String,
   val website: String
-)
+) {
+  companion object
+}

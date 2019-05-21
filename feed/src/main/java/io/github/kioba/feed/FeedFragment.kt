@@ -18,6 +18,8 @@ import androidx.transition.ChangeTransform
 import androidx.transition.Transition
 import androidx.transition.Transition.EpicenterCallback
 import androidx.transition.TransitionSet
+import arrow.core.Option
+import arrow.core.toOption
 import dagger.android.support.AndroidSupportInjection
 import io.github.kioba.core.registerForDispose
 import io.github.kioba.core.setTransitionInterpolator
@@ -27,7 +29,6 @@ import io.github.kioba.feed.mvi_models.FeedState
 import io.github.kioba.feed.mvi_models.InitialFeedIntent
 import io.github.kioba.feed.recycler_views.ErrorFeedDataHolder
 import io.github.kioba.feed.recycler_views.FeedAdapter
-import io.github.kioba.feed.recycler_views.LoadingFeedDataHolder
 import io.github.kioba.feed.recycler_views.NavigationControl
 import io.github.kioba.feed.recycler_views.PostDataHolder
 import io.github.kioba.placeholder.json_placeholder.network_models.Post
@@ -113,13 +114,13 @@ class FeedFragment : Fragment(), NavigationControl {
    * @param state: view state
    */
   private fun render(state: FeedState) {
-    if (state.loading) {
-      adapter.feed = List(7) { LoadingFeedDataHolder() }
+    if (state.feedLoading) {
+      adapter.feed = List(7) { PostDataHolder(Option.empty(), Option.empty(), Option.empty()) }
     } else {
-      if (state.error != null) {
+      if (state.feedError != null) {
         adapter.feed = listOf(ErrorFeedDataHolder())
       } else {
-        adapter.feed = state.feed.map(::PostDataHolder)
+        adapter.feed = state.combined.map { PostDataHolder(it.post.toOption(), it.user, it.avatar) }
       }
     }
   }

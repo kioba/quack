@@ -50,6 +50,9 @@ object Version {
   const val gson = "2.8.5"
   const val interceptor = "3.11.0"
 
+  // Images
+  const val picasso = "2.71828"
+
 }
 
 object Dependencies {
@@ -87,6 +90,9 @@ object Dependencies {
   private const val arrowExtrasData = "io.arrow-kt:arrow-extras-data:${Version.arrow}"
   private const val arrowExtrasExtensions = "io.arrow-kt:arrow-extras-extensions:${Version.arrow}"
 
+  private const val arrowEffectsData = "io.arrow-kt:arrow-effects-data:${Version.arrow}"
+  private const val arrowEffectsExtensions = "io.arrow-kt:arrow-effects-extensions:${Version.arrow}"
+
   // RxJava2
   private const val rxjava = "io.reactivex.rxjava2:rxjava:${Version.rxjava}"
   private const val rxandroid = "io.reactivex.rxjava2:rxandroid:${Version.rxandroid}"
@@ -122,6 +128,9 @@ object Dependencies {
   private const val rxjava2Adapter =
     "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${Version.rxjava2Adapter}"
 
+  // Picasso
+  private const val picasso = "com.squareup.picasso:picasso:${Version.picasso}"
+
   //  unit test
   private const val junit4 = "junit:junit:${Version.junit4}"
   private const val mockK = "io.mockk:mockk:${Version.mockK}"
@@ -154,6 +163,8 @@ object Dependencies {
     arrowTypeclasses,
     arrowExtrasData,
     arrowExtrasExtensions,
+    arrowEffectsData,
+    arrowEffectsExtensions,
     rxjava,
     rxandroid,
     rxrelay,
@@ -164,7 +175,8 @@ object Dependencies {
     rxbindingMaterial,
     dagger,
     daggerAndroid,
-    daggerAndroidSupport
+    daggerAndroidSupport,
+    picasso
   )
 
   val testStandard: List<String> = listOf(junit4, mockK)
