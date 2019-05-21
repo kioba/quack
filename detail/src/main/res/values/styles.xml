@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="TextAppearance.DetailUserName" parent="TextAppearance.MaterialComponents.Overline">
+    <item name="android:textSize">10sp</item>
+    <item name="android:textColor">@color/fadedTitleTextColor</item>
+  </style>
+
+  <style name="TextAppearance.DetailPostTitle" parent="TextAppearance.MaterialComponents.Headline6">
+  </style>
+
+  <style name="TextAppearance.DetailPostBody" parent="@style/TextAppearance.MaterialComponents.Body2">
+    <item name="android:textColor">@color/fadedBodyTextColor</item>
+  </style>
+</resources>

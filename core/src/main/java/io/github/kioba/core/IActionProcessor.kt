@@ -1,4 +1,4 @@
-package io.github.kioba.feed
+package io.github.kioba.core
 
 import io.reactivex.FlowableTransformer
 

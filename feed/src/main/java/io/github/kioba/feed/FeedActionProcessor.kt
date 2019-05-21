@@ -1,5 +1,6 @@
 package io.github.kioba.feed
 
+import io.github.kioba.core.IActionProcessor
 import io.github.kioba.core.ISchedulers
 import io.github.kioba.feed.mvi_models.FeedError
 import io.github.kioba.feed.mvi_models.FeedIntent

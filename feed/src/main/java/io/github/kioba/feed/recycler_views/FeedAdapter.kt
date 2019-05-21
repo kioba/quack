@@ -11,7 +11,7 @@ import io.github.kioba.feed.recycler_views.FeedDataHolder.FeedViewType.PostType
 
 typealias FeedViewHolder = BaseViewHolder<FeedDataHolder, NavigationControl>
 
-class FeedAdapter(val feedFragment: NavigationControl) :
+class FeedAdapter(private val feedFragment: NavigationControl) :
   ListAdapter<FeedDataHolder, FeedViewHolder>(diffFunction) {
 
   var feed: List<FeedDataHolder> = listOf()

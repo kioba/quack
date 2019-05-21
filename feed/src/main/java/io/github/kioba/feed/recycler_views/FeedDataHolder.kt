@@ -31,7 +31,7 @@ data class PostDataHolder(val post: Post) : FeedDataHolder {
   override fun visit(view: PostView) {
     view.setTitle(post.title)
     view.setBody(post.body)
-    view.setOnClickEventHandling()
+    view.setOnClickEventHandling(post)
   }
 }
 

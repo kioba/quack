@@ -1,6 +1,7 @@
 package io.github.kioba.feed
 
 import androidx.lifecycle.ViewModel
+import io.github.kioba.core.IActionProcessor
 import io.github.kioba.core.MVIViewModel
 import io.github.kioba.feed.mvi_models.FeedError
 import io.github.kioba.feed.mvi_models.FeedEvent

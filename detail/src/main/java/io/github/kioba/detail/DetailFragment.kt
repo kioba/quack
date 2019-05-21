@@ -6,8 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import io.github.kioba.placeholder.json_placeholder.network_models.Post
+import kotlinx.android.synthetic.main.fragment_detail.*
+
 
 class DetailFragment : Fragment() {
+
+  private val adapter = DetailAdapter()
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -18,12 +24,21 @@ class DetailFragment : Fragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    val content = view.findViewById<View>(R.id.content).also { it.alpha = 0f }
+    detail_recycler.layoutManager = LinearLayoutManager(requireContext())
+    detail_recycler.adapter = adapter
 
-    ObjectAnimator.ofFloat(content, View.ALPHA, 0f, 1f).apply {
-      startDelay = 50
-      duration = 150
+    detail_content.alpha = 0f
+    ObjectAnimator.ofFloat(detail_content, View.ALPHA, 0f, 1f).apply {
+      startDelay = 150
+      duration = 850
       start()
     }
   }
+
+  companion object {
+    fun post(post: Post/*, user: User*/): DetailFragment {
+      return DetailFragment()
+    }
+  }
 }
+

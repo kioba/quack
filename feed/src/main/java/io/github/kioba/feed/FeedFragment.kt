@@ -30,6 +30,7 @@ import io.github.kioba.feed.recycler_views.FeedAdapter
 import io.github.kioba.feed.recycler_views.LoadingFeedDataHolder
 import io.github.kioba.feed.recycler_views.NavigationControl
 import io.github.kioba.feed.recycler_views.PostDataHolder
+import io.github.kioba.placeholder.json_placeholder.network_models.Post
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -131,7 +132,7 @@ class FeedFragment : Fragment(), NavigationControl {
     throw error
   }
 
-  override fun animateToDetail(view: View, viewRect: Rect) {
+  override fun animateToDetail(post: Post, view: View, viewRect: Rect) {
     exitTransition = SlideExplode().apply {
       duration = transitionDuration
       interpolator = transitionInterpolator
@@ -148,17 +149,18 @@ class FeedFragment : Fragment(), NavigationControl {
         setTransitionInterpolator(transitionInterpolator)
       }
 
-    val fragment = DetailFragment().apply {
+    val fragment = DetailFragment.post(post)
+      .apply {
       sharedElementEnterTransition = sharedElementTransition
       sharedElementReturnTransition = sharedElementTransition
     }
 
-    (activity as MainNavigation).navigateToDetails(view to "transition_name", fragment)
+    (activity as? MainNavigation)?.navigateToDetails(view to "transition_name", fragment)
 
   }
 
   companion object {
-    const val transitionDuration = 300L
+    const val transitionDuration = 1200L
     val transitionInterpolator = FastOutSlowInInterpolator()
   }
 }
