@@ -1,7 +1,7 @@
 package io.github.kioba.feed.mvi_models
 
 import arrow.core.Option
-import io.github.kioba.placeholder.network.network_models.Post
+import io.github.kioba.placeholder.post.Post
 import io.github.kioba.placeholder.user.User
 
 

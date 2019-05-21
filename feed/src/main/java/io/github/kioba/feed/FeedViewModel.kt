@@ -16,7 +16,7 @@ import io.github.kioba.feed.mvi_models.FeedUserError
 import io.github.kioba.feed.mvi_models.FeedUserLoading
 import io.github.kioba.feed.mvi_models.FeedUserSuccess
 import io.github.kioba.feed.mvi_models.InitialFeedIntent
-import io.github.kioba.placeholder.network.network_models.Post
+import io.github.kioba.placeholder.post.Post
 import io.github.kioba.placeholder.user.User
 import io.reactivex.Flowable
 import io.reactivex.FlowableTransformer
@@ -76,12 +76,12 @@ class FeedViewModel @Inject constructor(
   }
 
   private fun createCombined(feed: List<Post>, userMap: Map<Int, User>): List<CombinedFeed> =
-    feed.map {
-      val user = userMap[it.userId].toOption()
+    feed.map { post ->
+      val user = userMap[post.userId].toOption()
       CombinedFeed(
-        it,
+        post,
         user = user,
-        avatar = user.map { item -> "https://api.adorable.io/avatars/134/" + item.username })
+        avatar = user.map { it.avatar })
     }
 
 }

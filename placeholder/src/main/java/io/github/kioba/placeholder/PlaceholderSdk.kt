@@ -3,7 +3,12 @@ package io.github.kioba.placeholder
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import io.github.kioba.placeholder.network.JsonPlaceholderApi
 import io.github.kioba.placeholder.network.network_models.Comment
-import io.github.kioba.placeholder.network.network_models.Post
+import io.github.kioba.placeholder.post.DatabasePost
+import io.github.kioba.placeholder.post.IPostModule
+import io.github.kioba.placeholder.post.NetworkPost
+import io.github.kioba.placeholder.post.Post
+import io.github.kioba.placeholder.post.toDatabase
+import io.github.kioba.placeholder.post.toModel
 import io.github.kioba.placeholder.user.DatabaseUser
 import io.github.kioba.placeholder.user.IUserModule
 import io.github.kioba.placeholder.user.NetworkUser
@@ -19,7 +24,8 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class PlaceholderSdk @Inject constructor(
-  private val userDatabase: IUserModule
+  private val userDatabase: IUserModule,
+  private val postDatabase: IPostModule
 ) : IPlaceholderSdk {
 
   private val logInterceptor =
@@ -43,16 +49,6 @@ class PlaceholderSdk @Inject constructor(
   private val jsonPlaceholderApi: JsonPlaceholderApi =
     retrofit.create(JsonPlaceholderApi::class.java)
 
-  override fun getFeed(): Flowable<List<Post>> = jsonPlaceholderApi
-    .getFeed()
-    .toFlowable()
-
-  private fun syncUsers(): Flowable<List<User>> = jsonPlaceholderApi.getUsers()
-    .map { it.map(NetworkUser::toDatabase) }
-    .flatMapCompletable(userDatabase::insertUsers)
-    .onErrorComplete()
-    .toFlowable()
-
   override fun getUsers(): Flowable<List<User>> =
     userDatabase.usersStream().map { it.map(DatabaseUser::toModel) }
       .publish { share ->
@@ -63,12 +59,6 @@ class PlaceholderSdk @Inject constructor(
         )
       }.distinctUntilChanged()
 
-  private fun syncUser(userId: Int): Flowable<User> = jsonPlaceholderApi
-    .getUser(userId)
-    .map(NetworkUser::toDatabase)
-    .flatMapCompletable(userDatabase::insertUser)
-    .onErrorComplete()
-    .toFlowable()
 
   override fun getUser(userId: Int): Flowable<User> =
     Flowable.concat(
@@ -77,10 +67,25 @@ class PlaceholderSdk @Inject constructor(
       userDatabase.userStream(userId).map(DatabaseUser::toModel)
     ).distinctUntilChanged()
 
+
+  override fun getFeed(): Flowable<List<Post>> =
+    postDatabase.postsStream().map { it.map(DatabasePost::toModel) }
+      .publish { share ->
+        Flowable.concat(
+          share.take(1),
+          syncFeed(),
+          share.skip(1)
+        )
+      }.distinctUntilChanged()
+
   override fun getPost(postId: Int): Flowable<Post> =
-    jsonPlaceholderApi
-      .getPost(postId)
-      .toFlowable()
+    Flowable.concat(
+      postDatabase.getPost(postId)
+        .map(DatabasePost::toModel).toFlowable(),
+      syncPost(postId),
+      postDatabase.postStream(postId)
+        .map(DatabasePost::toModel)
+    )
 
   override fun getComments(postId: Int): Flowable<List<Comment>> =
     jsonPlaceholderApi
@@ -90,5 +95,34 @@ class PlaceholderSdk @Inject constructor(
   companion object {
     private const val api: String = "https://jsonplaceholder.typicode.com"
   }
+
+
+  private fun syncUsers(): Flowable<List<User>> = jsonPlaceholderApi.getUsers()
+    .map { it.map(NetworkUser::toDatabase) }
+    .flatMapCompletable(userDatabase::insertUsers)
+    .onErrorComplete()
+    .toFlowable()
+
+  private fun syncUser(userId: Int): Flowable<User> = jsonPlaceholderApi
+    .getUser(userId)
+    .map(NetworkUser::toDatabase)
+    .flatMapCompletable(userDatabase::insertUser)
+    .onErrorComplete()
+    .toFlowable()
+
+  private fun syncFeed() =
+    jsonPlaceholderApi.getFeed()
+      .map { it.map(NetworkPost::toDatabase) }
+      .flatMapCompletable(postDatabase::insertPosts)
+      .onErrorComplete()
+      .toFlowable<List<Post>>()
+
+  private fun syncPost(postId: Int) =
+    jsonPlaceholderApi
+      .getPost(postId)
+      .map(NetworkPost::toDatabase)
+      .flatMapCompletable(postDatabase::insertPost)
+      .onErrorComplete()
+      .toFlowable<Post>()
 
 }

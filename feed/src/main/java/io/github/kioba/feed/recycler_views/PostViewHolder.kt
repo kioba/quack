@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import io.github.kioba.feed.R
-import io.github.kioba.placeholder.network.network_models.Post
+import io.github.kioba.placeholder.post.Post
 import kotlinx.android.synthetic.main.view_feed_post.view.*
 
 interface NavigationControl {
@@ -36,13 +36,15 @@ class PostViewHolder(parent: ViewGroup, eventHandler: NavigationControl) :
 
     Picasso.get()
       .load(url)
+      .error(R.drawable.ic_face_primary_24dp)
+      .placeholder(R.drawable.ic_face_primary_24dp)
       .fit()
       .centerCrop()
       .into(itemView.post_avatar)
   }
 
   override fun setName(name: String, nickname: String) {
-    itemView.post_user_name.text = "%s %s".format(name, nickname)
+    itemView.post_user_name.text = "%s @%s".format(name, nickname)
   }
 
   override fun accept(visitor: FeedDataHolder) = visitor.visit(this)

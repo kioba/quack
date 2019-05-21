@@ -14,6 +14,6 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="@+id/post_title"
-    app:srcCompat="@drawable/ic_face_black_24dp"/>
+    app:srcCompat="@drawable/ic_face_primary_24dp"/>
 
 </FrameLayout>

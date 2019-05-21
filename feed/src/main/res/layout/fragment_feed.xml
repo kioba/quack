@@ -22,7 +22,7 @@
     app:fabAlignmentMode="end"
     app:hideOnScroll="true"
     app:layout_scrollFlags="scroll|enterAlways"
-    app:navigationIcon="@drawable/ic_face_black_24dp"/>
+    app:navigationIcon="@drawable/ic_face_primary_24dp"/>
 
   <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:id="@+id/feed_fab"

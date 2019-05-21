@@ -1,6 +1,6 @@
-package io.github.kioba.placeholder.network.network_models
+package io.github.kioba.placeholder.post
 
-data class Post(
+data class NetworkPost(
   val body: String,
   val id: Int,
   val title: String,

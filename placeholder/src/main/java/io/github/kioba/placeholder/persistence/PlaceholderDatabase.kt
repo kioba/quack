@@ -4,7 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import io.github.kioba.placeholder.persistence.persistence_models.DatabasePost
+import io.github.kioba.placeholder.post.DatabasePost
+import io.github.kioba.placeholder.post.PostDao
 import io.github.kioba.placeholder.user.DatabaseUser
 import io.github.kioba.placeholder.user.UserDao
 
@@ -12,6 +13,8 @@ import io.github.kioba.placeholder.user.UserDao
 internal abstract class PlaceholderDatabase : RoomDatabase() {
 
   abstract fun userDao(): UserDao
+
+  abstract fun postDao(): PostDao
 
   companion object {
 

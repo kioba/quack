@@ -1,7 +1,7 @@
 package io.github.kioba.detail.mvi_models
 
 import io.github.kioba.placeholder.network.network_models.Comment
-import io.github.kioba.placeholder.network.network_models.Post
+import io.github.kioba.placeholder.post.Post
 import io.github.kioba.placeholder.user.User
 
 data class DetailViewState(
