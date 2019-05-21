@@ -1,6 +1,5 @@
 package io.github.kioba.detail
 
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -31,10 +30,7 @@ interface DetailModule {
       factory: ViewModelProvider.Factory,
       target: DetailFragment
     ): IDetailViewModel =
-      ViewModelProviders.of(
-        target.activity as FragmentActivity,
-        factory
-      ).get(DetailViewModel::class.java)
+      ViewModelProviders.of(target, factory).get(DetailViewModel::class.java)
   }
 
   @Module
@@ -43,7 +39,7 @@ interface DetailModule {
     @Binds
     @IntoMap
     @ViewModelKey(DetailViewModel::class)
-    fun provideDetailViewModel(feedViewModel: DetailViewModel): ViewModel
+    fun provideDetailViewModel(detailViewModel: DetailViewModel): ViewModel
 
     @Binds
     fun bindDetailActionProcessor(feedActionProcessor: DetailActionProcessor): IActionProcessor<DetailIntent, DetailResult>

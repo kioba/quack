@@ -152,16 +152,16 @@ class FeedFragment : Fragment(), NavigationControl {
 
     val fragment = DetailFragment.post(post)
       .apply {
-      sharedElementEnterTransition = sharedElementTransition
-      sharedElementReturnTransition = sharedElementTransition
-    }
+        sharedElementEnterTransition = sharedElementTransition
+        sharedElementReturnTransition = sharedElementTransition
+      }
 
     (activity as? MainNavigation)?.navigateToDetails(view to "transition_name", fragment)
 
   }
 
   companion object {
-    const val transitionDuration = 1200L
+    const val transitionDuration = 500L
     val transitionInterpolator = FastOutSlowInInterpolator()
   }
 }
