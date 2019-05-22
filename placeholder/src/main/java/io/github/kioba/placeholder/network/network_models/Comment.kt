@@ -6,4 +6,6 @@ data class Comment(
   val id: Int,
   val name: String,
   val postId: Int
-)
+) {
+  companion object
+}

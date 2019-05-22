@@ -12,14 +12,14 @@ import io.github.kioba.detail.mvi_models.DetailUserError
 import io.github.kioba.detail.mvi_models.DetailUserLoading
 import io.github.kioba.detail.mvi_models.DetailUserSuccess
 import io.github.kioba.detail.mvi_models.InitialDetailIntent
-import io.github.kioba.placeholder.PlaceholderSdk
+import io.github.kioba.placeholder.IPlaceholderSdk
 import io.reactivex.Flowable
 import io.reactivex.FlowableTransformer
 import javax.inject.Inject
 
 typealias IDetailActionProcessor = IActionProcessor<DetailIntent, DetailResult>
 
-class DetailActionProcessor @Inject constructor(schedulers: ISchedulers, sdk: PlaceholderSdk) :
+class DetailActionProcessor @Inject constructor(schedulers: ISchedulers, sdk: IPlaceholderSdk) :
   IDetailActionProcessor {
 
   private val loadComments = FlowableTransformer<InitialDetailIntent, DetailResult> {
