@@ -2,6 +2,16 @@
 
 [![Build Status](https://app.bitrise.io/app/a1660eb3576f70bc/status.svg?token=08K5XLMEus93LhPxqI1NLA&branch=master)](https://app.bitrise.io/app/a1660eb3576f70bc)
 
+ Home Screen | Detail Screen
+--------------------------- | ----------------------------
+![](/assets/homescreen.png) | ![](/assets/detailscreen.png)
+
+## MVI
+
+The Architecture is based on [Benoît Quenaudon -oldergod-](https://github.com/oldergod) talk at  at droidcon NYC 2017.
+The Architecture follows the well know MVI structure, you can read and watch more about the pattern 
+on [youtube](https://youtu.be/64rQ9GKphTg) or oldergod's MVI [repository](https://github.com/oldergod/android-architecture).
+
 ## Modules
 The project is using a feature based module structure. Because Google deprecated the `com.android.feature` gradle module
  configuration we will use the suggested `com.android.library`gradle config. This structure does not let the apps to be 
