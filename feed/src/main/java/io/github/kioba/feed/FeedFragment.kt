@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
@@ -72,6 +73,8 @@ class FeedFragment : Fragment(), NavigationControl {
     super.onViewCreated(view, savedInstanceState)
 
     postponeEnterTransition()
+
+    (activity as? AppCompatActivity)?.setSupportActionBar(feed_toolbar)
 
     feed_recycler.layoutManager = LinearLayoutManager(requireContext())
     feed_recycler.adapter = adapter

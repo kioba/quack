@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -52,6 +53,19 @@ class DetailFragment : Fragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+
+    (activity as? AppCompatActivity)?.setSupportActionBar(detail_toolbar)
+    (activity as? AppCompatActivity)?.supportActionBar?.apply {
+      title = " "
+      setDisplayHomeAsUpEnabled(true)
+      setHomeButtonEnabled(true)
+
+      detail_toolbar.setNavigationOnClickListener {
+        if (fragmentManager!!.backStackEntryCount > 0) {
+          fragmentManager!!.popBackStack()
+        }
+      }
+    }
 
     detail_recycler.layoutManager = LinearLayoutManager(requireContext())
     detail_recycler.adapter = adapter
@@ -103,7 +117,6 @@ class DetailFragment : Fragment() {
         detail_body.text = it.body
       }
     )
-
 
     when {
       state.isUserLoading -> {
