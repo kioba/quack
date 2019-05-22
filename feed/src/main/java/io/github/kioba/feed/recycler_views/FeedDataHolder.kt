@@ -32,8 +32,13 @@ data class PostDataHolder(
   override val type: FeedViewType = PostType
 
   override fun visit(view: PostView) {
+    view.clear()
+
     post.fold(
-      ifEmpty = {},
+      ifEmpty = {
+        view.setTitleLoading()
+        view.setBodyLoading()
+      },
       ifSome = {
         view.setOnClickEventHandling(it)
         view.setTitle(it.title)
@@ -42,14 +47,18 @@ data class PostDataHolder(
     )
 
     user.fold(
-      ifEmpty = {},
+      ifEmpty = {
+        view.setNameLoading()
+      },
       ifSome = {
         view.setName(it.name, it.username)
       }
     )
 
     avatar.fold(
-      ifEmpty = {},
+      ifEmpty = {
+        view.setAvatarLoading()
+      },
       ifSome = {
         view.setAvatar(it)
       }
