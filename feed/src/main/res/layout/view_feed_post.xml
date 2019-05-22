@@ -24,7 +24,7 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="@+id/post_title"
     app:layout_constraintVertical_bias="0"
-    tools:srcCompat="@drawable/ic_face_black_24dp"
+    tools:srcCompat="@drawable/ic_face_primary_24dp"
     />
 
   <androidx.appcompat.widget.AppCompatTextView

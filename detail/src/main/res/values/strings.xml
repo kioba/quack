@@ -12,4 +12,6 @@
     <item quantity="one">%d comment</item>
     <item quantity="other">%d comments</item>
   </plurals>
+
+  <string name="comment_missing_error">sorry we could not load the comments</string>
 </resources>

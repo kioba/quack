@@ -20,7 +20,7 @@ import io.github.kioba.core.show
 import io.github.kioba.detail.mvi_models.DetailIntent
 import io.github.kioba.detail.mvi_models.DetailViewState
 import io.github.kioba.detail.mvi_models.InitialDetailIntent
-import io.github.kioba.placeholder.json_placeholder.network_models.Post
+import io.github.kioba.placeholder.post.Post
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -119,7 +119,7 @@ class DetailFragment : Fragment() {
         detail_avatar.setImageDrawable(null)
         Picasso
           .get()
-          .load("https://api.adorable.io/avatars/134/" + state.user.username)
+          .load(state.user.avatar)
           .fit()
           .centerCrop()
           .into(detail_avatar)
@@ -136,6 +136,7 @@ class DetailFragment : Fragment() {
         detail_comment_text.text = requireContext().getString(R.string.loading_comments)
       }
       state.commentError != null -> {
+        detail_comment_text.text = requireContext().getString(R.string.comment_missing_error)
         adapter.comments = List(1) { CommentDataHolder(Option.empty()) }
       }
       else -> {
@@ -174,12 +175,13 @@ class DetailFragment : Fragment() {
       putString(titleDescription, post.title)
     }
 
-    private fun Bundle.toPost(): Post = Post(
-      body = getString(bodyDescription)!!,
-      id = getInt(idDescription),
-      userId = getInt(userIdDescription),
-      title = getString(titleDescription)!!
-    )
+    private fun Bundle.toPost(): Post =
+      Post(
+        body = getString(bodyDescription)!!,
+        id = getInt(idDescription),
+        userId = getInt(userIdDescription),
+        title = getString(titleDescription)!!
+      )
   }
 }
 

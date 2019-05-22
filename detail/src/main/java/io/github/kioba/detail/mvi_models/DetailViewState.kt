@@ -1,8 +1,8 @@
 package io.github.kioba.detail.mvi_models
 
-import io.github.kioba.placeholder.json_placeholder.network_models.Comment
-import io.github.kioba.placeholder.json_placeholder.network_models.Post
-import io.github.kioba.placeholder.json_placeholder.network_models.User
+import io.github.kioba.placeholder.network.network_models.Comment
+import io.github.kioba.placeholder.post.Post
+import io.github.kioba.placeholder.user.User
 
 data class DetailViewState(
   val post: Post? = null,

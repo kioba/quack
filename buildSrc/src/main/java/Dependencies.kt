@@ -31,6 +31,8 @@ object Version {
   // androidX
   const val androidXLifecycle = "2.0.0"
 
+  const val androidXRoom = "2.1.0-beta01"
+
   // Arrow
   const val arrow = "0.9.0"
 
@@ -78,6 +80,27 @@ object Dependencies {
     "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.androidXLifecycle}" // use -ktx for Kotlin
   private const val lifecycleCompiler =
     "androidx.lifecycle:lifecycle-compiler:${Version.androidXLifecycle}"
+
+  // androidX Room
+  private const val roomRuntime = "androidx.room:room-runtime:${Version.androidXRoom}"
+  private const val roomCompiler = "androidx.room:room-compiler:${Version.androidXRoom}"
+  private const val roomRxjava2 = "androidx.room:room-rxjava2:${Version.androidXRoom}"
+  private const val roomTesting = "androidx.room:room-testing:${Version.androidXRoom}"
+
+  // androidX Navigation
+  private const val navigationRuntime =
+    "androidx.navigation:navigation-runtime:${Version.androidXNavigation}"
+  private const val navigationRuntime_ktx =
+    "androidx.navigation:navigation-runtime-ktx:${Version.androidXNavigation}"
+  private const val navigationFragment =
+    "androidx.navigation:navigation-fragment:${Version.androidXNavigation}"
+  private const val navigationFragment_ktx =
+    "androidx.navigation:navigation-fragment-ktx:${Version.androidXNavigation}"
+  private const val navigationUi = "androidx.navigation:navigation-ui:${Version.androidXNavigation}"
+  private const val navigationUi_ktx =
+    "androidx.navigation:navigation-ui-ktx:${Version.androidXNavigation}"
+  private const val navigationSafe_args_plugin =
+    "androidx.navigation:navigation-safe-args-gradle-plugin:${Version.androidXNavigation}"
 
   //  material
   private const val material = "com.google.android.material:material:${Version.material}"
@@ -196,4 +219,19 @@ object Dependencies {
     gsonConverter,
     rxjava2Adapter
   )
+
+  val persistence: List<String> = listOf(
+    roomRuntime,
+    roomRxjava2
+  )
+
+  val persistenceKapt: List<String> = listOf(
+    roomCompiler
+  )
+  val persistenceTest: List<String> = listOf(
+    roomTesting
+  )
+
+
+
 }

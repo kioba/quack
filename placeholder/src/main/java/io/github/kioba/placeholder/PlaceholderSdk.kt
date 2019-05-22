@@ -1,10 +1,20 @@
 package io.github.kioba.placeholder
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import io.github.kioba.placeholder.json_placeholder.JsonPlaceholderApi
-import io.github.kioba.placeholder.json_placeholder.network_models.Comment
-import io.github.kioba.placeholder.json_placeholder.network_models.Post
-import io.github.kioba.placeholder.json_placeholder.network_models.User
+import io.github.kioba.placeholder.network.JsonPlaceholderApi
+import io.github.kioba.placeholder.network.network_models.Comment
+import io.github.kioba.placeholder.post.DatabasePost
+import io.github.kioba.placeholder.post.IPostModule
+import io.github.kioba.placeholder.post.NetworkPost
+import io.github.kioba.placeholder.post.Post
+import io.github.kioba.placeholder.post.toDatabase
+import io.github.kioba.placeholder.post.toModel
+import io.github.kioba.placeholder.user.DatabaseUser
+import io.github.kioba.placeholder.user.IUserModule
+import io.github.kioba.placeholder.user.NetworkUser
+import io.github.kioba.placeholder.user.User
+import io.github.kioba.placeholder.user.toDatabase
+import io.github.kioba.placeholder.user.toModel
 import io.reactivex.Flowable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -13,7 +23,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class PlaceholderSdk @Inject constructor() : IPlaceholderSdk {
+class PlaceholderSdk @Inject constructor(
+  private val userDatabase: IUserModule,
+  private val postDatabase: IPostModule
+) : IPlaceholderSdk {
 
   private val logInterceptor =
     HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
@@ -36,25 +49,43 @@ class PlaceholderSdk @Inject constructor() : IPlaceholderSdk {
   private val jsonPlaceholderApi: JsonPlaceholderApi =
     retrofit.create(JsonPlaceholderApi::class.java)
 
-  override fun getFeed(): Flowable<List<Post>> = jsonPlaceholderApi
-    .getFeed()
-    .toFlowable()
-
   override fun getUsers(): Flowable<List<User>> =
-    jsonPlaceholderApi
-      .getUsers()
-      .toFlowable()
+    userDatabase.usersStream().map { it.map(DatabaseUser::toModel) }
+      .publish { share ->
+        Flowable.concat(
+          share.take(1),
+          syncUsers(),
+          share.skip(1)
+        )
+      }.distinctUntilChanged()
 
 
   override fun getUser(userId: Int): Flowable<User> =
-    jsonPlaceholderApi
-      .getUser(userId)
-      .toFlowable()
+    Flowable.concat(
+      userDatabase.getUser(userId).map(DatabaseUser::toModel).toFlowable(),
+      syncUser(userId),
+      userDatabase.userStream(userId).map(DatabaseUser::toModel)
+    ).distinctUntilChanged()
+
+
+  override fun getFeed(): Flowable<List<Post>> =
+    postDatabase.postsStream().map { it.map(DatabasePost::toModel) }
+      .publish { share ->
+        Flowable.concat(
+          share.take(1),
+          syncFeed(),
+          share.skip(1)
+        )
+      }.distinctUntilChanged()
 
   override fun getPost(postId: Int): Flowable<Post> =
-    jsonPlaceholderApi
-      .getPost(postId)
-      .toFlowable()
+    Flowable.concat(
+      postDatabase.getPost(postId)
+        .map(DatabasePost::toModel).toFlowable(),
+      syncPost(postId),
+      postDatabase.postStream(postId)
+        .map(DatabasePost::toModel)
+    )
 
   override fun getComments(postId: Int): Flowable<List<Comment>> =
     jsonPlaceholderApi
@@ -64,5 +95,34 @@ class PlaceholderSdk @Inject constructor() : IPlaceholderSdk {
   companion object {
     private const val api: String = "https://jsonplaceholder.typicode.com"
   }
+
+
+  private fun syncUsers(): Flowable<List<User>> = jsonPlaceholderApi.getUsers()
+    .map { it.map(NetworkUser::toDatabase) }
+    .flatMapCompletable(userDatabase::insertUsers)
+    .onErrorComplete()
+    .toFlowable()
+
+  private fun syncUser(userId: Int): Flowable<User> = jsonPlaceholderApi
+    .getUser(userId)
+    .map(NetworkUser::toDatabase)
+    .flatMapCompletable(userDatabase::insertUser)
+    .onErrorComplete()
+    .toFlowable()
+
+  private fun syncFeed() =
+    jsonPlaceholderApi.getFeed()
+      .map { it.map(NetworkPost::toDatabase) }
+      .flatMapCompletable(postDatabase::insertPosts)
+      .onErrorComplete()
+      .toFlowable<List<Post>>()
+
+  private fun syncPost(postId: Int) =
+    jsonPlaceholderApi
+      .getPost(postId)
+      .map(NetworkPost::toDatabase)
+      .flatMapCompletable(postDatabase::insertPost)
+      .onErrorComplete()
+      .toFlowable<Post>()
 
 }
