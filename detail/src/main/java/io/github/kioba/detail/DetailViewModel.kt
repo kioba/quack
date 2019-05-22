@@ -31,6 +31,7 @@ class DetailViewModel @Inject constructor(private val processor: IDetailActionPr
       .compose(intentFilter())
       .compose(processor.actionTransformer)
       .scan(DetailViewState(), this::reducer)
+      .distinctUntilChanged()
       .replay(1)
       .autoConnect(0)
   }
