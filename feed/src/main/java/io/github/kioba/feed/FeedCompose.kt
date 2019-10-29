@@ -24,10 +24,10 @@ import androidx.ui.graphics.vector.DrawVector
 import androidx.ui.layout.Column
 import androidx.ui.layout.Container
 import androidx.ui.layout.ExpandedWidth
-import androidx.ui.layout.HeightSpacer
 import androidx.ui.layout.LayoutSize.Expand
 import androidx.ui.layout.Row
 import androidx.ui.layout.Spacing
+import androidx.ui.layout.WidthSpacer
 import androidx.ui.material.MaterialTheme
 import androidx.ui.material.surface.Card
 import androidx.ui.material.surface.Surface
@@ -62,7 +62,6 @@ fun FeedCompose(viewModel: IFeedViewModel) {
       feedState.fold({}, { fState ->
         fState.combined.forEach {
           FeedCard(it)
-          HeightSpacer(height = 4.dp)
         }
       })
     }
@@ -71,15 +70,23 @@ fun FeedCompose(viewModel: IFeedViewModel) {
 
 @Composable
 private fun FeedCard(combined: CombinedFeed) {
-  Card(elevation = 2.dp) {
-    Row(mainAxisSize = Expand) {
-      VectorImage(R.drawable.ic_baseline_face_64)
-      Column(modifier = Flexible(1f), crossAxisSize = Expand) {
-        combined.user.fold(
-          {},
-          { UserText(it) })
-        TitleText(combined.post.title)
-        DescriptionText(combined)
+  Container(modifier = Spacing(horizontal = 8.dp, vertical = 4.dp)) {
+    Card(elevation = 2.dp) {
+      Column(modifier = Spacing(all = 8.dp)) {
+        Row {
+          WidthSpacer(width = 64.dp)
+          combined.user.fold(
+            {},
+            { UserText(it) })
+        }
+        Row(mainAxisSize = Expand) {
+          VectorImage(R.drawable.ic_baseline_face_64)
+
+          Column(modifier = Flexible(1f), crossAxisSize = Expand) {
+            TitleText(combined.post.title)
+            DescriptionText(combined)
+          }
+        }
       }
     }
   }
