@@ -117,7 +117,7 @@ class FeedFragment : Fragment(), NavigationControl {
    * @param state: view state
    */
   private fun render(state: FeedState) {
-    if (state.feedLoading) {
+    if (state.feedLoading || state.combined.isEmpty()) {
       adapter.feed = List(7) { PostDataHolder(Option.empty(), Option.empty(), Option.empty()) }
     } else {
       if (state.feedError != null) {
