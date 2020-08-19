@@ -54,7 +54,7 @@ class PlaceholderSdk @Inject constructor(
       .publish { share ->
         Flowable.concat(
           share.take(1),
-          syncUsers(),
+          syncUsers().take(1),
           share.skip(1)
         )
       }.distinctUntilChanged()
@@ -63,7 +63,7 @@ class PlaceholderSdk @Inject constructor(
   override fun getUser(userId: Int): Flowable<User> =
     Flowable.concat(
       userDatabase.getUser(userId).map(DatabaseUser::toModel).toFlowable(),
-      syncUser(userId),
+      syncUser(userId).take(1),
       userDatabase.userStream(userId).map(DatabaseUser::toModel)
     ).distinctUntilChanged()
 
@@ -73,7 +73,7 @@ class PlaceholderSdk @Inject constructor(
       .publish { share ->
         Flowable.concat(
           share.take(1),
-          syncFeed(),
+          syncFeed().take(1),
           share.skip(1)
         )
       }.distinctUntilChanged()
@@ -82,7 +82,7 @@ class PlaceholderSdk @Inject constructor(
     Flowable.concat(
       postDatabase.getPost(postId)
         .map(DatabasePost::toModel).toFlowable(),
-      syncPost(postId),
+      syncPost(postId).take(1),
       postDatabase.postStream(postId)
         .map(DatabasePost::toModel)
     )
@@ -99,30 +99,42 @@ class PlaceholderSdk @Inject constructor(
 
   private fun syncUsers(): Flowable<List<User>> = jsonPlaceholderApi.getUsers()
     .map { it.map(NetworkUser::toDatabase) }
-    .flatMapCompletable(userDatabase::insertUsers)
-    .onErrorComplete()
+    .flatMap { databaseUser ->
+      userDatabase.insertUsers(databaseUser)
+        .toSingle { databaseUser.map(DatabaseUser::toModel) }
+        .onErrorReturn { databaseUser.map(DatabaseUser::toModel) }
+    }
     .toFlowable()
 
   private fun syncUser(userId: Int): Flowable<User> = jsonPlaceholderApi
     .getUser(userId)
     .map(NetworkUser::toDatabase)
-    .flatMapCompletable(userDatabase::insertUser)
-    .onErrorComplete()
+    .flatMap { databaseUser ->
+      userDatabase.insertUser(databaseUser)
+        .toSingle { databaseUser.toModel() }
+        .onErrorReturn { databaseUser.toModel() }
+    }
     .toFlowable()
 
   private fun syncFeed() =
     jsonPlaceholderApi.getFeed()
       .map { it.map(NetworkPost::toDatabase) }
-      .flatMapCompletable(postDatabase::insertPosts)
-      .onErrorComplete()
-      .toFlowable<List<Post>>()
+      .flatMap { databasePosts ->
+        postDatabase.insertPosts(databasePosts)
+          .toSingle { databasePosts.map(DatabasePost::toModel) }
+          .onErrorReturn { databasePosts.map(DatabasePost::toModel) }
+      }
+      .toFlowable()
 
   private fun syncPost(postId: Int) =
     jsonPlaceholderApi
       .getPost(postId)
       .map(NetworkPost::toDatabase)
-      .flatMapCompletable(postDatabase::insertPost)
-      .onErrorComplete()
-      .toFlowable<Post>()
+      .flatMap { databasePost ->
+        postDatabase.insertPost(databasePost)
+          .toSingle { databasePost.toModel() }
+          .onErrorReturn { databasePost.toModel() }
+      }
+      .toFlowable()
 
 }
