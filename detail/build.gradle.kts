@@ -1,15 +1,18 @@
 plugins {
   id("com.android.library")
-  id("kotlin-android")
-  id("kotlin-kapt")
+  kotlin("android")
+  kotlin("kapt")
   id("kotlin-android-extensions")
 }
 
-apply(from = "../buildSrc/android.kts")
+android {
+  setCompileSdkVersion(33)
+
+  namespace = "io.github.kioba.detail"
+
+}
 
 dependencies {
-  implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-
   implementation(project(":core"))
   implementation(project(":placeholder"))
 

@@ -1,6 +1,6 @@
 object Version {
 
-  const val kotlin = "1.3.31"
+  const val kotlin = "1.7.0"
 
   // Unit Test
   const val mockK = "1.9"

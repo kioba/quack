@@ -1,1 +1,7 @@
-include(":app", ":feed", ":core", ":detail", ":placeholder")
+include(
+  ":app",
+  ":feed",
+  ":core",
+  ":detail",
+  ":placeholder",
+)
