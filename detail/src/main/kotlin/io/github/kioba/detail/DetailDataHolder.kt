@@ -1,7 +1,7 @@
 package io.github.kioba.detail
 
 import arrow.core.Option
-import io.github.kioba.placeholder.network.network_models.Comment
+import io.github.kioba.placeholder.network.model.Comment
 
 interface DetailDataHolder {
   fun visit(view: CommentView)

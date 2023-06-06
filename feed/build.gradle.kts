@@ -1,7 +1,7 @@
 plugins {
   id("com.android.library")
   kotlin("android")
-kotlin("kapt")
+  kotlin("kapt")
   id("kotlin-android-extensions")
 }
 android {
@@ -12,9 +12,9 @@ android {
 }
 
 dependencies {
-  implementation(project(":core"))
-  implementation(project(":placeholder"))
-  implementation(project(":detail"))
+  implementation(projects.core)
+  implementation(projects.placeholder)
+  implementation(projects.detail)
 
   Dependencies.standard.forEach { implementation(it) }
   Dependencies.standardKapt.forEach { kapt(it) }

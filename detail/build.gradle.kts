@@ -13,8 +13,8 @@ android {
 }
 
 dependencies {
-  implementation(project(":core"))
-  implementation(project(":placeholder"))
+  implementation(projects.core)
+  implementation(projects.placeholder)
 
   Dependencies.standard.forEach { implementation(it) }
   Dependencies.standardKapt.forEach { kapt(it) }

@@ -18,11 +18,12 @@ android {
   buildTypes {
     getByName("release") {
       isMinifyEnabled = true
+      @Suppress("UnstableApiUsage")
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
     }
 
     getByName("debug") {
-      isTestCoverageEnabled = true
+      enableUnitTestCoverage = true
     }
   }
 
@@ -32,16 +33,14 @@ android {
     targetCompatibility = JavaVersion.VERSION_11
   }
 
-  sourceSets {
-    map { it.java.srcDir("src/${it.name}/kotlin") }
-  }
+  sourceSets.map { it.java.srcDir("src/${it.name}/kotlin") }
 }
 
 dependencies {
-  implementation(project(":placeholder"))
-  implementation(project(":feed"))
-  implementation(project(":detail"))
-  implementation(project(":core"))
+  implementation(projects.placeholder)
+  implementation(projects.feed)
+  implementation(projects.detail)
+  implementation(projects.core)
   coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
 
   Dependencies.standard.forEach { implementation(it) }

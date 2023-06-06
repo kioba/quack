@@ -1,6 +1,6 @@
 package io.github.kioba.placeholder
 
-import io.github.kioba.placeholder.network.network_models.Comment
+import io.github.kioba.placeholder.network.model.Comment
 import io.github.kioba.placeholder.post.Post
 import io.github.kioba.placeholder.user.User
 import io.reactivex.Flowable

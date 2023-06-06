@@ -1,0 +1,32 @@
+[versions]
+buildToolsVersion = "33.0.0"
+compileSdkString = "33"
+minSdkString = "21"
+targetSdkString = "33"
+
+# development
+agp = "8.0.2"
+dependencyVersionsPlugin = "0.45.0"
+desugar = "2.0.2"
+kotlin = "1.7.0"
+ksp = "1.8.20-1.0.11"
+
+# lib versions
+moshi = "1.14.0"
+okHttp = "4.10.0"
+retrofit = "2.9.0"
+
+[libraries]
+build-android = { module = "com.android.tools.build:gradle", version.ref = "agp" }
+build-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+
+networking-moshi-adapters = { module = "com.squareup.moshi:moshi-adapters", version.ref = "moshi" }
+networking-moshi-core = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
+networking-moshi-kotlinCodeGen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }
+networking-okhttp-core = { module = "com.squareup.okhttp3:okhttp", version.ref = "okHttp" }
+networking-okhttp-loggingInterceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okHttp" }
+networking-okhttp-mockWebServer = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "okHttp" }
+networking-retrofit-core = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+networking-retrofit-moshiConverter = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
+networking-retrofit-rxJavaAdapter = { module = "com.squareup.retrofit2:adapter-rxjava2", version.ref = "retrofit" }
+networking-retrofit-scalarsConverter = { module = "com.squareup.retrofit2:converter-scalars", version.ref = "retrofit" }

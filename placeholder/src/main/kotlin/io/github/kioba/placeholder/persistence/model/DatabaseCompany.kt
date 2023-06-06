@@ -1,4 +1,4 @@
-package io.github.kioba.placeholder.persistence.persistence_models
+package io.github.kioba.placeholder.persistence.model
 
 import androidx.room.Entity
 

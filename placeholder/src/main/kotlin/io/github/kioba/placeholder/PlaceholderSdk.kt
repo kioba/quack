@@ -1,8 +1,7 @@
 package io.github.kioba.placeholder
 
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import io.github.kioba.placeholder.network.JsonPlaceholderApi
-import io.github.kioba.placeholder.network.network_models.Comment
+import io.github.kioba.placeholder.network.model.Comment
 import io.github.kioba.placeholder.post.DatabasePost
 import io.github.kioba.placeholder.post.IPostModule
 import io.github.kioba.placeholder.post.NetworkPost
@@ -19,7 +18,8 @@ import io.reactivex.Flowable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -41,7 +41,7 @@ class PlaceholderSdk @Inject constructor(
   private val retrofit: Retrofit = Retrofit
     .Builder()
     .baseUrl(api)
-    .addConverterFactory(GsonConverterFactory.create())
+    .addConverterFactory(MoshiConverterFactory.create())
     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
     .client(okHttpClient)
     .build()

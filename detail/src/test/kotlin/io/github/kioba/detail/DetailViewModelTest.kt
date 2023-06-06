@@ -4,10 +4,6 @@ import io.github.kioba.core.TestSchedulers
 import io.github.kioba.detail.mvi_models.DetailViewState
 import io.github.kioba.detail.mvi_models.InitialDetailIntent
 import io.github.kioba.placeholder.IPlaceholderSdk
-import io.github.kioba.placeholder.network.network_models.Comment
-import io.github.kioba.placeholder.post.Post
-import io.github.kioba.placeholder.user.User
-import io.mockk.clearMocks
 import io.mockk.every
 import io.mockk.mockk
 import io.reactivex.Flowable
@@ -15,42 +11,16 @@ import io.reactivex.subscribers.TestSubscriber
 import org.junit.Before
 import org.junit.Test
 
-private val Comment.Companion.testDefault: Comment
-  get() = Comment(
-    body = "body",
-    email = "email",
-    id = 1,
-    name = "name",
-    postId = 1
-  )
-
-val Post.Companion.testDefault
-  get() = Post(
-    id = 1,
-    userId = 1,
-    title = "This is the day!",
-    body = "This is the day you will always remember as the day you almost caught Captain Jack Sparrow"
-  )
-
-val User.Companion.testDefault
-  get() = User(
-    email = "jack@pearl.com",
-    id = 1,
-    name = "Jack Sparrow",
-    username = "Pirate",
-    avatar = "BlackFlag"
-  )
-
 class DetailViewModelTest {
 
-  private val sdk: IPlaceholderSdk = mockk()
+  internal lateinit var sdk: IPlaceholderSdk
 
   private lateinit var viewModel: DetailViewModel
   private lateinit var testSubscriber: TestSubscriber<DetailViewState>
 
   @Before
   fun setUp() {
-    clearMocks(sdk)
+    sdk = mockk()
 
     viewModel =
       DetailViewModel(DetailActionProcessor(TestSchedulers(), sdk))
@@ -60,35 +30,35 @@ class DetailViewModelTest {
   @Test
   fun testInitialSuccess() {
 
-    every { sdk.getUser(Post.testDefault.userId) } returns Flowable.just(User.testDefault)
-    every { sdk.getComments(Post.testDefault.id) } returns Flowable.just(listOf(Comment.testDefault))
+    every { sdk.getUser(givenPost().userId) } returns Flowable.just(givenUser())
+    every { sdk.getComments(givenPost().id) } returns Flowable.just(listOf(givenComment()))
 
-    viewModel.bind(Flowable.just(InitialDetailIntent(Post.testDefault)))
+    viewModel.bind(Flowable.just(InitialDetailIntent(givenPost())))
 
     testSubscriber
       .assertNoErrors()
       .assertValueCount(4)
       .assertValueAt(0, DetailViewState())
-      .assertValueAt(1, DetailViewState(post = Post.testDefault))
+      .assertValueAt(1, DetailViewState(post = givenPost()))
       .assertValueAt(
         2,
         DetailViewState(
-          post = Post.testDefault,
+          post = givenPost(),
           isUserLoading = false,
           userError = null,
-          user = User.testDefault
+          user = givenUser()
         )
       )
       .assertValueAt(
         3,
         DetailViewState(
-          post = Post.testDefault,
+          post = givenPost(),
           isCommentsLoading = false,
           commentError = null,
-          comments = listOf(Comment.testDefault),
+          comments = listOf(givenComment()),
           isUserLoading = false,
           userError = null,
-          user = User.testDefault
+          user = givenUser()
         )
       )
       .dispose()
@@ -99,20 +69,20 @@ class DetailViewModelTest {
 
     val error = IllegalStateException("ErrorType Test")
 
-    every { sdk.getUser(Post.testDefault.userId) } returns Flowable.error(error)
-    every { sdk.getComments(Post.testDefault.id) } returns Flowable.just(listOf(Comment.testDefault))
+    every { sdk.getUser(givenPost().userId) } returns Flowable.error(error)
+    every { sdk.getComments(givenPost().id) } returns Flowable.just(listOf(givenComment()))
 
-    viewModel.bind(Flowable.just(InitialDetailIntent(Post.testDefault)))
+    viewModel.bind(Flowable.just(InitialDetailIntent(givenPost())))
 
     testSubscriber
       .assertNoErrors()
       .assertValueCount(4)
       .assertValueAt(0, DetailViewState())
-      .assertValueAt(1, DetailViewState(post = Post.testDefault))
+      .assertValueAt(1, DetailViewState(post = givenPost()))
       .assertValueAt(
         2,
         DetailViewState(
-          post = Post.testDefault,
+          post = givenPost(),
           isUserLoading = false,
           userError = error
         )
@@ -120,10 +90,10 @@ class DetailViewModelTest {
       .assertValueAt(
         3,
         DetailViewState(
-          post = Post.testDefault,
+          post = givenPost(),
           isCommentsLoading = false,
           commentError = null,
-          comments = listOf(Comment.testDefault),
+          comments = listOf(givenComment()),
           isUserLoading = false,
           userError = error
         )
@@ -136,34 +106,34 @@ class DetailViewModelTest {
 
     val error = IllegalStateException("ErrorType Test")
 
-    every { sdk.getUser(Post.testDefault.userId) } returns Flowable.just(User.testDefault)
-    every { sdk.getComments(Post.testDefault.id) } returns Flowable.error(error)
+    every { sdk.getUser(givenPost().userId) } returns Flowable.just(givenUser())
+    every { sdk.getComments(givenPost().id) } returns Flowable.error(error)
 
-    viewModel.bind(Flowable.just(InitialDetailIntent(Post.testDefault)))
+    viewModel.bind(Flowable.just(InitialDetailIntent(givenPost())))
 
     testSubscriber
       .assertNoErrors()
       .assertValueCount(4)
       .assertValueAt(0, DetailViewState())
-      .assertValueAt(1, DetailViewState(post = Post.testDefault))
+      .assertValueAt(1, DetailViewState(post = givenPost()))
       .assertValueAt(
         2,
         DetailViewState(
-          post = Post.testDefault,
+          post = givenPost(),
           isUserLoading = false,
           userError = null,
-          user = User.testDefault
+          user = givenUser()
         )
       )
       .assertValueAt(
         3,
         DetailViewState(
-          post = Post.testDefault,
+          post = givenPost(),
           isCommentsLoading = false,
           commentError = error,
           isUserLoading = false,
           userError = null,
-          user = User.testDefault
+          user = givenUser()
         )
       )
       .dispose()
@@ -174,20 +144,20 @@ class DetailViewModelTest {
 
     val error = IllegalStateException("ErrorType Test")
 
-    every { sdk.getUser(Post.testDefault.userId) } returns Flowable.error(error)
-    every { sdk.getComments(Post.testDefault.id) } returns Flowable.error(error)
+    every { sdk.getUser(givenPost().userId) } returns Flowable.error(error)
+    every { sdk.getComments(givenPost().id) } returns Flowable.error(error)
 
-    viewModel.bind(Flowable.just(InitialDetailIntent(Post.testDefault)))
+    viewModel.bind(Flowable.just(InitialDetailIntent(givenPost())))
 
     testSubscriber
       .assertNoErrors()
       .assertValueCount(4)
       .assertValueAt(0, DetailViewState())
-      .assertValueAt(1, DetailViewState(post = Post.testDefault))
+      .assertValueAt(1, DetailViewState(post = givenPost()))
       .assertValueAt(
         2,
         DetailViewState(
-          post = Post.testDefault,
+          post = givenPost(),
           isUserLoading = false,
           userError = error
         )
@@ -195,7 +165,7 @@ class DetailViewModelTest {
       .assertValueAt(
         3,
         DetailViewState(
-          post = Post.testDefault,
+          post = givenPost(),
           isCommentsLoading = false,
           commentError = error,
           isUserLoading = false,

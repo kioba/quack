@@ -1,9 +1,6 @@
 object Version {
-
-  const val kotlin = "1.7.0"
-
   // Unit Test
-  const val mockK = "1.9"
+  const val mockK = "1.13.5"
   const val junit4 = "4.12"
 
   // Android Test
@@ -45,22 +42,12 @@ object Version {
   // Dagger
   const val dagger = "2.22.1"
 
-  //Networking
-  const val retrofit = "2.4.0"
-  const val rxjava2Adapter = "1.0.0"
-  const val gsonConverter = "2.4.0"
-  const val gson = "2.8.5"
-  const val interceptor = "3.11.0"
-
   // Images
   const val picasso = "2.71828"
 
 }
 
 object Dependencies {
-  //   kotlin
-  private const val kotlin_stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Version.kotlin}"
-
   //  AndroidX
   private const val androidXAppcompat = "androidx.appcompat:appcompat:${Version.androidXAppcompat}"
   private const val androidXCoreKtx = "androidx.core:core-ktx:${Version.coreKtx}"
@@ -141,16 +128,6 @@ object Dependencies {
   private const val daggerAndroidProcessor =
     "com.google.dagger:dagger-android-processor:${Version.dagger}"
 
-
-  // Networking
-  private const val retrofit = "com.squareup.retrofit2:retrofit:${Version.retrofit}"
-  private const val loggingInterceptor =
-    "com.squareup.okhttp3:logging-interceptor:${Version.interceptor}"
-  private const val gson = "com.google.code.gson:gson:${Version.gson}"
-  private const val gsonConverter = "com.squareup.retrofit2:converter-gson:${Version.gsonConverter}"
-  private const val rxjava2Adapter =
-    "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${Version.rxjava2Adapter}"
-
   // Picasso
   private const val picasso = "com.squareup.picasso:picasso:${Version.picasso}"
 
@@ -172,7 +149,6 @@ object Dependencies {
   )
 
   val standard: List<String> = listOf(
-    kotlin_stdlib,
     androidXAppcompat,
     androidXCoreKtx,
     constraintLayout,
@@ -212,14 +188,6 @@ object Dependencies {
       espresso
     )
 
-  val networking: List<String> = listOf(
-    retrofit,
-    loggingInterceptor,
-    gson,
-    gsonConverter,
-    rxjava2Adapter
-  )
-
   val persistence: List<String> = listOf(
     roomRuntime,
     roomRxjava2
@@ -231,7 +199,5 @@ object Dependencies {
   val persistenceTest: List<String> = listOf(
     roomTesting
   )
-
-
 
 }
