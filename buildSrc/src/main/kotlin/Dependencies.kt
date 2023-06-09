@@ -1,12 +1,4 @@
 object Version {
-  // Unit Test
-  const val mockK = "1.13.5"
-  const val junit4 = "4.12"
-
-  // Android Test
-  const val test_runner = "1.1.1"
-  const val androidXTest = "1.1.0"
-  const val espresso = "3.1.1"
 
   // androidX
   const val androidXAppcompat = "1.1.0-alpha05"
@@ -131,17 +123,6 @@ object Dependencies {
   // Picasso
   private const val picasso = "com.squareup.picasso:picasso:${Version.picasso}"
 
-  //  unit test
-  private const val junit4 = "junit:junit:${Version.junit4}"
-  private const val mockK = "io.mockk:mockk:${Version.mockK}"
-
-  //  android test
-  private const val androidXTestCore = "androidx.test:core:${Version.androidXTest}"
-  private const val androidXTestJunit = "androidx.test.ext:junit:${Version.androidXTest}"
-  private const val testRunner = "androidx.test:runner:${Version.test_runner}"
-  private const val espresso = "androidx.test.espresso:espresso-core:${Version.espresso}"
-
-
   val standardKapt: List<String> = listOf(
     lifecycleCompiler,
     daggerCompoler,
@@ -177,16 +158,6 @@ object Dependencies {
     daggerAndroidSupport,
     picasso
   )
-
-  val testStandard: List<String> = listOf(junit4, mockK)
-
-  val testAndroidStandard: List<String> =
-    listOf(
-      androidXTestCore,
-      androidXTestJunit,
-      testRunner,
-      espresso
-    )
 
   val persistence: List<String> = listOf(
     roomRuntime,

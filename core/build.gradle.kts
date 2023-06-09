@@ -13,6 +13,10 @@ dependencies {
   Dependencies.standard.forEach { implementation(it) }
   Dependencies.standardKapt.forEach { kapt(it) }
 
-  Dependencies.testStandard.forEach { testImplementation(it) }
-  Dependencies.testAndroidStandard.forEach { androidTestImplementation(it) }
+  testImplementation(libs.test.mockK)
+  testImplementation(libs.test.junit4)
+  androidTestImplementation(libs.androidTest.androidXTest.core)
+  androidTestImplementation(libs.androidTest.androidXTest.junit)
+  androidTestImplementation(libs.androidTest.testRunner)
+  androidTestImplementation(libs.androidTest.espresso)
 }

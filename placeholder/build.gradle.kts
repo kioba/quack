@@ -17,19 +17,23 @@ dependencies {
   Dependencies.standard.forEach { implementation(it) }
   Dependencies.standardKapt.forEach { kapt(it) }
 
-  Dependencies.testStandard.forEach { testImplementation(it) }
-  Dependencies.testAndroidStandard.forEach { androidTestImplementation(it) }
+  testImplementation(libs.test.mockK)
+  testImplementation(libs.test.junit4)
+  androidTestImplementation(libs.androidTest.androidXTest.core)
+  androidTestImplementation(libs.androidTest.androidXTest.junit)
+  androidTestImplementation(libs.androidTest.testRunner)
+  androidTestImplementation(libs.androidTest.espresso)
 
-  implementation(libs.networking.moshi.core)
-  implementation(libs.networking.moshi.adapters)
-  implementation(libs.networking.okhttp.core)
-  implementation(libs.networking.okhttp.loggingInterceptor)
-  implementation(libs.networking.okhttp.mockWebServer)
-  implementation(libs.networking.retrofit.core)
-  implementation(libs.networking.retrofit.moshiConverter)
-  implementation(libs.networking.retrofit.rxJavaAdapter)
-  implementation(libs.networking.retrofit.scalarsConverter)
-  kapt(libs.networking.moshi.kotlinCodeGen)
+  implementation(libs.network.moshi.core)
+  implementation(libs.network.moshi.adapters)
+  implementation(libs.network.okhttp.core)
+  implementation(libs.network.okhttp.loggingInterceptor)
+  implementation(libs.network.okhttp.mockWebServer)
+  implementation(libs.network.retrofit.core)
+  implementation(libs.network.retrofit.moshiConverter)
+  implementation(libs.network.retrofit.rxJavaAdapter)
+  implementation(libs.network.retrofit.scalarsConverter)
+  kapt(libs.network.moshi.kotlinCodeGen)
 
   Dependencies.persistence.forEach { implementation(it) }
   Dependencies.persistenceKapt.forEach { kapt(it) }
