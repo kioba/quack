@@ -9,14 +9,41 @@ agp = "8.0.2"
 kotlin = "1.7.0"
 
 # lib versions
+androidXTest = "1.1.0"
+espresso = "3.1.1"
+junit4 = "4.12"
+mockK = "1.13.5"
 moshi = "1.14.0"
 okHttp = "4.10.0"
 retrofit = "2.9.0"
-mockK = "1.13.5"
-junit4 = "4.12"
 testRunner = "1.1.1"
-androidXTest = "1.1.0"
-espresso = "3.1.1"
+
+# arrow
+arrow = "0.9.0"
+
+# rx-java
+rxandroid = "2.1.0"
+rxbinding = "3.0.0-alpha2"
+rxjava = "2.2.7"
+rxrelay = "2.1.0"
+
+# android-x
+androidXAppcompat = "1.1.0-alpha05"
+androidXConstraintLayout = "2.0.0-beta1"
+androidXLifecycle = "2.0.0"
+androidXNavigation = "1.0.0-alpha05"
+androidXRecyclerview = "1.1.0-alpha05"
+androidXcoreKtx = "1.0.2"
+constraintLayout = "1.1.3"
+material = "1.0.0"
+androidXRoom = "2.1.0-beta01"
+
+# di
+dagger = "2.22.1"
+
+# image loading
+picasso = "2.71828"
+
 
 [libraries]
 build-android = { module = "com.android.tools.build:gradle", version.ref = "agp" }
@@ -41,5 +68,53 @@ test-mockK = { module = "io.mockk:mockk", version.ref = "mockK" }
 # android test
 androidTest-androidXTest-core = { module = "androidx.test:core", version.ref = "androidXTest" }
 androidTest-androidXTest-junit = { module = "androidx.test.ext:junit", version.ref = "androidXTest" }
-androidTest-testRunner = { module = "androidx.test:runner", version.ref = "testRunner" }
 androidTest-espresso = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
+androidTest-testRunner = { module = "androidx.test:runner", version.ref = "testRunner" }
+
+# arrow
+arrow-coreData = { module = "io.arrow-kt:arrow-core-data", version.ref = "arrow" }
+arrow-coreExtensions = { module = "io.arrow-kt:arrow-core-extensions", version.ref = "arrow" }
+arrow-effectsData = { module = "io.arrow-kt:arrow-effects-data", version.ref = "arrow" }
+arrow-effectsExtensions = { module = "io.arrow-kt:arrow-effects-extensions", version.ref = "arrow" }
+arrow-extrasData = { module = "io.arrow-kt:arrow-extras-data", version.ref = "arrow" }
+arrow-extrasExtensions = { module = "io.arrow-kt:arrow-extras-extensions", version.ref = "arrow" }
+arrow-syntax = { module = "io.arrow-kt:arrow-syntax", version.ref = "arrow" }
+arrow-typeclasses = { module = "io.arrow-kt:arrow-typeclasses", version.ref = "arrow" }
+
+# rx-java
+rx-android = { module = "io.reactivex.rxjava2:rxandroid", version.ref = "rxandroid" }
+rx-java = { module = "io.reactivex.rxjava2:rxjava", version.ref = "rxjava" }
+rx-relay = { module = "com.jakewharton.rxrelay2:rxrelay", version.ref = "rxrelay" }
+
+# rx-binding
+rxbinding-appcompat = { module = "com.jakewharton.rxbinding3:rxbinding-appcompat", version.ref = "rxbinding" }
+rxbinding-core = { module = "com.jakewharton.rxbinding3:rxbinding-core", version.ref = "rxbinding" }
+rxbinding-lib = { module = "com.jakewharton.rxbinding3:rxbinding", version.ref = "rxbinding" }
+rxbinding-material = { module = "com.jakewharton.rxbinding3:rxbinding-material", version.ref = "rxbinding" }
+rxbinding-recyclerview = { module = "com.jakewharton.rxbinding3:rxbinding-recyclerview", version.ref = "rxbinding" }
+
+# anrdoid-x
+androidX-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidXAppcompat" }
+androidX-constraintLayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidXConstraintLayout" }
+androidX-coreKtx = { module = "androidx.core:core-ktx", version.ref = "androidXcoreKtx" }
+androidX-lifecycle-compiler = { module = "androidx.lifecycle:lifecycle-compiler", version.ref = "androidXLifecycle" }
+androidX-lifecycle-extensions = { module = "androidx.lifecycle:lifecycle-extensions", version.ref = "androidXLifecycle" }
+androidX-lifecycle-viewModelKtx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidXLifecycle" }
+androidX-material = { module = "com.google.android.material:material", version.ref = "material" }
+androidX-recyclerView = { module = "androidx.recyclerview:recyclerview", version.ref = "androidXRecyclerview" }
+
+# room
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "androidXRoom" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidXRoom" }
+room-rxjava2 = { module = "androidx.room:room-rxjava2", version.ref = "androidXRoom" }
+room-testing = { module = "androidx.room:room-testing", version.ref = "androidXRoom" }
+
+# di
+dagger-core = { module = "com.google.dagger:dagger", version.ref = "dagger" }
+dagger-android = { module = "com.google.dagger:dagger-android", version.ref = "dagger" }
+dagger-androidSupport = { module = "com.google.dagger:dagger-android-support", version.ref = "dagger" }
+dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
+dagger-androidProcessor = { module = "com.google.dagger:dagger-android-processor", version.ref = "dagger" }
+
+# image loading
+picasso = { module = "com.squareup.picasso:picasso", version.ref = "picasso" }
