@@ -1,9 +1,9 @@
-package io.github.kioba.feed.recycler_views
+package io.github.kioba.feed.views
 
 import arrow.core.Option
-import io.github.kioba.feed.recycler_views.FeedDataHolder.FeedViewType
-import io.github.kioba.feed.recycler_views.FeedDataHolder.FeedViewType.ErrorType
-import io.github.kioba.feed.recycler_views.FeedDataHolder.FeedViewType.PostType
+import io.github.kioba.feed.views.FeedDataHolder.FeedViewType
+import io.github.kioba.feed.views.FeedDataHolder.FeedViewType.ErrorType
+import io.github.kioba.feed.views.FeedDataHolder.FeedViewType.PostType
 import io.github.kioba.placeholder.post.Post
 import io.github.kioba.placeholder.user.User
 

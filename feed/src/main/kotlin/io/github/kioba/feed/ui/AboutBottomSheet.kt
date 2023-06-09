@@ -1,10 +1,11 @@
-package io.github.kioba.feed
+package io.github.kioba.feed.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import io.github.kioba.feed.R
 
 class AboutBottomSheet : BottomSheetDialogFragment() {
   override fun onCreateView(

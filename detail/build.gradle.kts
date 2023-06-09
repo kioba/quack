@@ -2,7 +2,6 @@ plugins {
   id("com.android.library")
   kotlin("android")
   kotlin("kapt")
-  id("kotlin-android-extensions")
 }
 
 android {
@@ -10,7 +9,22 @@ android {
 
   namespace = "io.github.kioba.detail"
 
+
+  kotlinOptions {
+    jvmTarget = JavaVersion.VERSION_11.toString()
+  }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+  }
+
 }
+
+
+kotlin {
+  jvmToolchain(11)
+}
+
 
 dependencies {
   implementation(projects.core)
@@ -36,6 +50,15 @@ dependencies {
   implementation(libs.rxbinding.recyclerview)
   implementation(libs.rx.java)
   implementation(libs.rx.relay)
+
+  implementation(libs.arrow.coreData)
+  implementation(libs.arrow.coreExtensions)
+  implementation(libs.arrow.effectsData)
+  implementation(libs.arrow.effectsExtensions)
+  implementation(libs.arrow.extrasData)
+  implementation(libs.arrow.extrasExtensions)
+  implementation(libs.arrow.syntax)
+  implementation(libs.arrow.typeclasses)
 
   kapt(libs.androidX.lifecycle.compiler)
   kapt(libs.dagger.compiler)

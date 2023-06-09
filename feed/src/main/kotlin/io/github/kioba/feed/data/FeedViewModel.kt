@@ -1,21 +1,21 @@
-package io.github.kioba.feed
+package io.github.kioba.feed.data
 
 import androidx.lifecycle.ViewModel
 import arrow.core.toOption
 import io.github.kioba.core.IActionProcessor
 import io.github.kioba.core.MVIViewModel
-import io.github.kioba.feed.mvi_models.CombinedFeed
-import io.github.kioba.feed.mvi_models.FeedContentError
-import io.github.kioba.feed.mvi_models.FeedContentLoading
-import io.github.kioba.feed.mvi_models.FeedContentSuccess
-import io.github.kioba.feed.mvi_models.FeedEvent
-import io.github.kioba.feed.mvi_models.FeedIntent
-import io.github.kioba.feed.mvi_models.FeedResult
-import io.github.kioba.feed.mvi_models.FeedState
-import io.github.kioba.feed.mvi_models.FeedUserError
-import io.github.kioba.feed.mvi_models.FeedUserLoading
-import io.github.kioba.feed.mvi_models.FeedUserSuccess
-import io.github.kioba.feed.mvi_models.InitialFeedIntent
+import io.github.kioba.feed.model.CombinedFeed
+import io.github.kioba.feed.model.FeedContentError
+import io.github.kioba.feed.model.FeedContentLoading
+import io.github.kioba.feed.model.FeedContentSuccess
+import io.github.kioba.feed.model.FeedEvent
+import io.github.kioba.feed.model.FeedIntent
+import io.github.kioba.feed.model.FeedResult
+import io.github.kioba.feed.model.FeedState
+import io.github.kioba.feed.model.FeedUserError
+import io.github.kioba.feed.model.FeedUserLoading
+import io.github.kioba.feed.model.FeedUserSuccess
+import io.github.kioba.feed.model.InitialFeedIntent
 import io.github.kioba.placeholder.post.Post
 import io.github.kioba.placeholder.user.User
 import io.reactivex.Flowable
@@ -85,4 +85,3 @@ class FeedViewModel @Inject constructor(
     }
 
 }
-

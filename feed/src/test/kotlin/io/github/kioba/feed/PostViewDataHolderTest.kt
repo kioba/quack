@@ -1,8 +1,8 @@
 package io.github.kioba.feed
 
 import arrow.core.Option
-import io.github.kioba.feed.recycler_views.PostDataHolder
-import io.github.kioba.feed.recycler_views.PostView
+import io.github.kioba.feed.views.PostDataHolder
+import io.github.kioba.feed.views.PostView
 import io.github.kioba.placeholder.post.Post
 import io.github.kioba.placeholder.user.User
 import io.mockk.every

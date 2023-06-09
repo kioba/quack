@@ -2,14 +2,26 @@ plugins {
   id("com.android.library")
   kotlin("android")
   kotlin("kapt")
-  id("kotlin-android-extensions")
 }
 
 android {
   setCompileSdkVersion(33)
-
   namespace = "io.github.kioba.placeholder"
+
+  kotlinOptions {
+    jvmTarget = JavaVersion.VERSION_11.toString()
+  }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+  }
 }
+
+tasks.withType<org.jetbrains.kotlin.gradle.internal.KaptGenerateStubsTask>()
+  .configureEach {
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_11.toString()
+  }
+
 
 dependencies {
   implementation(projects.core)

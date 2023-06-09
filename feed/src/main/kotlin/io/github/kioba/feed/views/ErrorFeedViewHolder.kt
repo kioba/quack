@@ -1,4 +1,4 @@
-package io.github.kioba.feed.recycler_views
+package io.github.kioba.feed.views
 
 import android.view.ViewGroup
 import io.github.kioba.feed.R

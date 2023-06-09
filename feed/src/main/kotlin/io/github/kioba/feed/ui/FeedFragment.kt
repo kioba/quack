@@ -1,4 +1,4 @@
-package io.github.kioba.feed
+package io.github.kioba.feed.ui
 
 import android.content.Context
 import android.graphics.Rect
@@ -6,37 +6,30 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.doOnPreDraw
+import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import androidx.transition.ChangeBounds
 import androidx.transition.ChangeImageTransform
 import androidx.transition.ChangeTransform
 import androidx.transition.Transition
 import androidx.transition.Transition.EpicenterCallback
 import androidx.transition.TransitionSet
-import arrow.core.Option
-import arrow.core.toOption
 import dagger.android.support.AndroidSupportInjection
 import io.github.kioba.core.registerForDispose
 import io.github.kioba.core.setTransitionInterpolator
 import io.github.kioba.detail.DetailFragment
-import io.github.kioba.feed.mvi_models.FeedIntent
-import io.github.kioba.feed.mvi_models.FeedState
-import io.github.kioba.feed.mvi_models.InitialFeedIntent
-import io.github.kioba.feed.recycler_views.ErrorFeedDataHolder
-import io.github.kioba.feed.recycler_views.FeedAdapter
-import io.github.kioba.feed.recycler_views.NavigationControl
-import io.github.kioba.feed.recycler_views.PostDataHolder
+import io.github.kioba.feed.SlideExplode
+import io.github.kioba.feed.data.IFeedViewModel
+import io.github.kioba.feed.model.FeedIntent
+import io.github.kioba.feed.model.FeedState
+import io.github.kioba.feed.model.InitialFeedIntent
+import io.github.kioba.feed.views.FeedAdapter
+import io.github.kioba.feed.views.NavigationControl
 import io.github.kioba.placeholder.post.Post
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.fragment_feed.*
 import javax.inject.Inject
 
 interface MainNavigation {
@@ -65,28 +58,28 @@ class FeedFragment : Fragment(), NavigationControl {
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
-    savedInstanceState: Bundle?
+    savedInstanceState: Bundle?,
   ): View =
-    inflater.inflate(R.layout.fragment_feed, container, false)
+    ComposeView(requireContext())
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
     postponeEnterTransition()
 
-    (activity as? AppCompatActivity)?.setSupportActionBar(feed_toolbar)
+//    (activity as? AppCompatActivity)?.setSupportActionBar(feed_toolbar)
 
-    feed_recycler.layoutManager = LinearLayoutManager(requireContext())
-    feed_recycler.adapter = adapter
-    feed_recycler.addItemDecoration(DividerItemDecoration(requireContext(), VERTICAL))
+//    feed_recycler.layoutManager = LinearLayoutManager(requireContext())
+//    feed_recycler.adapter = adapter
+//    feed_recycler.addItemDecoration(DividerItemDecoration(requireContext(), VERTICAL))
 
-    feed_bar.setNavigationOnClickListener {
-      AboutBottomSheet().show(fragmentManager!!, "AboutBottomSheet")
-    }
+//    feed_bar.setNavigationOnClickListener {
+//      AboutBottomSheet().show(fragmentManager!!, "AboutBottomSheet")
+//    }
 
-    (view.parent as? ViewGroup)?.doOnPreDraw {
-      startPostponedEnterTransition()
-    }
+//    (view.parent as? ViewGroup)?.doOnPreDraw {
+//      startPostponedEnterTransition()
+//    }
   }
 
   override fun onStart() {
@@ -117,15 +110,20 @@ class FeedFragment : Fragment(), NavigationControl {
    * @param state: view state
    */
   private fun render(state: FeedState) {
-    if (state.feedLoading || state.combined.isEmpty()) {
-      adapter.feed = List(7) { PostDataHolder(Option.empty(), Option.empty(), Option.empty()) }
-    } else {
-      if (state.feedError != null) {
-        adapter.feed = listOf(ErrorFeedDataHolder())
-      } else {
-        adapter.feed = state.combined.map { PostDataHolder(it.post.toOption(), it.user, it.avatar) }
-      }
+    (view as? ComposeView)?.apply {
+//      setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+      setContent { FeedUi(state = state) }
     }
+
+//    if (state.feedLoading || state.combined.isEmpty()) {
+//      adapter.feed = List(7) { PostDataHolder(Option.empty(), Option.empty(), Option.empty()) }
+//    } else {
+//      if (state.feedError != null) {
+//        adapter.feed = listOf(ErrorFeedDataHolder())
+//      } else {
+//        adapter.feed = state.combined.map { PostDataHolder(it.post.toOption(), it.user, it.avatar) }
+//      }
+//    }
   }
 
   /**

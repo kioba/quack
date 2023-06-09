@@ -3,9 +3,8 @@ package io.github.kioba.core
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
 
-class AppSchedulers @Inject constructor() : ISchedulers {
+class AppSchedulers constructor() : ISchedulers {
   override val io: Scheduler
     get() = Schedulers.io()
 
@@ -17,7 +16,7 @@ class AppSchedulers @Inject constructor() : ISchedulers {
 
 }
 
-class TestSchedulers @Inject constructor() : ISchedulers {
+class TestSchedulers constructor() : ISchedulers {
   override val io: Scheduler
     get() = Schedulers.trampoline()
 

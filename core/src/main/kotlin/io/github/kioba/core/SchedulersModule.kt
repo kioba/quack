@@ -1,10 +1,10 @@
 package io.github.kioba.core
 
-import dagger.Binds
 import dagger.Module
+import dagger.Provides
 
 @Module
-interface SchedulersModule {
-  @Binds
-  fun bindSchedulers(schedulers: AppSchedulers): ISchedulers
+class SchedulersModule {
+  @Provides
+  fun bindSchedulers(): ISchedulers = AppSchedulers()
 }

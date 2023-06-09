@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import dagger.android.AndroidInjection
 import io.github.kioba.core.execute
-import io.github.kioba.feed.FeedFragment
-import io.github.kioba.feed.MainNavigation
+import io.github.kioba.feed.ui.FeedFragment
+import io.github.kioba.feed.ui.MainNavigation
 
 class MainActivity : AppCompatActivity(), MainNavigation {
 

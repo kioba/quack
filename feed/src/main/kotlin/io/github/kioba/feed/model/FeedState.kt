@@ -1,4 +1,4 @@
-package io.github.kioba.feed.mvi_models
+package io.github.kioba.feed.model
 
 import arrow.core.Option
 import io.github.kioba.placeholder.post.Post

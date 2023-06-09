@@ -2,9 +2,11 @@ package io.github.kioba.feed
 
 import arrow.core.Option
 import io.github.kioba.core.TestSchedulers
-import io.github.kioba.feed.mvi_models.CombinedFeed
-import io.github.kioba.feed.mvi_models.FeedState
-import io.github.kioba.feed.mvi_models.InitialFeedIntent
+import io.github.kioba.feed.data.FeedActionProcessor
+import io.github.kioba.feed.data.FeedViewModel
+import io.github.kioba.feed.model.CombinedFeed
+import io.github.kioba.feed.model.FeedState
+import io.github.kioba.feed.model.InitialFeedIntent
 import io.github.kioba.placeholder.IPlaceholderSdk
 import io.github.kioba.placeholder.network.model.Geo
 import io.github.kioba.placeholder.post.Post

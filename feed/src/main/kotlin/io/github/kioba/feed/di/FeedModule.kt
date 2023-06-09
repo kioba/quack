@@ -1,4 +1,4 @@
-package io.github.kioba.feed
+package io.github.kioba.feed.di
 
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
@@ -11,8 +11,12 @@ import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
 import io.github.kioba.core.IActionProcessor
 import io.github.kioba.core.ViewModelKey
-import io.github.kioba.feed.mvi_models.FeedIntent
-import io.github.kioba.feed.mvi_models.FeedResult
+import io.github.kioba.feed.data.FeedViewModel
+import io.github.kioba.feed.data.FeedActionProcessor
+import io.github.kioba.feed.data.IFeedViewModel
+import io.github.kioba.feed.model.FeedIntent
+import io.github.kioba.feed.model.FeedResult
+import io.github.kioba.feed.ui.FeedFragment
 
 @Module(
   includes = [FeedModule.FeedProvider::class]

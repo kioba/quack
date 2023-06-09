@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.Module
 import dagger.Provides
 import io.github.kioba.detail.DetailModule
-import io.github.kioba.feed.FeedModule
+import io.github.kioba.feed.di.FeedModule
 import javax.inject.Provider
 import javax.inject.Singleton
 

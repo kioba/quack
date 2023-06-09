@@ -7,7 +7,27 @@ plugins {
 android {
   setCompileSdkVersion(33)
   namespace = "io.github.kioba.core"
+
+  kotlinOptions {
+    jvmTarget = JavaVersion.VERSION_11.toString()
+  }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+  }
+  sourceSets.map { it.java.srcDir("src/${it.name}/kotlin") }
+
 }
+
+
+kotlin {
+  jvmToolchain(11)
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.internal.KaptGenerateStubsTask>()
+  .configureEach {
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_11.toString()
+  }
 
 dependencies {
 

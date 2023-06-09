@@ -2,14 +2,13 @@ plugins {
   id("com.android.application")
   kotlin("android")
   kotlin("kapt")
-  id("kotlin-android-extensions")
 }
 android {
   namespace = "io.github.kioba.jsonplaceholder"
 
   setCompileSdkVersion(33)
   defaultConfig {
-    minSdk = AndroidVersions.minSDK
+    minSdk = libs.versions.minSdk.get().toInt()
     targetSdk = 33
     applicationId = "io.github.kioba.jsonplaceholder"
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -33,7 +32,15 @@ android {
     targetCompatibility = JavaVersion.VERSION_11
   }
 
+  kotlinOptions {
+    jvmTarget = JavaVersion.VERSION_11.toString()
+  }
+
   sourceSets.map { it.java.srcDir("src/${it.name}/kotlin") }
+}
+
+kotlin {
+  jvmToolchain(11)
 }
 
 dependencies {

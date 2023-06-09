@@ -1,10 +1,10 @@
-package io.github.kioba.feed.recycler_views
+package io.github.kioba.feed.views
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import io.github.kioba.core.BaseViewHolder
-import io.github.kioba.feed.recycler_views.FeedDataHolder.FeedViewType
-import io.github.kioba.feed.recycler_views.FeedDataHolder.FeedViewType.ErrorType
-import io.github.kioba.feed.recycler_views.FeedDataHolder.FeedViewType.PostType
+import io.github.kioba.feed.views.FeedDataHolder.FeedViewType
+import io.github.kioba.feed.views.FeedDataHolder.FeedViewType.ErrorType
+import io.github.kioba.feed.views.FeedDataHolder.FeedViewType.PostType
 
 typealias FeedViewHolder = BaseViewHolder<FeedDataHolder, NavigationControl>
 
