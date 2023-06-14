@@ -12,8 +12,12 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(
   ":app",
-  ":feed",
   ":core",
+  ":designSystem",
   ":detail",
+  ":domain:placeholder:fakes",
+  ":feed",
   ":placeholder",
+  ":platform:android-compose",
+  ":platform:test",
 )

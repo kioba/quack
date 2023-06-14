@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.internal.KaptGenerateStubsTask
+
 plugins {
   id("com.android.library")
   kotlin("android")
@@ -17,7 +19,7 @@ android {
   }
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.internal.KaptGenerateStubsTask>()
+tasks.withType<KaptGenerateStubsTask>()
   .configureEach {
     kotlinOptions.jvmTarget = JavaVersion.VERSION_11.toString()
   }

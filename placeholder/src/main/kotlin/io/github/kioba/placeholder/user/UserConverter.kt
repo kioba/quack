@@ -16,5 +16,5 @@ internal fun DatabaseUser.toModel(): User =
     id = id,
     name = name,
     username = username,
-    avatar = "https://api.adorable.io/avatars/134/$username"
+    avatar = "https://xsgames.co/randomusers/assets/avatars/male/5.jpg"
   )

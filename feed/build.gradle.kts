@@ -14,6 +14,7 @@ android {
 
   kotlinOptions {
     jvmTarget = JavaVersion.VERSION_11.toString()
+    freeCompilerArgs = listOf("-Xcontext-receivers")
   }
   compileOptions {
     sourceCompatibility = JavaVersion.VERSION_11
@@ -31,8 +32,12 @@ kotlin {
 
 dependencies {
   implementation(projects.core)
-  implementation(projects.placeholder)
+  implementation(projects.designSystem)
   implementation(projects.detail)
+  implementation(projects.domain.placeholder.fakes)
+  implementation(projects.placeholder)
+  implementation(projects.platform.androidCompose)
+  implementation(projects.platform.test)
 
   implementation(platform(libs.androidX.compose.bom))
   implementation(libs.bundles.compose)
@@ -65,6 +70,11 @@ dependencies {
   implementation(libs.arrow.extrasExtensions)
   implementation(libs.arrow.syntax)
   implementation(libs.arrow.typeclasses)
+
+  implementation(libs.architecture.anchor)
+  implementation(libs.kotlinX.coroutines.rx2)
+  implementation(libs.kotlinX.coroutines.core)
+  implementation(libs.kotlinX.coroutines.android)
 
   kapt(libs.androidX.lifecycle.compiler)
   kapt(libs.dagger.compiler)

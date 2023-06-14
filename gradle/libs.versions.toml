@@ -43,13 +43,16 @@ activity = "1.7.1"
 # compose
 composeBom = "2023.05.01"
 composeCompiler = "1.4.4"
-
+accompanist = "0.30.1"
 # di
 dagger = "2.22.1"
 
 # image loading
 picasso = "2.71828"
+coil = "2.4.0"
 
+# architecture
+anchor = "0.0.3"
 
 [libraries]
 build-android = { module = "com.android.tools.build:gradle", version.ref = "agp" }
@@ -145,7 +148,14 @@ androidX-compose-test-ui-manifest = { module = "androidx.compose.ui:ui-test-mani
 androidX-compose-tooling = { module = "androidx.compose.ui:ui-tooling" }
 androidX-compose-ui = { module = "androidx.compose.ui:ui" }
 androidX-compose-uiUtil = { module = "androidx.compose.ui:ui-util" }
+androidX-compose-accompanist = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
+androidX-compose-coil = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 
+architecture-anchor = { module = "dev.kioba:anchor", version.ref = "anchor" }
+
+kotlinX-coroutines-rx2 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-rx2" }
+kotlinX-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core" }
+kotlinX-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android" }
 
 [bundles]
 compose = [

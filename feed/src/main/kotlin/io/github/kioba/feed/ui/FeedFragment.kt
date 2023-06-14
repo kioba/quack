@@ -1,32 +1,20 @@
 package io.github.kioba.feed.ui
 
 import android.content.Context
-import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
-import androidx.interpolator.view.animation.FastOutSlowInInterpolator
-import androidx.transition.ChangeBounds
-import androidx.transition.ChangeImageTransform
-import androidx.transition.ChangeTransform
-import androidx.transition.Transition
-import androidx.transition.Transition.EpicenterCallback
-import androidx.transition.TransitionSet
 import dagger.android.support.AndroidSupportInjection
 import io.github.kioba.core.registerForDispose
-import io.github.kioba.core.setTransitionInterpolator
-import io.github.kioba.detail.DetailFragment
-import io.github.kioba.feed.SlideExplode
+import io.github.kioba.feed.data.FeedEffectsScope
 import io.github.kioba.feed.data.IFeedViewModel
 import io.github.kioba.feed.model.FeedIntent
 import io.github.kioba.feed.model.FeedState
 import io.github.kioba.feed.model.InitialFeedIntent
-import io.github.kioba.feed.views.FeedAdapter
-import io.github.kioba.feed.views.NavigationControl
-import io.github.kioba.placeholder.post.Post
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -36,14 +24,15 @@ interface MainNavigation {
   fun navigateToDetails(sharedElement: Pair<View, String>, fragment: Fragment)
 }
 
-class FeedFragment : Fragment(), NavigationControl {
-
-  private val adapter = FeedAdapter(this)
+class FeedFragment : Fragment() {
 
   private val disposables = CompositeDisposable()
 
   @Inject
   lateinit var viewModel: IFeedViewModel
+
+  @Inject
+  lateinit var effectsScope: FeedEffectsScope
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
@@ -61,26 +50,6 @@ class FeedFragment : Fragment(), NavigationControl {
     savedInstanceState: Bundle?,
   ): View =
     ComposeView(requireContext())
-
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-
-    postponeEnterTransition()
-
-//    (activity as? AppCompatActivity)?.setSupportActionBar(feed_toolbar)
-
-//    feed_recycler.layoutManager = LinearLayoutManager(requireContext())
-//    feed_recycler.adapter = adapter
-//    feed_recycler.addItemDecoration(DividerItemDecoration(requireContext(), VERTICAL))
-
-//    feed_bar.setNavigationOnClickListener {
-//      AboutBottomSheet().show(fragmentManager!!, "AboutBottomSheet")
-//    }
-
-//    (view.parent as? ViewGroup)?.doOnPreDraw {
-//      startPostponedEnterTransition()
-//    }
-  }
 
   override fun onStart() {
     super.onStart()
@@ -111,19 +80,9 @@ class FeedFragment : Fragment(), NavigationControl {
    */
   private fun render(state: FeedState) {
     (view as? ComposeView)?.apply {
-//      setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+      setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
       setContent { FeedUi(state = state) }
     }
-
-//    if (state.feedLoading || state.combined.isEmpty()) {
-//      adapter.feed = List(7) { PostDataHolder(Option.empty(), Option.empty(), Option.empty()) }
-//    } else {
-//      if (state.feedError != null) {
-//        adapter.feed = listOf(ErrorFeedDataHolder())
-//      } else {
-//        adapter.feed = state.combined.map { PostDataHolder(it.post.toOption(), it.user, it.avatar) }
-//      }
-//    }
   }
 
   /**
@@ -132,37 +91,5 @@ class FeedFragment : Fragment(), NavigationControl {
    */
   private fun streamError(error: Throwable) {
     throw error
-  }
-
-  override fun animateToDetail(post: Post, view: View, viewRect: Rect) {
-    exitTransition = SlideExplode().apply {
-      duration = transitionDuration
-      interpolator = transitionInterpolator
-      epicenterCallback = object : EpicenterCallback() {
-        override fun onGetEpicenter(transition: Transition) = viewRect
-      }
-    }
-
-    val sharedElementTransition = TransitionSet()
-      .addTransition(ChangeBounds())
-      .addTransition(ChangeTransform())
-      .addTransition(ChangeImageTransform()).apply {
-        duration = transitionDuration
-        setTransitionInterpolator(transitionInterpolator)
-      }
-
-    val fragment = DetailFragment.post(post)
-      .apply {
-        sharedElementEnterTransition = sharedElementTransition
-        sharedElementReturnTransition = sharedElementTransition
-      }
-
-    (activity as? MainNavigation)?.navigateToDetails(view to "transition_name", fragment)
-
-  }
-
-  companion object {
-    const val transitionDuration = 500L
-    val transitionInterpolator = FastOutSlowInInterpolator()
   }
 }

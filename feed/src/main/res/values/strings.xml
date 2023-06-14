@@ -1,7 +1,8 @@
 <resources>
 
-  <string name="app_name">JSONPlaceholder</string>
+  <string name="app_name">Quack</string>
   <string name="user_name_example">Rick Sanchez @Rick</string>
   <string name="post_title_example">I hate to break it to you</string>
   <string name="post_body_example">Listen Morty, I hate to break it to you, but what people calls “love” is just a chemical reaction that compels animals to breed. It hits hard, Morty, then it slowly fades, leaving you stranded in a failing marriage. I did it. Your parents are gonna do it. Break the cycle, Morty. Rise above. Focus on science.</string>
+    <string name="about_the_app_creator">about the app creator</string>
 </resources>

@@ -1,10 +1,9 @@
 package io.github.kioba.feed
 
-import arrow.core.Option
 import io.github.kioba.core.TestSchedulers
 import io.github.kioba.feed.data.FeedActionProcessor
 import io.github.kioba.feed.data.FeedViewModel
-import io.github.kioba.feed.model.CombinedFeed
+import io.github.kioba.feed.model.CombinedFeedItem
 import io.github.kioba.feed.model.FeedState
 import io.github.kioba.feed.model.InitialFeedIntent
 import io.github.kioba.placeholder.IPlaceholderSdk
@@ -76,7 +75,7 @@ class FeedViewModelTest {
       .assertValueAt(
         2, FeedState(
           feedLoading = false, feed = listOf(Post.testDefault), combined = listOf(
-            CombinedFeed(post = Post.testDefault, user = Option.empty(), avatar = Option.empty())
+            CombinedFeedItem(post = Post.testDefault, user = null, avatar = null)
           )
         )
       )

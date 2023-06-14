@@ -14,6 +14,17 @@ allprojects {
   repositories {
     google()
     mavenCentral()
+    maven {
+      url = uri("https://maven.pkg.github.com/kioba/anchor")
+      authentication {
+        create<BasicAuthentication>("basic")
+      }
+      credentials {
+        username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
+        password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
+      }
+    }
+
   }
 }
 
