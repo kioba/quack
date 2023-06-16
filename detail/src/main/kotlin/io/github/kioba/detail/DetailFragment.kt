@@ -174,7 +174,7 @@ class DetailFragment : Fragment() {
     private fun Bundle.putPost(post: Post) = this.apply {
       putString(bodyDescription, post.body)
       putInt(idDescription, post.id)
-      putInt(userIdDescription, post.userId)
+      putLong(userIdDescription, post.userId)
       putString(titleDescription, post.title)
     }
 
@@ -182,7 +182,7 @@ class DetailFragment : Fragment() {
       Post(
         body = getString(bodyDescription)!!,
         id = getInt(idDescription),
-        userId = getInt(userIdDescription),
+        userId = getLong(userIdDescription),
         title = getString(titleDescription)!!
       )
   }

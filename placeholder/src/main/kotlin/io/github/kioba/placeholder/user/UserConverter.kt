@@ -1,6 +1,6 @@
 package io.github.kioba.placeholder.user
 
-internal fun NetworkUser.toDatabase(): DatabaseUser =
+internal fun UserNetwork.toDatabase(): DatabaseUser =
   DatabaseUser(
     email = email,
     id = id,
@@ -13,7 +13,7 @@ internal fun NetworkUser.toDatabase(): DatabaseUser =
 internal fun DatabaseUser.toModel(): User =
   User(
     email = email,
-    id = id,
+    id = id.toLong(),
     name = name,
     username = username,
     avatar = "https://xsgames.co/randomusers/assets/avatars/male/5.jpg"

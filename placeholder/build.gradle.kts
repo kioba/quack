@@ -10,8 +10,13 @@ android {
   setCompileSdkVersion(33)
   namespace = "io.github.kioba.placeholder"
 
+  kotlin {
+    explicitApi()
+  }
+
   kotlinOptions {
     jvmTarget = JavaVersion.VERSION_11.toString()
+    freeCompilerArgs = freeCompilerArgs + "-Xcontext-receivers"
   }
   compileOptions {
     sourceCompatibility = JavaVersion.VERSION_11
@@ -27,6 +32,12 @@ tasks.withType<KaptGenerateStubsTask>()
 
 dependencies {
   implementation(projects.core)
+  implementation(projects.domain.placeholder.core)
+  implementation(projects.persistence.post)
+  implementation(projects.persistence.user)
+  implementation(projects.platform.database)
+  implementation(projects.platform.network)
+
 
   implementation(libs.androidX.appcompat)
   implementation(libs.androidX.coreKtx)
@@ -56,6 +67,9 @@ dependencies {
   androidTestImplementation(libs.androidTest.androidXTest.junit)
   androidTestImplementation(libs.androidTest.testRunner)
   androidTestImplementation(libs.androidTest.espresso)
+
+  implementation(libs.arrow.coreData)
+  implementation(libs.arrow.coreExtensions)
 
   implementation(libs.network.moshi.adapters)
   implementation(libs.network.moshi.core)

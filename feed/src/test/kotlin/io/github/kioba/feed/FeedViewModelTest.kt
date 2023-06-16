@@ -1,12 +1,11 @@
 package io.github.kioba.feed
 
 import io.github.kioba.core.TestSchedulers
-import io.github.kioba.feed.data.FeedActionProcessor
 import io.github.kioba.feed.data.FeedViewModel
 import io.github.kioba.feed.model.CombinedFeedItem
 import io.github.kioba.feed.model.FeedState
 import io.github.kioba.feed.model.InitialFeedIntent
-import io.github.kioba.placeholder.IPlaceholderSdk
+import io.github.kioba.placeholder.PlaceholderSdk
 import io.github.kioba.placeholder.network.model.Geo
 import io.github.kioba.placeholder.post.Post
 import io.github.kioba.placeholder.user.User
@@ -43,7 +42,7 @@ val User.Companion.testDefault
 
 class FeedViewModelTest {
 
-  private val sdk: IPlaceholderSdk = mockk()
+  private val sdk: PlaceholderSdk = mockk()
 
   private lateinit var viewModel: FeedViewModel
   private lateinit var testFlowable: TestSubscriber<FeedState>

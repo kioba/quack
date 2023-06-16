@@ -1,0 +1,15 @@
+CREATE TABLE userEntity  (
+    id INTEGER NOT NULL PRIMARY KEY,
+    username TEXT NOT NULL,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    avatar TEXT NOT NULL
+);
+
+selectAll:
+SELECT *
+FROM userEntity;
+
+insertUser:
+INSERT INTO userEntity(id, username, name, email, avatar)
+VALUES ?;

@@ -10,12 +10,7 @@ import io.github.kioba.placeholder.user.DatabaseUser
 import io.github.kioba.placeholder.user.UserDao
 
 @Database(entities = [DatabaseUser::class, DatabasePost::class], version = 1)
-internal abstract class PlaceholderDatabase : RoomDatabase() {
-
-  abstract fun userDao(): UserDao
-
-  abstract fun postDao(): PostDao
-
+internal abstract class PlaceholderDatabase : RoomDatabase(), DaoScope {
   companion object {
 
     @Volatile
@@ -37,4 +32,11 @@ internal abstract class PlaceholderDatabase : RoomDatabase() {
       )
         .build()
   }
+}
+
+interface DaoScope {
+  fun userDao(): UserDao
+
+  fun postDao(): PostDao
+
 }

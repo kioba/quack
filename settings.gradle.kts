@@ -1,4 +1,4 @@
-rootProject.name = "JsonPlaceholder"
+rootProject.name = "Quack"
 
 pluginManagement {
   repositories {
@@ -17,7 +17,13 @@ include(
   ":detail",
   ":domain:placeholder:fakes",
   ":feed",
+  ":persistence:post",
   ":placeholder",
   ":platform:android-compose",
+  ":platform:database",
+  ":platform:network",
   ":platform:test",
 )
+include(":platform:android-database")
+include(":persistence:user")
+include(":domain:placeholder:core")

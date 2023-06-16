@@ -9,6 +9,7 @@ android {
 
   kotlinOptions {
     jvmTarget = JavaVersion.VERSION_11.toString()
+    freeCompilerArgs = freeCompilerArgs + ("-Xcontext-receivers")
   }
   compileOptions {
     sourceCompatibility = JavaVersion.VERSION_11

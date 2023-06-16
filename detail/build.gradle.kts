@@ -12,7 +12,9 @@ android {
 
   kotlinOptions {
     jvmTarget = JavaVersion.VERSION_11.toString()
+    freeCompilerArgs = listOf("-Xcontext-receivers")
   }
+
   compileOptions {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
@@ -29,7 +31,8 @@ kotlin {
 dependencies {
   implementation(projects.core)
   implementation(projects.placeholder)
-
+  implementation(projects.platform.androidDatabase)
+  implementation(projects.platform.database)
 
   implementation(libs.androidX.appcompat)
   implementation(libs.androidX.coreKtx)

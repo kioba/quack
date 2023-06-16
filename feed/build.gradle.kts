@@ -34,9 +34,13 @@ dependencies {
   implementation(projects.core)
   implementation(projects.designSystem)
   implementation(projects.detail)
+  implementation(projects.domain.placeholder.core)
   implementation(projects.domain.placeholder.fakes)
   implementation(projects.placeholder)
   implementation(projects.platform.androidCompose)
+  implementation(projects.platform.androidDatabase)
+  implementation(projects.platform.database)
+  implementation(projects.platform.network)
   implementation(projects.platform.test)
 
   implementation(platform(libs.androidX.compose.bom))

@@ -1,0 +1,29 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
+
+plugins {
+  kotlin("jvm")
+}
+
+kotlin {
+  explicitApi()
+  jvmToolchain(JavaVersion.VERSION_11.toString().toInt())
+}
+
+tasks.named("compileKotlin", KotlinCompilationTask::class.java) {
+  compilerOptions {
+    freeCompilerArgs.add("-Xcontext-receivers")
+  }
+}
+
+java {
+  sourceCompatibility = JavaVersion.VERSION_11
+  targetCompatibility = JavaVersion.VERSION_11
+}
+
+dependencies {
+  implementation(libs.network.okhttp.loggingInterceptor)
+  implementation(libs.network.retrofit.core)
+  implementation(libs.network.retrofit.moshiConverter)
+  implementation(libs.network.retrofit.rxJavaAdapter)
+  implementation(libs.network.retrofit.scalarsConverter)
+}

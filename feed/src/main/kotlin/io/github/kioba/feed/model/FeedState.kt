@@ -16,7 +16,7 @@ data class FeedState(
   val usersLoading: Boolean = true,
   val feed: List<Post> = listOf(),
   val feedError: Throwable? = null,
-  val users: Map<Int, User> = mapOf(),
+  val users: Map<Long, User> = mapOf(),
   val userError: Throwable? = null,
   val combined: List<CombinedFeedItem> = listOf(),
 )

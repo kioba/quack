@@ -16,7 +16,7 @@ interface UserDao {
    * @return the user from the table with a specific id.
    */
   @Query("SELECT * FROM Users WHERE userid = :id")
-  fun getUserById(id: Int): Flowable<DatabaseUser>
+  fun getUserById(id: Long): Flowable<DatabaseUser>
 
   /**
    * Get all the users.
@@ -30,7 +30,7 @@ interface UserDao {
    * @return the user from the table with a specific id.
    */
   @Query("SELECT * FROM Users WHERE userid = :id")
-  fun getUserByIdMaybe(id: Int): Maybe<DatabaseUser>
+  fun getUserByIdMaybe(id: Long): Maybe<DatabaseUser>
 
   /**
    * Get all the users.

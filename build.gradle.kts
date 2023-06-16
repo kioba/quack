@@ -7,8 +7,11 @@ buildscript {
   dependencies {
     classpath(libs.build.android)
     classpath(libs.build.kotlin)
+
+    classpath(libs.database.gradlePlugin)
   }
 }
+
 
 allprojects {
   repositories {

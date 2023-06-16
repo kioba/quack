@@ -3,7 +3,7 @@ package io.github.kioba.detail
 import io.github.kioba.core.TestSchedulers
 import io.github.kioba.detail.mvi_models.DetailViewState
 import io.github.kioba.detail.mvi_models.InitialDetailIntent
-import io.github.kioba.placeholder.IPlaceholderSdk
+import io.github.kioba.placeholder.PlaceholderSdk
 import io.mockk.every
 import io.mockk.mockk
 import io.reactivex.Flowable
@@ -13,7 +13,7 @@ import org.junit.Test
 
 class DetailViewModelTest {
 
-  internal lateinit var sdk: IPlaceholderSdk
+  internal lateinit var sdk: PlaceholderSdk
 
   private lateinit var viewModel: DetailViewModel
   private lateinit var testSubscriber: TestSubscriber<DetailViewState>

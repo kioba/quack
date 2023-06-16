@@ -13,7 +13,7 @@ android {
 
   kotlinOptions {
     jvmTarget = JavaVersion.VERSION_11.toString()
-    freeCompilerArgs = listOf("-Xcontext-receivers")
+    freeCompilerArgs = freeCompilerArgs + "-Xcontext-receivers"
   }
 
   compileOptions {
@@ -34,4 +34,6 @@ kotlin {
 dependencies {
   implementation(platform(libs.androidX.compose.bom))
   implementation(libs.bundles.compose)
+  implementation(libs.architecture.anchor)
+  implementation("androidx.fragment:fragment-ktx:1.4.1")
 }

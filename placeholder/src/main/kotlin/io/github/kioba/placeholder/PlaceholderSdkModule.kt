@@ -1,33 +1,28 @@
 package io.github.kioba.placeholder
 
 import android.content.Context
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import io.github.kioba.placeholder.persistence.DaoScope
 import io.github.kioba.placeholder.persistence.PlaceholderDatabase
-import io.github.kioba.placeholder.post.IPostModule
-import io.github.kioba.placeholder.post.PostModule
-import io.github.kioba.placeholder.user.IUserModule
-import io.github.kioba.placeholder.user.UserModule
+import io.github.kioba.placeholder.post.PostDao
+import io.github.kioba.placeholder.user.UserDao
 
 @Module(includes = [DatabaseModule::class])
-interface PlaceholderSdkModule {
-  @Binds
-  fun bindUserModule(userModule: UserModule): IUserModule
-
-  @Binds
-  fun bindPostsModule(postModule: PostModule): IPostModule
-
-  @Binds
-  fun bindPlaceholderSdk(sdk: PlaceholderSdk): IPlaceholderSdk
-}
+interface PlaceholderSdkModule
 
 @Module
 class DatabaseModule {
   @Provides
-  fun provideUserDao(context: Context) = PlaceholderDatabase.getInstance(context).userDao()
+  fun provideDaoScope(context: Context): DaoScope =
+    PlaceholderDatabase.getInstance(context)
 
   @Provides
-  fun providePostDao(context: Context) = PlaceholderDatabase.getInstance(context).postDao()
+  fun provideUserDao(context: Context): UserDao =
+    PlaceholderDatabase.getInstance(context).userDao()
+
+  @Provides
+  fun providePostDao(context: Context): PostDao =
+    PlaceholderDatabase.getInstance(context).postDao()
 
 }

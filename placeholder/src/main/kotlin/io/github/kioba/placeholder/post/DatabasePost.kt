@@ -11,7 +11,7 @@ data class DatabasePost(
   val id: Int,
   val body: String,
   val title: String,
-  val userId: Int
+  val userId: Long,
 ) {
   companion object
 }

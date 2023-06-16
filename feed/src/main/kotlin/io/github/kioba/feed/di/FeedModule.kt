@@ -1,55 +1,13 @@
 package io.github.kioba.feed.di
 
-import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.android.ContributesAndroidInjector
-import dagger.multibindings.IntoMap
-import io.github.kioba.core.IActionProcessor
-import io.github.kioba.core.ViewModelKey
-import io.github.kioba.feed.data.FeedViewModel
-import io.github.kioba.feed.data.FeedActionProcessor
-import io.github.kioba.feed.data.IFeedViewModel
-import io.github.kioba.feed.model.FeedIntent
-import io.github.kioba.feed.model.FeedResult
 import io.github.kioba.feed.ui.FeedFragment
 
-@Module(
-  includes = [FeedModule.FeedProvider::class]
-)
+@Module
 interface FeedModule {
 
-  @ContributesAndroidInjector(modules = [(InjectViewModel::class)])
+  @ContributesAndroidInjector
   fun bindFeedFragment(): FeedFragment
-
-  @Module
-  class InjectViewModel {
-
-    @Provides
-    fun provideFeatureViewModel(
-      factory: ViewModelProvider.Factory,
-      target: FeedFragment
-    ): IFeedViewModel =
-      ViewModelProviders.of(
-        target.activity as FragmentActivity,
-        factory
-      ).get(FeedViewModel::class.java)
-  }
-
-  @Module
-  interface FeedProvider {
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(FeedViewModel::class)
-    fun provideFeedViewModel(feedViewModel: FeedViewModel): ViewModel
-
-    @Binds
-    fun bindFeedActionProcessor(feedActionProcessor: FeedActionProcessor): IActionProcessor<FeedIntent, FeedResult>
-  }
 
 }

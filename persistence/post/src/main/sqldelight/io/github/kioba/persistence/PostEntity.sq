@@ -1,0 +1,15 @@
+CREATE TABLE postEntity  (
+    id INTEGER NOT NULL PRIMARY KEY
+);
+
+selectAll:
+SELECT *
+FROM postEntity;
+
+insert:
+INSERT INTO postEntity(id)
+VALUES (?);
+
+insertPost:
+INSERT INTO postEntity(id)
+VALUES ?;
