@@ -1,15 +1,15 @@
 package io.github.kioba.placeholder.converter
 
+import io.github.kioba.network.user.model.UserResponse
 import io.github.kioba.persistence.UserEntity
-import io.github.kioba.placeholder.EntityConverter
-import io.github.kioba.placeholder.NetworkConverter
 import io.github.kioba.placeholder.user.User
-import io.github.kioba.placeholder.user.UserNetwork
+import io.github.kioba.platform.database.EntityConverter
+import io.github.kioba.platform.network.NetworkConverter
 
 object UserConverter :
-  NetworkConverter<User, UserNetwork>,
+  NetworkConverter<User, UserResponse>,
   EntityConverter<User, UserEntity> {
-  override fun UserNetwork.fromNetworkToDomain(): User =
+  override fun UserResponse.fromNetworkToDomain(): User =
     User(
       id = id.toLong(),
       username = username,

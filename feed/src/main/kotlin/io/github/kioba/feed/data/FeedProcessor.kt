@@ -8,10 +8,9 @@ import dev.kioba.anchor.dsl.reduce
 import io.github.kioba.feed.model.CombinedFeedItem
 import io.github.kioba.feed.model.FeedState
 import io.github.kioba.placeholder.PlaceholderSdk
-import io.github.kioba.placeholder.EffectScope
-import io.github.kioba.placeholder.buildEffects
-import io.github.kioba.placeholder.persistence.DaoScope
 import io.github.kioba.platform.database.DatabaseScope
+import io.github.kioba.platform.domain.DomainScope
+import io.github.kioba.platform.domain.buildDomain
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
@@ -23,7 +22,7 @@ internal typealias FeedScope = AnchorScope<FeedState, FeedEffectsScope>
 public class FeedEffectsScope(
   val sdk: PlaceholderSdk,
   databaseScope: DatabaseScope,
-) : EffectScope by buildEffects(databaseScope)
+) : DomainScope by buildDomain(databaseScope)
 
 internal fun feedScope(
   effectsScope: FeedEffectsScope,

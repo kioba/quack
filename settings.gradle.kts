@@ -15,15 +15,17 @@ include(
   ":core",
   ":designSystem",
   ":detail",
+  ":domain:placeholder:core",
   ":domain:placeholder:fakes",
   ":feed",
+  ":network:user",
   ":persistence:post",
+  ":persistence:user",
   ":placeholder",
   ":platform:android-compose",
+  ":platform:android-database",
   ":platform:database",
+  ":platform:domain",
   ":platform:network",
   ":platform:test",
 )
-include(":platform:android-database")
-include(":persistence:user")
-include(":domain:placeholder:core")

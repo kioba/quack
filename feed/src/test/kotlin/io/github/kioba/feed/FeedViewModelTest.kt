@@ -6,7 +6,7 @@ import io.github.kioba.feed.model.CombinedFeedItem
 import io.github.kioba.feed.model.FeedState
 import io.github.kioba.feed.model.InitialFeedIntent
 import io.github.kioba.placeholder.PlaceholderSdk
-import io.github.kioba.placeholder.network.model.Geo
+import io.github.kioba.network.user.model.Geo
 import io.github.kioba.placeholder.post.Post
 import io.github.kioba.placeholder.user.User
 import io.mockk.clearMocks
@@ -17,8 +17,8 @@ import io.reactivex.subscribers.TestSubscriber
 import org.junit.Before
 import org.junit.Test
 
-private val Geo.Companion.testDefault: Geo
-  get() = Geo(
+private val io.github.kioba.network.user.model.Geo.Companion.testDefault: io.github.kioba.network.user.model.Geo
+  get() = io.github.kioba.network.user.model.Geo(
     lat = "",
     lng = ""
   )

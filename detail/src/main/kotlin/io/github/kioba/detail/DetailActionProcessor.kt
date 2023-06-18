@@ -15,8 +15,8 @@ import io.github.kioba.detail.mvi_models.DetailUserLoading
 import io.github.kioba.detail.mvi_models.DetailUserSuccess
 import io.github.kioba.detail.mvi_models.InitialDetailIntent
 import io.github.kioba.placeholder.PlaceholderSdk
-import io.github.kioba.placeholder.EffectScope
-import io.github.kioba.placeholder.buildEffects
+import io.github.kioba.platform.domain.DomainScope
+import io.github.kioba.platform.domain.buildDomain
 import io.reactivex.Flowable
 import io.reactivex.FlowableTransformer
 import javax.inject.Inject
@@ -27,7 +27,7 @@ class DetailActionProcessor @Inject constructor(
   schedulers: ISchedulers,
   sdk: PlaceholderSdk,
   context: Context,
-) : EffectScope by buildEffects(buildDatabaseScope(context)), IDetailActionProcessor {
+) : DomainScope by buildDomain(buildDatabaseScope(context)), IDetailActionProcessor {
 
   private val loadComments = FlowableTransformer<InitialDetailIntent, DetailResult> {
     it.switchMap { initialIntent ->

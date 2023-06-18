@@ -41,6 +41,7 @@ dependencies {
   implementation(projects.platform.androidDatabase)
   implementation(projects.platform.database)
   implementation(projects.platform.network)
+  implementation(projects.platform.domain)
   implementation(projects.platform.test)
 
   implementation(platform(libs.androidX.compose.bom))

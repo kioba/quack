@@ -48,6 +48,7 @@ dependencies {
   implementation(projects.feed)
   implementation(projects.detail)
   implementation(projects.core)
+  implementation(projects.platform.domain)
   coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
 
   implementation(libs.androidX.appcompat)

@@ -14,8 +14,6 @@ data class DatabaseUser(
   val email: String,
   val phone: String,
   val website: String
-//  val address: DatabaseAddress,
-//  val company: DatabaseCompany
 ) {
   companion object
 }

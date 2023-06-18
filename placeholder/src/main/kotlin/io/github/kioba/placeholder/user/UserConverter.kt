@@ -1,6 +1,8 @@
 package io.github.kioba.placeholder.user
 
-internal fun UserNetwork.toDatabase(): DatabaseUser =
+import io.github.kioba.network.user.model.UserResponse
+
+internal fun UserResponse.toDatabase(): DatabaseUser =
   DatabaseUser(
     email = email,
     id = id,

@@ -33,6 +33,7 @@ dependencies {
   implementation(projects.placeholder)
   implementation(projects.platform.androidDatabase)
   implementation(projects.platform.database)
+  implementation(projects.platform.domain)
 
   implementation(libs.androidX.appcompat)
   implementation(libs.androidX.coreKtx)

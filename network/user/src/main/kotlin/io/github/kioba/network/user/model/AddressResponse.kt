@@ -1,11 +1,10 @@
-package io.github.kioba.placeholder.network.model
+package io.github.kioba.network.user.model
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import io.github.kioba.network.user.model.GeoResponse
 
 @JsonClass(generateAdapter = true)
-data class Address(
+public data class AddressResponse(
   @Json(name = "city")
   val city: String,
   @Json(name = "geo")

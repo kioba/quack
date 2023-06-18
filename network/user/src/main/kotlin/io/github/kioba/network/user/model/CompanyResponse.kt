@@ -1,10 +1,10 @@
-package io.github.kioba.placeholder.network.model
+package io.github.kioba.network.user.model
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class Company(
+public data class CompanyResponse(
   @Json(name = "bs")
   val bs: String,
   @Json(name = "catchPhrase")
