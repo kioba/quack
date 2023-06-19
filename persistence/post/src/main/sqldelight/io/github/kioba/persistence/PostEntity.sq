@@ -1,15 +1,14 @@
-CREATE TABLE postEntity  (
-    id INTEGER NOT NULL PRIMARY KEY
+CREATE TABLE postEntity (
+    id INTEGER NOT NULL PRIMARY KEY,
+    body TEXT NOT NULL,
+    title TEXT NOT NULL,
+    userId INTEGER NOT NULL
 );
 
 selectAll:
 SELECT *
 FROM postEntity;
 
-insert:
-INSERT INTO postEntity(id)
-VALUES (?);
-
 insertPost:
-INSERT INTO postEntity(id)
+INSERT INTO postEntity
 VALUES ?;

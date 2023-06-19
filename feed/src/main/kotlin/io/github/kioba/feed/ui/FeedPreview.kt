@@ -1,10 +1,10 @@
 package io.github.kioba.feed.ui
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import io.github.kioba.domain.placeholder.fakes.givenAvatar
-import io.github.kioba.domain.placeholder.fakes.givenPost
-import io.github.kioba.domain.placeholder.fakes.givenUser
-import io.github.kioba.domain.placeholder.fakes.givenUserId
+import io.github.kioba.domain.post.fakes.givenPost
+import io.github.kioba.domain.user.fakes.givenAvatar
+import io.github.kioba.domain.user.fakes.givenUser
+import io.github.kioba.domain.user.fakes.givenUserId
 import io.github.kioba.feed.model.CombinedFeedItem
 import io.github.kioba.feed.model.FeedState
 import io.github.kioba.platform.test.TestDataScope

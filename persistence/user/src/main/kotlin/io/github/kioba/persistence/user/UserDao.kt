@@ -1,30 +1,45 @@
 package io.github.kioba.persistence.user
 
+import com.squareup.sqldelight.runtime.coroutines.asFlow
+import com.squareup.sqldelight.runtime.coroutines.mapToList
 import io.github.kioba.persistence.UserDB
 import io.github.kioba.persistence.UserEntity
 import io.github.kioba.persistence.UserEntityQueries
 import io.github.kioba.platform.database.DatabaseScope
+import kotlinx.coroutines.flow.Flow
 
-context(DatabaseScope)
-  private fun <R> userDao(
+private object DB {
+  var query: UserEntityQueries? = null
+}
+
+private fun <R> DatabaseScope.userDao(
   f: UserEntityQueries.() -> R,
 ): R =
-  createDatabase(UserDB.Schema, UserDB::invoke)
-    .userEntityQueries
-    .f()
+  if (DB.query == null) {
+    DB.query = createDatabase(UserDB.Schema, UserDB::invoke)
+      .userEntityQueries
+    DB.query!!
+  } else {
+    DB.query!!
+  }.f()
 
-context(DatabaseScope)
-  public fun readUsers(): List<UserEntity> =
+public fun DatabaseScope.readUsers(): List<UserEntity> =
   userDao { selectAll().executeAsList() }
 
-context(DatabaseScope)
-  public fun insertUser(
+public fun DatabaseScope.readUser(
+  id: Long,
+): UserEntity? =
+  userDao { select(id).executeAsOneOrNull() }
+
+public fun DatabaseScope.streamUsers(): Flow<List<UserEntity>> =
+  userDao { selectAll().asFlow().mapToList() }
+
+public fun DatabaseScope.insertUser(
   user: UserEntity,
 ): Unit =
   userDao { insertUser(user) }
 
-context(DatabaseScope)
-  public fun insertUsers(
+public fun DatabaseScope.insertUsers(
   users: List<UserEntity>,
 ): Unit =
   userDao {

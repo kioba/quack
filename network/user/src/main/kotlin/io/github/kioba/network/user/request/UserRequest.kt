@@ -10,17 +10,17 @@ import retrofit2.http.Path
 internal interface PlaceholderUserApi {
 
   @GET("/users")
-  suspend fun fetchUsers(): Either<Throwable, List<UserResponse>>
+  suspend fun fetchUsers(): Either<String, List<UserResponse>>
 
   @GET("/users/{userId}")
   suspend fun fetchUser(
     @Path("userId") userId: Long,
-  ): Either<Throwable, UserResponse>
+  ): Either<String, UserResponse>
 }
-
 
 context(NetworkScope)
   internal inline fun <R> userRequest(
   block: PlaceholderUserApi.() -> R,
 ): R =
-  createApi<PlaceholderUserApi>().block()
+  createApi<PlaceholderUserApi>()
+    .block()

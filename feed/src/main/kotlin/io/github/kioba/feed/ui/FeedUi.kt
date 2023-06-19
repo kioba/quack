@@ -71,7 +71,8 @@ fun FeedContent(
   ) {
     itemsIndexed(
       items = state.combined,
-      key = { _, item -> item.post.id },
+      key = { _, item -> item.post.id.value },
+      contentType = { _, _ -> CombinedFeedItem::class }
     ) { index, item ->
       if (index != 0) {
         Gap(16.dp)
@@ -90,7 +91,7 @@ fun FeedContent(
 @OptIn(ExperimentalMaterial3Api::class)
 private fun FeedAppBar(state: FeedState) {
   TopAppBar(
-    navigationIcon = { ProfileButton(url = state.user.avatar) {} },
+    navigationIcon = { ProfileButton(url = state.user.avatar.value) {} },
     title = { AppBarTitle(StringsR.app_name.resolve()) },
     actions = { AboutButton(StringsR.about_the_app_creator.resolve()) }
   )
@@ -165,7 +166,7 @@ fun PostHeader(
       ?.let {
         Text(
           style = MaterialTheme.typography.titleMedium,
-          text = it.name,
+          text = it.name.value,
         )
       }
     Gap(4.dp)

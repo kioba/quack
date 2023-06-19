@@ -25,7 +25,5 @@ dependencies {
   implementation(projects.platform.network)
 
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
-  implementation(libs.arrow.coreData)
-  implementation(libs.arrow.coreExtensions)
-  implementation(libs.rx.java)
+  implementation(libs.arrow.core)
 }

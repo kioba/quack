@@ -7,6 +7,7 @@ android {
   namespace = "io.github.kioba.design.system"
   compileSdk = 33
 
+  @Suppress("UnstableApiUsage")
   buildFeatures {
     compose = true
   }
@@ -36,7 +37,6 @@ dependencies {
   implementation(libs.bundles.compose)
 
   implementation(libs.androidX.compose.coil)
-  implementation(libs.androidX.appcompat)
   implementation(libs.androidX.compose.accompanist)
 
   androidTestImplementation(libs.androidTest.androidXTest.core)

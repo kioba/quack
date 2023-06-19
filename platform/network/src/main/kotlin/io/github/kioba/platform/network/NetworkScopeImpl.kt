@@ -1,10 +1,11 @@
 package io.github.kioba.platform.network
 
+import arrow.retrofit.adapter.either.EitherCallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
 
 internal class NetworkScopeImpl : NetworkScope {
@@ -29,7 +30,8 @@ internal class NetworkScopeImpl : NetworkScope {
       .Builder()
       .baseUrl(api)
       .addConverterFactory(MoshiConverterFactory.create())
-      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .addConverterFactory(ScalarsConverterFactory.create())
+      .addCallAdapterFactory(EitherCallAdapterFactory.create())
       .client(okHttpClient)
       .build()
 

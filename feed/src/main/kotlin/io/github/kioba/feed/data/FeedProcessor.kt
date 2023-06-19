@@ -1,26 +1,22 @@
 package io.github.kioba.feed.data
 
-import android.util.Log
 import dev.kioba.anchor.AnchorScope
 import dev.kioba.anchor.anchorScope
+import dev.kioba.anchor.dsl.effect
 import dev.kioba.anchor.dsl.listen
 import dev.kioba.anchor.dsl.reduce
+import io.github.kioba.domain.post.api.syncPosts
+import io.github.kioba.domain.user.api.syncUsers
 import io.github.kioba.feed.model.CombinedFeedItem
 import io.github.kioba.feed.model.FeedState
-import io.github.kioba.placeholder.PlaceholderSdk
 import io.github.kioba.platform.database.DatabaseScope
 import io.github.kioba.platform.domain.DomainScope
 import io.github.kioba.platform.domain.buildDomain
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.reactive.asFlow
 
 
 internal typealias FeedScope = AnchorScope<FeedState, FeedEffectsScope>
 
 public class FeedEffectsScope(
-  val sdk: PlaceholderSdk,
   databaseScope: DatabaseScope,
 ) : DomainScope by buildDomain(databaseScope)
 
@@ -32,31 +28,19 @@ internal fun feedScope(
     effectScope = { effectsScope },
     init = { init() },
   ) {
-    listen {
-      sdk.getFeed()
-        .asFlow()
-        .combine(
-          sdk.getUsers()
-            .asFlow()
-            .map { it.associateBy { user -> user.id } }
-        ) { posts, userMap ->
-          posts.map { post ->
-            userMap[post.userId]
-              .let { user -> CombinedFeedItem(post, user, user?.avatar) }
-          }
-        }
-        .catch { Log.e("FeedError", it.toString()) }
-    }
-      .anchor<FeedScope, List<CombinedFeedItem>> { posts -> feedAnchor(posts) }
+    listen { combined() }
+      .anchor<FeedScope, List<CombinedFeedItem>> { updateFeed(it) }
   }
 
 context(FeedScope)
-  internal fun init() {
+  internal suspend fun init() {
   reduce { copy(feedLoading = true) }
+  effect { syncPosts() }
+  effect { syncUsers() }
 }
 
 context(FeedScope)
-  internal fun feedAnchor(
+  internal fun updateFeed(
   posts: List<CombinedFeedItem>,
 ) {
   reduce { loadedSuccessfully(posts) }

@@ -10,6 +10,11 @@ selectAll:
 SELECT *
 FROM userEntity;
 
+select:
+SELECT *
+FROM userEntity
+WHERE id = ?;
+
 insertUser:
 INSERT INTO userEntity(id, username, name, email, avatar)
 VALUES ?;

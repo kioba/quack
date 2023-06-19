@@ -1,14 +1,12 @@
 package io.github.kioba.platform.domain
 
 import arrow.core.Either
-import arrow.core.extensions.either.monad.flatten
-import arrow.core.left
-import arrow.core.right
+import arrow.core.flatten
 import io.github.kioba.platform.database.DatabaseScope
-import io.reactivex.Flowable
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.withContext
 
 
 public fun buildDomain(
@@ -22,33 +20,36 @@ public interface DomainScope {
   public val useCaseManager: UseCaseManager
 }
 
-context(DomainScope)
-  public inline fun <R> useCaseRaw(
-  f: UseCaseScope.() -> R,
-): Either<Throwable, R> =
-  useCaseManager.useCaseScope
-    .runCatching(f)
-    .fold(Either.Companion::right, Either.Companion::left)
+@Target(
+  AnnotationTarget.CLASS,
+  AnnotationTarget.FUNCTION,
+  AnnotationTarget.TYPEALIAS,
+  AnnotationTarget.TYPE
+)
+@DslMarker
+public annotation class DomainDsl
 
-context(DomainScope)
-  public inline fun <R> useCase(
-  f: UseCaseScope.() -> Either<Throwable, R>,
+@DomainDsl
+public suspend inline fun <R> DomainScope.useCaseRaw(
+  crossinline f: suspend UseCaseScope.() -> R,
+): Either<Throwable, R> =
+  Either.catch {
+    withContext(Dispatchers.IO) {
+      useCaseManager.useCaseScope.f()
+    }
+  }
+
+@DomainDsl
+public suspend inline fun <R> DomainScope.useCase(
+  crossinline f: suspend UseCaseScope.() -> Either<Throwable, R>,
 ): Either<Throwable, R> =
   useCaseRaw(f)
     .flatten()
 
-context(DomainScope)
-  public inline fun <R> useCaseFlow(
+@DomainDsl
+public inline fun <R> DomainScope.useCaseFlow(
   f: UseCaseScope.() -> Flow<R>,
-): Flow<Either<Throwable, R>> =
-  useCaseManager.useCaseScope.f()
-    .map { it.right() as Either<Throwable, R> }
-    .catch { emit(it.left()) }
-
-context(DomainScope)
-  public inline fun <R> useCaseFlowable(
-  f: UseCaseScope.() -> Flowable<R>,
-): Flowable<Either<Throwable, R>> =
-  useCaseManager.useCaseScope.f()
-    .map { it.right() as Either<Throwable, R> }
-    .onErrorReturn { it.left() }
+): Flow<R> =
+  useCaseManager.useCaseScope
+    .f()
+    .flowOn(Dispatchers.IO)

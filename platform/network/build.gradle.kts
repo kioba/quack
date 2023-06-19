@@ -21,9 +21,9 @@ java {
 }
 
 dependencies {
+  implementation(libs.arrow.retrofit)
   implementation(libs.network.okhttp.loggingInterceptor)
   implementation(libs.network.retrofit.core)
   implementation(libs.network.retrofit.moshiConverter)
-  implementation(libs.network.retrofit.rxJavaAdapter)
   implementation(libs.network.retrofit.scalarsConverter)
 }

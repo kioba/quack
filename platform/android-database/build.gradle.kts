@@ -28,5 +28,5 @@ kotlin {
 dependencies {
   implementation(projects.platform.database)
 
-  implementation(libs.database.android)
+  implementation(libs.database.driver.android)
 }

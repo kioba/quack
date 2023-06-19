@@ -1,16 +1,21 @@
 package io.github.kioba.feed.model
 
-import io.github.kioba.placeholder.post.Post
-import io.github.kioba.placeholder.user.User
+import io.github.kioba.domain.placeholder.user.model.Avatar
+import io.github.kioba.domain.placeholder.user.model.Email
+import io.github.kioba.domain.placeholder.user.model.Name
+import io.github.kioba.domain.placeholder.user.model.User
+import io.github.kioba.domain.placeholder.user.model.UserId
+import io.github.kioba.domain.placeholder.user.model.UserName
+import io.github.kioba.domain.post.api.model.Post
 
 
 data class FeedState(
   val user: User = User(
-    id = -1,
-    username = "scarlett_Y",
-    name = "Scarlett Ywett",
-    avatar = "https://xsgames.co/randomusers/assets/avatars/female/5.jpg",
-    email = "Scarlett@example.com"
+    id = UserId(-1),
+    username = UserName("scarlett_Y"),
+    name = Name("Scarlett Ywett"),
+    avatar = Avatar("https://xsgames.co/randomusers/assets/avatars/female/5.jpg"),
+    email = Email("Scarlett@example.com"),
   ),
   val feedLoading: Boolean = true,
   val usersLoading: Boolean = true,

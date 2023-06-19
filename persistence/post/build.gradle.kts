@@ -27,11 +27,9 @@ java {
   targetCompatibility = JavaVersion.VERSION_11
 }
 
-kotlin {
-  jvmToolchain(11)
-  explicitApi()
-}
-
 dependencies {
   implementation(projects.platform.database)
+
+  implementation(libs.database.driver.jvm)
+  implementation(libs.database.coroutines)
 }
