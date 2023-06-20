@@ -1,10 +1,10 @@
-package io.github.kioba.feed.data
+package io.github.kioba.feature.feed.data
 
 import io.github.kioba.domain.placeholder.user.model.User
 import io.github.kioba.domain.post.api.listenPosts
 import io.github.kioba.domain.post.api.model.Post
 import io.github.kioba.domain.user.api.listenUsers
-import io.github.kioba.feed.model.CombinedFeedItem
+import io.github.kioba.feature.feed.model.CombinedFeedItem
 import io.github.kioba.platform.domain.DomainScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine

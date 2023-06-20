@@ -2,7 +2,7 @@ package io.github.kioba.jsonplaceholder
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import io.github.kioba.feed.ui.FeedFragment
+import io.github.kioba.feature.feed.ui.FeedFragment
 
 class MainActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {

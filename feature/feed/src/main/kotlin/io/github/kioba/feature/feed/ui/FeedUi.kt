@@ -1,4 +1,4 @@
-package io.github.kioba.feed.ui
+package io.github.kioba.feature.feed.ui
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
@@ -36,9 +36,9 @@ import io.github.kioba.design.system.component.Gap
 import io.github.kioba.design.system.post.PostItem
 import io.github.kioba.design.system.theme.SetSystemStyle
 import io.github.kioba.design.system.theme.appBarTitle
-import io.github.kioba.feed.model.CombinedFeedItem
-import io.github.kioba.feed.model.FeedState
-import io.github.kioba.feed.model.StringsR
+import io.github.kioba.feature.feed.model.CombinedFeedItem
+import io.github.kioba.feature.feed.model.FeedState
+import io.github.kioba.feature.feed.model.StringsR
 import io.github.kioba.platform.android.compose.resolve
 
 @Composable

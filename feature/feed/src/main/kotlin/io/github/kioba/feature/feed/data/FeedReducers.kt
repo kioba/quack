@@ -1,7 +1,7 @@
-package io.github.kioba.feed.data
+package io.github.kioba.feature.feed.data
 
-import io.github.kioba.feed.model.CombinedFeedItem
-import io.github.kioba.feed.model.FeedState
+import io.github.kioba.feature.feed.model.CombinedFeedItem
+import io.github.kioba.feature.feed.model.FeedState
 
 internal fun FeedState.loadedSuccessfully(
   posts: List<CombinedFeedItem>,

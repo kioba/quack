@@ -1,4 +1,4 @@
-package io.github.kioba.feed.model
+package io.github.kioba.feature.feed.model
 
 import io.github.kioba.domain.placeholder.user.model.Avatar
 import io.github.kioba.domain.placeholder.user.model.Email

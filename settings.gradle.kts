@@ -17,7 +17,7 @@ include(
   ":domain:post:fakes",
   ":domain:user:api",
   ":domain:user:fakes",
-  ":feed",
+  ":feature:feed",
   ":network:post",
   ":network:user",
   ":persistence:post",

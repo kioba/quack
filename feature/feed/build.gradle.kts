@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-  namespace = "io.github.kioba.feed"
+  namespace = "io.github.kioba.feature.feed"
   setCompileSdkVersion(33)
 
   @Suppress("UnstableApiUsage")
