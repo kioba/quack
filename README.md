@@ -1,6 +1,7 @@
 # Quack
 
-[![Build Status](https://app.bitrise.io/app/a1660eb3576f70bc/status.svg?token=08K5XLMEus93LhPxqI1NLA&branch=master)](https://app.bitrise.io/app/a1660eb3576f70bc)
+![GitHub](https://img.shields.io/github/license/kioba/quack)
+![Release](https://img.shields.io/github/v/release/kioba/quack)
 
 ## Project
  
@@ -37,9 +38,13 @@
 
 ## MVI
 
-The Architecture is based on [Benoît Quenaudon -oldergod-](https://github.com/oldergod) talk at  at droidcon NYC 2017.
-The Architecture follows the well know MVI structure, you can read and watch more about the pattern 
-on [youtube](https://youtu.be/64rQ9GKphTg) or oldergod's MVI [repository](https://github.com/oldergod/android-architecture).
+The Architecture base on my Context Receivers based MVI architecture for Kotlin and Compose applications [⚓️ Anchor](https://github.com/kioba/anchor).
+
+Anchor 
+
+## ViewModel
+
+
 
 ## Modules
 The project is using a feature based module structure. Because Google deprecated the `com.android.feature` gradle module
@@ -50,16 +55,41 @@ The reason behind the library based module are that it introduces the module con
 With the approach the dependency injection and code visibility is straight forward whereas in a dynamic feature module 
 these concept can increase the development time.
 ### modules graph:
-```text
-       { app }
-          |
-     |==========|
- { detail } { posts }
-     |          |
-     |==========|
-          |
-       { core }
+
+```mermaid
+graph TD;
+    app-->feature:feed;
+
+    domain:user:api-->network:user;
+    domain:user:api-->persistence:user;
+    domain:user:api-->platform:domain;
+    domain:user:fakes-->domain:user:api;
+    
+    domain:post:api-->platform:domain;
+    domain:post:api-->network:post;
+    domain:post:api-->persistence:post;
+    domain:post:fakes-->domain:post:api;
+
+    feature:feed-->domain:user:fakes;
+    feature:feed-->domain:user:api;
+    feature:feed-->domain:post:fakes;
+    feature:feed-->domain:post:api;
+    feature:feed-->platform:android-database;
+    feature:feed-->platform:android-compose;
+    feature:feed-->platform:test;
+
+    persistence:user-->platform:database;
+    persistence:post-->platform:database;
+
+    network:post-->platform:network;
+    network:user-->platform:network;
+
+    platform:domain-->platform:network;
+    platform:domain-->platform:database;
+
+    platform:android-database-->platform:database;
 ```
+
 ## Proguard
 
 Proguard file is applied based on [Jemshit Iskenderov](https://gist.github.com/jemshit) [gist](https://gist.github.com/jemshit/767ab25a9670eb0083bafa65f8d786bb).
