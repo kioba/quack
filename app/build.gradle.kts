@@ -3,21 +3,19 @@ plugins {
   kotlin("android")
 }
 android {
-  namespace = "io.github.kioba.jsonplaceholder"
+  namespace = "io.github.kioba.quack"
 
   setCompileSdkVersion(33)
   defaultConfig {
     minSdk = libs.versions.minSdk.get().toInt()
     targetSdk = 33
-    applicationId = "io.github.kioba.jsonplaceholder"
+    applicationId = "io.github.kioba.quack"
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
 
   buildTypes {
     getByName("release") {
       isMinifyEnabled = true
-      @Suppress("UnstableApiUsage")
-      proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
     }
 
     getByName("debug") {

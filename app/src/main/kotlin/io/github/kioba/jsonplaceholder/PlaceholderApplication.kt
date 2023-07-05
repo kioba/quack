@@ -1,4 +1,4 @@
-package io.github.kioba.jsonplaceholder
+package io.github.kioba.quack
 
 import android.app.Application
 

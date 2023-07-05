@@ -1,4 +1,4 @@
-package io.github.kioba.jsonplaceholder
+package io.github.kioba.quack
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
