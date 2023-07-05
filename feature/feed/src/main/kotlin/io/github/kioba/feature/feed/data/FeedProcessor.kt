@@ -2,6 +2,7 @@ package io.github.kioba.feature.feed.data
 
 import dev.kioba.anchor.AnchorScope
 import dev.kioba.anchor.anchorScope
+import dev.kioba.anchor.dsl.Anchor
 import dev.kioba.anchor.dsl.effect
 import dev.kioba.anchor.dsl.listen
 import dev.kioba.anchor.dsl.reduce
@@ -29,7 +30,7 @@ internal fun feedScope(
     init = { init() },
   ) {
     listen { combined() }
-      .anchor<FeedScope, List<CombinedFeedItem>> { updateFeed(it) }
+      .anchorWith<FeedScope, List<CombinedFeedItem>> { Anchor { updateFeed(it) } }
   }
 
 context(FeedScope)

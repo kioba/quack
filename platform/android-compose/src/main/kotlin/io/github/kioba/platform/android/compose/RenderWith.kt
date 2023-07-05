@@ -4,15 +4,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import dev.kioba.anchor.AnchorScope
-import dev.kioba.anchor.compose.RememberAnchorScope
+import dev.kioba.anchor.compose.RememberAnchor
 
-public inline fun <reified C : AnchorScope<S, *>, S> Fragment.renderWith(
+public inline fun <reified C : AnchorScope<S, E>, reified S, E> Fragment.renderWith(
   noinline scope: () -> C,
-  crossinline content: @Composable (S) -> Unit,
+  noinline content: @Composable (S) -> Unit,
 ): ComposeView =
   ComposeView(requireContext())
     .apply {
       setContent {
-        RememberAnchorScope(scope, content)
+        RememberAnchor(
+          scope = scope,
+          content = content,
+        )
       }
     }

@@ -3,7 +3,6 @@ package io.github.kioba.platform.domain
 import arrow.core.Either
 import arrow.core.recover
 import io.github.kioba.platform.database.DatabaseScope
-import io.github.kioba.platform.database.EntityConverter
 import io.github.kioba.platform.network.NetworkConverter
 import io.github.kioba.platform.network.NetworkScope
 import kotlinx.coroutines.flow.Flow
@@ -39,12 +38,11 @@ context (UseCaseScope)
     .onRight { insert(databaseManager.databaseScope, it) }
     .recover { read(databaseManager.databaseScope).bind() }
 
-context (EntityConverter<R, E>)
-  @DomainDsl
-  public inline fun <R, E> UseCaseScope.cacheOnlyStrategy(
-  read: @DomainDsl DatabaseScope.() -> E,
+@DomainDsl
+public inline fun <R> UseCaseScope.cacheOnlyStrategy(
+  read: @DomainDsl DatabaseScope.() -> R,
 ): R =
-  read(databaseManager.databaseScope).fromEntityToDomain()
+  read(databaseManager.databaseScope)
 
 @DomainDsl
 public inline fun <R> UseCaseScope.cacheOnlyFlowableStrategy(

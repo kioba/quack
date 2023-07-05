@@ -20,11 +20,6 @@ java {
   targetCompatibility = JavaVersion.VERSION_11
 }
 
-kotlin {
-  jvmToolchain(11)
-  explicitApi()
-}
-
 dependencies {
   implementation(projects.network.user)
   implementation(projects.persistence.user)

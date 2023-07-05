@@ -7,6 +7,7 @@ android {
   namespace = "io.github.kioba.platform.android.compose"
   compileSdk = 33
 
+  @Suppress("UnstableApiUsage")
   buildFeatures {
     compose = true
   }
@@ -35,5 +36,5 @@ dependencies {
   implementation(platform(libs.androidX.compose.bom))
   implementation(libs.bundles.compose)
   implementation(libs.architecture.anchor)
-  implementation("androidx.fragment:fragment-ktx:1.4.1")
+  implementation(libs.androidX.fragment)
 }

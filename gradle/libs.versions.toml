@@ -33,13 +33,14 @@ composeBom = "2023.05.01"
 composeCompiler = "1.4.4"
 accompanist = "0.30.1"
 activity = "1.7.1"
+appcompat = "1.6.1"
 fragment = "1.6.0"
 
 # image loading
 coil = "2.4.0"
 
 # architecture
-anchor = "0.0.3"
+anchor = "0.0.4"
 
 [libraries]
 build-android = { module = "com.android.tools.build:gradle", version.ref = "agp" }
@@ -93,7 +94,9 @@ androidX-compose-tooling = { module = "androidx.compose.ui:ui-tooling" }
 androidX-compose-ui = { module = "androidx.compose.ui:ui" }
 androidX-compose-uiUtil = { module = "androidx.compose.ui:ui-util" }
 androidX-fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "fragment" }
+androidX-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 
+# architecture
 architecture-anchor = { module = "dev.kioba:anchor", version.ref = "anchor" }
 
 # coroutine

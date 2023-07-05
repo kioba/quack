@@ -45,7 +45,9 @@ kotlin {
 dependencies {
   implementation(projects.feature.feed)
   implementation(projects.platform.domain)
-  implementation("androidx.appcompat:appcompat:1.6.1")
+
+  implementation(libs.androidX.appcompat)
+
   coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
 
   testImplementation(libs.test.mockK)
