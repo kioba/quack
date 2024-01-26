@@ -16,17 +16,17 @@ dependencies {
 tasks.withType<KotlinCompile>()
   .configureEach {
     kotlinOptions {
-      jvmTarget = JavaVersion.VERSION_11.toString()
+      jvmTarget = JavaVersion.VERSION_17.toString()
       freeCompilerArgs = listOf("-Xcontext-receivers")
     }
     sourceSets.map { it.java.srcDir("src/${it.name}/kotlin") }
   }
 tasks.withType<JavaCompile>()
   .configureEach {
-    sourceCompatibility = JavaVersion.VERSION_11.toString()
-    targetCompatibility = JavaVersion.VERSION_11.toString()
+    sourceCompatibility = JavaVersion.VERSION_17.toString()
+    targetCompatibility = JavaVersion.VERSION_17.toString()
   }
 tasks.withType<KaptGenerateStubsTask>()
   .configureEach {
-    kotlinOptions.jvmTarget = JavaVersion.VERSION_11.toString()
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_17.toString()
   }

@@ -1,6 +1,8 @@
 package io.github.kioba.feature.feed.ui
 
 import android.content.res.Configuration
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -41,10 +43,13 @@ import io.github.kioba.feature.feed.model.FeedState
 import io.github.kioba.feature.feed.model.StringsR
 import io.github.kioba.platform.android.compose.resolve
 
+@RequiresApi(Build.VERSION_CODES.FROYO)
 @Composable
 @Preview(name = "Light Mode")
 @Preview(
   name = "Dark Mode",
+  showSystemUi = true,
+  apiLevel = 34,
   uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 fun FeedUi(

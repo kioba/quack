@@ -7,19 +7,18 @@ android {
   namespace = "io.github.kioba.platform.android.compose"
   compileSdk = 33
 
-  @Suppress("UnstableApiUsage")
   buildFeatures {
     compose = true
   }
 
   kotlinOptions {
-    jvmTarget = JavaVersion.VERSION_11.toString()
+    jvmTarget = JavaVersion.VERSION_17.toString()
     freeCompilerArgs = freeCompilerArgs + "-Xcontext-receivers"
   }
 
   compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
   }
 
   composeOptions {

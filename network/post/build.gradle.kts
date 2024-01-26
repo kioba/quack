@@ -7,7 +7,7 @@ plugins {
 
 kotlin {
   explicitApi()
-  jvmToolchain(JavaVersion.VERSION_11.toString().toInt())
+  jvmToolchain(JavaVersion.VERSION_17.toString().toInt())
 }
 
 tasks.named("compileKotlin", KotlinCompilationTask::class.java) {
@@ -18,8 +18,8 @@ tasks.named("compileKotlin", KotlinCompilationTask::class.java) {
 
 
 java {
-  sourceCompatibility = JavaVersion.VERSION_11
-  targetCompatibility = JavaVersion.VERSION_11
+  sourceCompatibility = JavaVersion.VERSION_17
+  targetCompatibility = JavaVersion.VERSION_17
 }
 
 dependencies {

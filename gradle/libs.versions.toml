@@ -1,24 +1,25 @@
 [versions]
 buildToolsVersion = "33.0.0"
 compileSdkString = "33"
+desugar_jdk_libs = "2.0.4"
 minSdk = "21"
 targetSdkString = "33"
 
 # development
-agp = "8.0.2"
+agp = "8.2.2"
 kotlin = "1.8.10"
 androidExperimental = "0.11.1"
 
 # lib versions
-androidXTest = "1.1.0"
-espresso = "3.1.1"
-junit4 = "4.12"
+androidXTest = "1.5.0"
+espresso = "3.5.1"
+junit4 = "4.13.2"
 mockK = "1.13.5"
-testRunner = "1.1.1"
+testRunner = "1.5.2"
 
 # network
 moshi = "1.14.0"
-okHttp = "4.10.0"
+okHttp = "4.11.0"
 retrofit = "2.9.0"
 
 # arrow
@@ -29,12 +30,12 @@ arrowRetrofit = "0.13.2"
 sqlDelight = "1.5.4"
 
 # compose
-composeBom = "2023.05.01"
+composeBom = "2024.01.00"
 composeCompiler = "1.4.4"
 accompanist = "0.30.1"
-activity = "1.7.1"
+activity = "1.8.2"
 appcompat = "1.6.1"
-fragment = "1.6.0"
+fragment = "1.6.2"
 
 # image loading
 coil = "2.4.0"
@@ -49,6 +50,7 @@ build-android-gradleExperimental = { module = "com.android.tools.build:gradle-ex
 build-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 
 # network
+desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
 network-moshi-adapters = { module = "com.squareup.moshi:moshi-adapters", version.ref = "moshi" }
 network-moshi-core = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
 network-moshi-kotlinCodeGen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }

@@ -8,14 +8,24 @@ import io.github.kioba.domain.user.fakes.givenUserId
 import io.github.kioba.platform.test.TestDataScope
 
 context(TestDataScope)
-  public fun givenPost(): Post =
+public fun givenPost(
+  postId: PostId = givenPostIdOne(),
+): Post =
   Post(
     body = givenPostBody(),
-    id = givenPostId(),
+    id = postId,
     title = givenPostTitle(),
     userId = givenUserId(),
   )
 
 context(TestDataScope)
-  public fun givenPostId(): PostId =
+public fun givenPostIdOne(): PostId =
   PostId(1)
+
+context(TestDataScope)
+public fun givenPostIdTwo(): PostId =
+  PostId(2)
+
+context(TestDataScope)
+public fun givenPostIdThree(): PostId =
+  PostId(3)

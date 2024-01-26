@@ -2,6 +2,9 @@ package io.github.kioba.feature.feed.ui
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import io.github.kioba.domain.post.fakes.givenPost
+import io.github.kioba.domain.post.fakes.givenPostIdOne
+import io.github.kioba.domain.post.fakes.givenPostIdThree
+import io.github.kioba.domain.post.fakes.givenPostIdTwo
 import io.github.kioba.domain.user.fakes.givenAvatar
 import io.github.kioba.domain.user.fakes.givenUser
 import io.github.kioba.domain.user.fakes.givenUserId
@@ -22,9 +25,9 @@ class FeedPreview : PreviewParameterProvider<FeedState> {
     FeedState(
       feedLoading = false,
       feed = listOf(
-        givenPost(),
-        givenPost(),
-        givenPost(),
+        givenPost(givenPostIdOne()),
+        givenPost(givenPostIdTwo()),
+        givenPost(givenPostIdThree()),
       ),
       usersLoading = false,
       users = mapOf(
@@ -32,17 +35,17 @@ class FeedPreview : PreviewParameterProvider<FeedState> {
       ),
       combined = listOf(
         CombinedFeedItem(
-          post = givenPost(),
+          post = givenPost(givenPostIdOne()),
           user = givenUser(),
           avatar = givenAvatar().value,
         ),
         CombinedFeedItem(
-          post = givenPost(),
+          post = givenPost(givenPostIdTwo()),
           user = givenUser(),
           avatar = givenAvatar().value,
         ),
         CombinedFeedItem(
-          post = givenPost(),
+          post = givenPost(givenPostIdThree()),
           user = givenUser(),
           avatar = givenAvatar().value,
         ),

@@ -5,10 +5,10 @@ plugins {
 android {
   namespace = "io.github.kioba.quack"
 
-  setCompileSdkVersion(33)
+  setCompileSdkVersion(34)
   defaultConfig {
     minSdk = libs.versions.minSdk.get().toInt()
-    targetSdk = 33
+    targetSdk = 34
     applicationId = "io.github.kioba.quack"
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
@@ -25,12 +25,12 @@ android {
 
   compileOptions.apply {
     isCoreLibraryDesugaringEnabled = true
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
   }
 
   kotlinOptions {
-    jvmTarget = JavaVersion.VERSION_11.toString()
+    jvmTarget = JavaVersion.VERSION_17.toString()
   }
 
   sourceSets.map { it.java.srcDir("src/${it.name}/kotlin") }
@@ -46,7 +46,7 @@ dependencies {
 
   implementation(libs.androidX.appcompat)
 
-  coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
+  coreLibraryDesugaring(libs.desugar.jdk.libs)
 
   testImplementation(libs.test.mockK)
   testImplementation(libs.test.junit4)
