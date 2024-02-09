@@ -1,4 +1,4 @@
-rootProject.name = "Quack"
+rootProject.name = "quack"
 
 pluginManagement {
   repositories {

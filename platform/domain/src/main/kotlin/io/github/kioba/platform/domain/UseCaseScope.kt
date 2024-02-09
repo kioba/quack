@@ -28,8 +28,8 @@ public class UseCaseScope(
 )
 
 context (UseCaseScope)
-  @DomainDsl
-  public inline fun <E, R> syncFirstStrategy(
+@DomainDsl
+public inline fun <E, R> syncFirstStrategy(
   sync: @DomainDsl NetworkScope.() -> Either<E, R>,
   insert: @DomainDsl DatabaseScope.(R) -> Unit,
   read: @DomainDsl DatabaseScope.() -> Either<E, R>,
@@ -51,8 +51,8 @@ public inline fun <R> UseCaseScope.cacheOnlyFlowableStrategy(
   read(databaseManager.databaseScope)
 
 context (NetworkConverter<R, N>)
-  @DomainDsl
-  public inline fun <R, N> UseCaseScope.networkOnlyStrategy(
+@DomainDsl
+public inline fun <R, N> UseCaseScope.networkOnlyStrategy(
   sync: @DomainDsl NetworkScope.() -> Either<Throwable, N>,
 ): Either<Throwable, R> =
   sync(networkManager.networkScope)

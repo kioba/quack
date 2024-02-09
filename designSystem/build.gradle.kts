@@ -27,7 +27,6 @@ android {
 }
 
 kotlin {
-  jvmToolchain(11)
   explicitApi()
 }
 

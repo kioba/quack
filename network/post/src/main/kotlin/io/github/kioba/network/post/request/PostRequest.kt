@@ -14,7 +14,7 @@ internal interface PostApi {
 
 
 context(NetworkScope)
-  internal inline fun <R> postRequest(
+internal inline fun <R> postRequest(
   block: PostApi.() -> R,
 ): R =
   createApi<PostApi>().block()

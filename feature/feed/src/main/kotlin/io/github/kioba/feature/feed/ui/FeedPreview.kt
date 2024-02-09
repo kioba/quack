@@ -21,7 +21,7 @@ class FeedPreview : PreviewParameterProvider<FeedState> {
   }
 
   context(TestDataScope)
-    private fun defaultState(): FeedState =
+  private fun defaultState(): FeedState =
     FeedState(
       feedLoading = false,
       feed = listOf(

@@ -15,7 +15,7 @@ private object DB {
 private fun <R> DatabaseScope.postDao(
   f: PostEntityQueries.() -> R,
 ): R =
-  if(DB.query == null) {
+  if (DB.query == null) {
     DB.query = createDatabase(PostDB.Schema, PostDB::invoke)
       .postEntityQueries
     DB.query!!
@@ -43,4 +43,3 @@ public fun DatabaseScope.insertPosts(
     }
   }
 }
-

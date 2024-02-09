@@ -9,28 +9,28 @@ import io.github.kioba.domain.placeholder.user.model.UserName
 import io.github.kioba.platform.test.TestDataScope
 
 context(TestDataScope)
-  public fun givenUserId(): UserId =
+public fun givenUserId(): UserId =
   UserId(1)
 
 context(TestDataScope)
-  public fun givenName(): Name =
+public fun givenName(): Name =
   Name("John Doe")
 
 context(TestDataScope)
-  public fun givenEmail(): Email =
+public fun givenEmail(): Email =
   Email("JohnDoe@example.com")
 
 context(TestDataScope)
-  public fun givenAvatar(): Avatar =
+public fun givenAvatar(): Avatar =
   Avatar("https://via.placeholder.com/150/56a8c2")
 
 
 context(TestDataScope)
-  public fun givenUserName(): UserName =
+public fun givenUserName(): UserName =
   UserName("john_doe")
 
 context(TestDataScope)
-  public fun givenUser(): User =
+public fun givenUser(): User =
   User(
     id = givenUserId(),
     username = givenUserName(),
@@ -40,11 +40,11 @@ context(TestDataScope)
   )
 
 context(TestDataScope)
-  public fun givenPostTitle(): String =
+public fun givenPostTitle(): String =
   "Lorem ipsum dolor sit amet"
 
 context(TestDataScope)
-  public fun givenPostBody(): String =
+public fun givenPostBody(): String =
   "Vivamus convallis massa nec nisl vehicula efficitur. " +
     "Mauris a semper nibh, sed pellentesque neque. " +
     "Proin nec consectetur magna. " +

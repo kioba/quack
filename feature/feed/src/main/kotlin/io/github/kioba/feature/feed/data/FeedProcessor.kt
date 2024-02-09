@@ -34,14 +34,14 @@ internal fun feedScope(
   }
 
 context(FeedScope)
-  internal suspend fun init() {
+internal suspend fun init() {
   reduce { copy(feedLoading = true) }
   effect { syncPosts() }
   effect { syncUsers() }
 }
 
 context(FeedScope)
-  internal fun updateFeed(
+internal fun updateFeed(
   posts: List<CombinedFeedItem>,
 ) {
   reduce { loadedSuccessfully(posts) }

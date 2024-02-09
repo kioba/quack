@@ -19,7 +19,7 @@ internal interface PlaceholderUserApi {
 }
 
 context(NetworkScope)
-  internal inline fun <R> userRequest(
+internal inline fun <R> userRequest(
   block: PlaceholderUserApi.() -> R,
 ): R =
   createApi<PlaceholderUserApi>()

@@ -10,13 +10,13 @@ import io.github.kioba.network.user.model.UserResponse
 import io.github.kioba.persistence.UserEntity
 
 internal fun UserResponse.toDomain(): User =
-    User(
-      id = UserId(id),
-      username = UserName(username),
-      name = Name(name),
-      email = Email(email),
-      avatar = Avatar("https://xsgames.co/randomusers/assets/avatars/male/5.jpg"),
-    )
+  User(
+    id = UserId(id),
+    username = UserName(username),
+    name = Name(name),
+    email = Email(email),
+    avatar = Avatar("https://xsgames.co/randomusers/assets/avatars/male/5.jpg"),
+  )
 
 
 internal fun UserEntity.toDomain(): User =
