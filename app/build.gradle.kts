@@ -24,7 +24,7 @@ android {
   }
 
   compileOptions.apply {
-//    isCoreLibraryDesugaringEnabled = true
+    isCoreLibraryDesugaringEnabled = true
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
   }
