@@ -1,16 +1,15 @@
 plugins {
   id("com.android.library")
   kotlin("android")
-  id("com.squareup.sqldelight")
+  id("app.cash.sqldelight")
 }
 
 android {
-  namespace = "io.github.kioba.platform.database"
+  namespace = "dev.kioba.platform.database"
   compileSdk = 33
 
   kotlinOptions {
     jvmTarget = JavaVersion.VERSION_17.toString()
-    freeCompilerArgs = freeCompilerArgs + "-Xcontext-receivers"
   }
 
   compileOptions {

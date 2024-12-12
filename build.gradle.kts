@@ -1,3 +1,9 @@
+plugins {
+  alias(libs.plugins.jetbrainsCompose) apply false
+  alias(libs.plugins.composeCompiler) apply false
+  id("com.google.devtools.ksp") version "2.1.0-1.0.29" apply false
+}
+
 buildscript {
   repositories {
     google()

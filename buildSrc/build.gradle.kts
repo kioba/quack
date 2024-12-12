@@ -17,7 +17,6 @@ tasks.withType<KotlinCompile>()
   .configureEach {
     kotlinOptions {
       jvmTarget = JavaVersion.VERSION_17.toString()
-      freeCompilerArgs = listOf("-Xcontext-receivers")
     }
     sourceSets.map { it.java.srcDir("src/${it.name}/kotlin") }
   }

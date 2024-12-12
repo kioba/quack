@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
   kotlin("jvm")
-  id("com.squareup.sqldelight")
+  id("app.cash.sqldelight")
 }
 
 kotlin {
@@ -10,15 +10,14 @@ kotlin {
   jvmToolchain(JavaVersion.VERSION_17.toString().toInt())
 }
 
-tasks.named("compileKotlin", KotlinCompilationTask::class.java) {
-  compilerOptions {
-    freeCompilerArgs.add("-Xcontext-receivers")
-  }
+kotlin {
+  explicitApi()
 }
-
 sqldelight {
-  database("UserDB") {
-    packageName = "io.github.kioba.persistence"
+  databases {
+    create("UserDB") {
+      packageName = "io.github.kioba.persistence"
+    }
   }
 }
 

@@ -1,10 +1,12 @@
 plugins {
   id("com.android.library")
   kotlin("android")
+  alias(libs.plugins.jetbrainsCompose)
+  alias(libs.plugins.composeCompiler)
 }
 
 android {
-  namespace = "io.github.kioba.platform.android.compose"
+  namespace = "dev.kioba.platform.android.compose"
   compileSdk = 33
 
   buildFeatures {
@@ -13,7 +15,6 @@ android {
 
   kotlinOptions {
     jvmTarget = JavaVersion.VERSION_17.toString()
-    freeCompilerArgs = freeCompilerArgs + "-Xcontext-receivers"
   }
 
   compileOptions {
@@ -21,9 +22,6 @@ android {
     targetCompatibility = JavaVersion.VERSION_17
   }
 
-  composeOptions {
-    kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
-  }
 }
 
 kotlin {

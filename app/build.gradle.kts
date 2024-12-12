@@ -3,13 +3,13 @@ plugins {
   kotlin("android")
 }
 android {
-  namespace = "io.github.kioba.quack"
+  namespace = "dev.kioba.quack"
 
-  setCompileSdkVersion(34)
   defaultConfig {
-    minSdk = libs.versions.minSdk.get().toInt()
+    minSdk = 21 // libs.versions.minSdk.get().toInt()
+    compileSdk = 34
     targetSdk = 34
-    applicationId = "io.github.kioba.quack"
+    applicationId = "dev.kioba.quack"
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
 
@@ -24,7 +24,7 @@ android {
   }
 
   compileOptions.apply {
-    isCoreLibraryDesugaringEnabled = true
+//    isCoreLibraryDesugaringEnabled = true
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
   }
