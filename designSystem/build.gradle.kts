@@ -1,28 +1,22 @@
 plugins {
   id("com.android.library")
   kotlin("android")
+  alias(libs.plugins.jetbrainsCompose)
+  alias(libs.plugins.composeCompiler)
+
 }
 
 android {
-  namespace = "io.github.kioba.design.system"
-  compileSdk = 33
-
-  buildFeatures {
-    compose = true
-  }
+  namespace = "dev.kioba.design.system"
+  compileSdk = libs.versions.compileSdk.get().toInt()
 
   kotlinOptions {
     jvmTarget = JavaVersion.VERSION_17.toString()
-    freeCompilerArgs = listOf("-Xcontext-receivers")
   }
 
   compileOptions {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
-  }
-
-  composeOptions {
-    kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
   }
 }
 

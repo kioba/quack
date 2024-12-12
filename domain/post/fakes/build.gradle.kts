@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
-
 plugins {
   kotlin("jvm")
 }
@@ -7,12 +5,6 @@ plugins {
 kotlin {
   explicitApi()
   jvmToolchain(JavaVersion.VERSION_17.toString().toInt())
-}
-
-tasks.named("compileKotlin", KotlinCompilationTask::class.java) {
-  compilerOptions {
-    freeCompilerArgs.add("-Xcontext-receivers")
-  }
 }
 
 java {

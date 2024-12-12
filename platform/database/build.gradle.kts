@@ -1,6 +1,6 @@
 plugins {
   kotlin("jvm")
-  id("com.squareup.sqldelight")
+  id("app.cash.sqldelight")
 }
 
 kotlin {

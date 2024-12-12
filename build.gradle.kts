@@ -1,3 +1,9 @@
+plugins {
+  alias(libs.plugins.jetbrainsCompose) apply false
+  alias(libs.plugins.composeCompiler) apply false
+  alias(libs.plugins.ksp) apply false
+}
+
 buildscript {
   repositories {
     google()
@@ -32,5 +38,5 @@ allprojects {
 }
 
 tasks.register<Delete>("clean") {
-  delete(rootProject.buildDir)
+  delete(rootProject.layout.buildDirectory)
 }

@@ -1,8 +1,6 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
-
 plugins {
   kotlin("jvm")
-  id("com.squareup.sqldelight")
+  id("app.cash.sqldelight")
 }
 
 kotlin {
@@ -11,15 +9,15 @@ kotlin {
 }
 
 sqldelight {
-  database("PostDB") {
-    packageName = "io.github.kioba.persistence"
+  databases {
+    create("PostDB") {
+      packageName = "io.github.kioba.persistence"
+    }
   }
 }
 
-tasks.named("compileKotlin", KotlinCompilationTask::class.java) {
-  compilerOptions {
-    freeCompilerArgs.add("-Xcontext-receivers")
-  }
+kotlin {
+  explicitApi()
 }
 
 java {
