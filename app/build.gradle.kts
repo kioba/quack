@@ -6,9 +6,9 @@ android {
   namespace = "dev.kioba.quack"
 
   defaultConfig {
-    minSdk = 21 // libs.versions.minSdk.get().toInt()
-    compileSdk = 34
-    targetSdk = 34
+    minSdk = libs.versions.minSdk.get().toInt()
+    compileSdk = libs.versions.compileSdk.get().toInt()
+    targetSdk = libs.versions.targetSdk.get().toInt()
     applicationId = "dev.kioba.quack"
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }

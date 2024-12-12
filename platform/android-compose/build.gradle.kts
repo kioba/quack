@@ -7,11 +7,7 @@ plugins {
 
 android {
   namespace = "dev.kioba.platform.android.compose"
-  compileSdk = 33
-
-  buildFeatures {
-    compose = true
-  }
+  compileSdk = libs.versions.compileSdk.get().toInt()
 
   kotlinOptions {
     jvmTarget = JavaVersion.VERSION_17.toString()

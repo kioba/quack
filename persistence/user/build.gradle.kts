@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
-
 plugins {
   kotlin("jvm")
   id("app.cash.sqldelight")

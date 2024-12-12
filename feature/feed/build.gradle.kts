@@ -8,7 +8,7 @@ plugins {
 
 android {
   namespace = "dev.kioba.feature.feed"
-  compileSdk = 34
+  compileSdk = libs.versions.compileSdk.get().toInt()
 
   kotlinOptions {
     jvmTarget = JavaVersion.VERSION_17.toString()

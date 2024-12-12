@@ -1,14 +1,14 @@
 [versions]
-buildToolsVersion = "33.0.0"
-compileSdkString = "33"
 desugar_jdk_libs = "2.1.3"
 minSdk = "21"
-targetSdkString = "33"
+compileSdk = "34"
+targetSdk = "34"
 
 # development
 agp = "8.2.2"
 kotlin = "2.1.0"
-androidExperimental = "0.11.1"
+kotlinCoroutines = "1.7.1"
+ksp = "2.1.0-1.0.29"
 
 # lib versions
 androidXTest = "1.5.0"
@@ -43,22 +43,22 @@ coil = "2.4.0"
 
 # architecture
 anchor = "0.0.6"
-media3CommonKtx = "1.5.0"
 
 [plugins]
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqlDelight" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 [libraries]
 build-android = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 build-android-gradleApi = { module = "com.android.tools.build:gradle-api", version.ref = "agp" }
-build-android-gradleExperimental = { module = "com.android.tools.build:gradle-experimental", version.ref = "androidExperimental" }
 build-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 
 # network
 desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
+jetbrains-kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinCoroutines" }
 network-moshi-adapters = { module = "com.squareup.moshi:moshi-adapters", version.ref = "moshi" }
 network-moshi-core = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
 network-moshi-kotlinCodeGen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }
@@ -119,7 +119,6 @@ database-driver-android = { module = "app.cash.sqldelight:android-driver", versi
 database-driver-jvm = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqlDelight" }
 database-gradlePlugin = { module = "app.cash.sqldelight:gradle-plugin", version.ref = "sqlDelight" }
 database-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqlDelight" }
-media3-common-ktx = { group = "androidx.media3", name = "media3-common-ktx", version.ref = "media3CommonKtx" }
 
 [bundles]
 compose = [
