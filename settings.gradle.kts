@@ -26,7 +26,7 @@ dependencyResolutionManagement {
         create<BasicAuthentication>("basic")
       }
       credentials {
-        username = getProperty("gpr.user") ?: System.getenv("USERNAME")
+        username = getProperty("gpr.usr") ?: System.getenv("USERNAME")
         password = getProperty("gpr.key") ?: System.getenv("TOKEN")
       }
     }
