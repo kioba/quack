@@ -88,7 +88,7 @@ To build and run the app locally create a github classic token with `read:packag
 provide the key within `~/.gradle/gradle.properties` as following:
 
 ```
-gpr.usr=<github_username>
+gpr.user=<github_username>
 gpr.key=<github_token>
 ```
 
