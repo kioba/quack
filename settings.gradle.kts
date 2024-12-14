@@ -23,7 +23,7 @@ dependencyResolutionManagement {
     maven {
       url = uri("https://maven.pkg.github.com/kioba/anchor")
       credentials {
-        username = getProperty("gpr.usr") ?: System.getenv("USERNAME")
+        username = getProperty("gpr.user") ?: System.getenv("USERNAME")
         password = getProperty("gpr.key") ?: System.getenv("TOKEN")
       }
     }
