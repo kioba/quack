@@ -1,20 +1,19 @@
-rootProject.name = "buildSrc"
+rootProject.name = "convention-plugins"
 
 pluginManagement {
   repositories {
-    mavenCentral()
     google()
+    mavenCentral()
     gradlePluginPortal()
   }
 }
 
 @Suppress("UnstableApiUsage")
 dependencyResolutionManagement {
-  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-
+  @Suppress("UnstableApiUsage")
   repositories {
-    mavenCentral()
     google()
+    mavenCentral()
     gradlePluginPortal()
   }
 
