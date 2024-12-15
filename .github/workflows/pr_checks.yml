@@ -25,4 +25,7 @@ jobs:
           cache: 'gradle'
 
       - name: run tests
+        env:
+          USERNAME: ${{ secrets.GH_USER_PACKAGE_READ }}
+          TOKEN: ${{ secrets.GH_TOKEN_PACKAGE_READ }}
         run: ./gradlew check --no-daemon
