@@ -1,5 +1,3 @@
-import java.lang.System.getProperty
-
 rootProject.name = "quack"
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
@@ -23,8 +21,8 @@ dependencyResolutionManagement {
     maven {
       url = uri("https://maven.pkg.github.com/kioba/anchor")
       credentials {
-        username = getProperty("gpr.user") ?: System.getenv("USERNAME")
-        password = getProperty("gpr.key") ?: System.getenv("TOKEN")
+        username = providers.gradleProperty("gpr.user").orNull ?: System.getenv("GITHUB_ACTOR")
+        password = providers.gradleProperty("gpr.key").orNull ?: System.getenv("TOKEN")
       }
     }
   }
