@@ -1,6 +1,8 @@
 plugins {
   id("com.android.application")
   kotlin("android")
+  alias(libs.plugins.jetbrainsCompose)
+  alias(libs.plugins.composeCompiler)
 }
 android {
   namespace = "dev.kioba.quack"
@@ -41,15 +43,18 @@ kotlin {
 }
 
 dependencies {
+  implementation(libs.foundation.layout.android)
+  coreLibraryDesugaring(libs.desugar.jdk.libs)
+
+  implementation(libs.androidX.activity)
+  implementation(libs.androidX.appcompat)
+  implementation(libs.androidX.compose.activity)
   implementation(projects.feature.feed)
   implementation(projects.platform.domain)
 
-  implementation(libs.androidX.appcompat)
-
-  coreLibraryDesugaring(libs.desugar.jdk.libs)
-
   testImplementation(libs.test.mockK)
   testImplementation(libs.test.junit4)
+
   androidTestImplementation(libs.androidTest.androidXTest.core)
   androidTestImplementation(libs.androidTest.androidXTest.junit)
   androidTestImplementation(libs.androidTest.testRunner)
