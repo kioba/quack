@@ -3,7 +3,6 @@ plugins {
   kotlin("android")
   alias(libs.plugins.jetbrainsCompose)
   alias(libs.plugins.composeCompiler)
-
 }
 
 android {
