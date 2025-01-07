@@ -12,25 +12,25 @@ import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.Test
-
-internal typealias FeedAnchorTestScope = AnchorTestScope<FeedEffects, FeedState>
-
-class FeedAnchorTest {
-  @Test
-  fun test() =
-    runAnchorTest<FeedEffects, FeedState> {
+//
+//internal typealias FeedAnchorTestScope = AnchorTestScope<FeedEffects, FeedState>
+//
+//class FeedAnchorTest {
+//  @Test
+//  fun test() =
+//    runAnchorTest<FeedEffects, FeedState> {
 //      val networkScope: NetworkScope = mockk()
 //      given("postApi") {
 //        initialState { FeedState() }
 //        effectScope { FeedEffects(mockk(), networkScope) }
-//        effect { syncPosts() }
+////        effect { syncPosts() }
 //      }
-//
-//      on("initial called", ::init)
-//
-//      verify("loading state and data fetch") {
-//        assertState { copy(feedLoading = true) }
-//
-//      }
-    }
-}
+////
+////      on("initial called", ::init)
+////
+////      verify("loading state and data fetch") {
+////        assertState { copy(feedLoading = true) }
+////
+////      }
+//    }
+//}
