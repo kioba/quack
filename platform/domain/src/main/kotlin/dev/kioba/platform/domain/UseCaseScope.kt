@@ -9,9 +9,10 @@ import kotlinx.coroutines.flow.Flow
 
 public fun buildUseCaseManager(
   databaseScope: DatabaseScope,
+  networkScope: NetworkScope,
 ): UseCaseManager =
   UseCaseManager(
-    useCaseScope = UseCaseScope(NetworkManager(), DatabaseManager(databaseScope)),
+    useCaseScope = UseCaseScope(NetworkManager(networkScope), DatabaseManager(databaseScope)),
   )
 
 public class UseCaseManager internal constructor(
