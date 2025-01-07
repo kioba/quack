@@ -9,7 +9,7 @@ import dev.kioba.network.post.fetchPosts
 import dev.kioba.persistence.post.insertPosts
 import dev.kioba.persistence.post.readPosts
 import dev.kioba.persistence.post.streamPosts
-import dev.kioba.platform.domain.DomainScope
+import dev.kioba.platform.domain.EffectContext
 import dev.kioba.platform.domain.UseCaseScope
 import dev.kioba.platform.domain.cacheOnlyFlowableStrategy
 import dev.kioba.platform.domain.syncFirstStrategy
@@ -20,17 +20,17 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 
 
-public suspend fun DomainScope.syncPosts(): Either<Throwable, List<Post>> =
-  useCase { repository() }
+public suspend fun EffectContext.syncPosts(): Either<Throwable, List<Post>> =
+  useCase { fetchAndSavePosts() }
 
-private suspend fun UseCaseScope.repository() =
+private suspend fun UseCaseScope.fetchAndSavePosts(): Either<Throwable, List<Post>> =
   syncFirstStrategy(
     sync = { fetchPosts().map { it.map { response -> response.toDomain() } } },
     insert = { insertPosts(it.map { post -> post.toEntity() }) },
     read = { readPosts().map { it.toDomain() }.right() },
   )
 
-public fun DomainScope.listenPosts(): Flow<List<Post>> =
+public fun EffectContext.listenPosts(): Flow<List<Post>> =
   useCaseFlow {
     cacheOnlyFlowableStrategy {
       streamPosts()

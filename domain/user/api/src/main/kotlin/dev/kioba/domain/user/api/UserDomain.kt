@@ -13,7 +13,7 @@ import dev.kioba.persistence.user.insertUsers
 import dev.kioba.persistence.user.readUser
 import dev.kioba.persistence.user.readUsers
 import dev.kioba.persistence.user.streamUsers
-import dev.kioba.platform.domain.DomainScope
+import dev.kioba.platform.domain.EffectContext
 import dev.kioba.platform.domain.cacheOnlyFlowableStrategy
 import dev.kioba.platform.domain.syncFirstStrategy
 import dev.kioba.platform.domain.useCase
@@ -21,7 +21,7 @@ import dev.kioba.platform.domain.useCaseFlow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-public suspend fun DomainScope.syncUsers(): Either<Throwable, List<User>> =
+public suspend fun EffectContext.syncUsers(): Either<Throwable, List<User>> =
   useCase {
     syncFirstStrategy(
       sync = { fetchUsers().map { it.map { user -> user.toDomain() } } },
@@ -30,7 +30,7 @@ public suspend fun DomainScope.syncUsers(): Either<Throwable, List<User>> =
     )
   }
 
-public suspend fun DomainScope.syncUser(
+public suspend fun EffectContext.syncUser(
   userId: UserId,
 ): Either<Throwable, User?> =
   useCase {
@@ -41,7 +41,7 @@ public suspend fun DomainScope.syncUser(
     )
   }
 
-public fun DomainScope.listenUsers(): Flow<List<User>> =
+public fun EffectContext.listenUsers(): Flow<List<User>> =
   useCaseFlow {
     cacheOnlyFlowableStrategy { streamUsers() }
       .map { it.map { entity -> entity.toDomain() } }
