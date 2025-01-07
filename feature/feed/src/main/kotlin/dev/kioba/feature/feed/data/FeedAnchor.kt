@@ -1,5 +1,6 @@
 package dev.kioba.feature.feed.data
 
+import arrow.core.raise.either
 import dev.kioba.anchor.Anchor
 import dev.kioba.anchor.AnchorOf
 import dev.kioba.anchor.Created
@@ -12,15 +13,17 @@ import dev.kioba.domain.user.api.syncUsers
 import dev.kioba.feature.feed.model.CombinedFeedItem
 import dev.kioba.feature.feed.model.FeedState
 import dev.kioba.platform.database.DatabaseScope
-import dev.kioba.platform.domain.DomainScope
-import dev.kioba.platform.domain.buildDomain
+import dev.kioba.platform.domain.EffectContext
+import dev.kioba.platform.domain.buildEffectContext
+import dev.kioba.platform.network.NetworkScope
 
 
 internal typealias FeedAnchor = Anchor<FeedEffects, FeedState>
 
 public class FeedEffects(
   databaseScope: DatabaseScope,
-) : DomainScope by buildDomain(databaseScope), Effect
+  networkScope: NetworkScope,
+) : EffectContext by buildEffectContext(databaseScope, networkScope), Effect
 
 internal fun feedAnchor(
   effectsScope: FeedEffects,
@@ -38,14 +41,23 @@ internal fun feedAnchor(
 
 internal fun init(): AnchorOf<FeedAnchor> =
   anchorScope {
-    reduce { copy(feedLoading = true) }
-    effect { syncPosts() }
-    effect { syncUsers() }
+    either {
+      effect {
+        syncPosts()
+          .onLeft { throwable -> reduce { fetchFeedFailed(throwable) } }
+          .bind()
+      }
+      effect {
+        syncUsers()
+          .onLeft { throwable -> reduce { fetchUserFailed(throwable) } }
+          .bind()
+      }
+    }
   }
 
 internal fun updateFeed(
   posts: List<CombinedFeedItem>,
 ): AnchorOf<FeedAnchor> =
   anchorScope {
-    reduce { loadedSuccessfully(posts) }
+    reduce { fetchFeedSucceeded(posts) }
   }

@@ -6,7 +6,7 @@ import dev.kioba.platform.network.buildNetworkScope
 
 public class NetworkManager(
   @PublishedApi
-  internal val networkScope: NetworkScope = buildNetworkScope(),
+  internal val networkScope: NetworkScope,
 )
 
 public class DatabaseManager internal constructor(

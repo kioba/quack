@@ -115,6 +115,7 @@ androidX-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "a
 
 # architecture
 architecture-anchor = { module = "dev.kioba:anchor", version.ref = "anchor" }
+architecture-anchorTest = { module = "dev.kioba:anchor-test", version.ref = "anchor" }
 
 # coroutine
 kotlinX-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core" }

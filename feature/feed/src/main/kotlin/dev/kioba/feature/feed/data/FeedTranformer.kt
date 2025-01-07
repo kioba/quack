@@ -5,7 +5,7 @@ import dev.kioba.domain.post.api.listenPosts
 import dev.kioba.domain.post.api.model.Post
 import dev.kioba.domain.user.api.listenUsers
 import dev.kioba.feature.feed.model.CombinedFeedItem
-import dev.kioba.platform.domain.DomainScope
+import dev.kioba.platform.domain.EffectContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 
@@ -18,6 +18,6 @@ internal fun toCombinedFeedItem(
     CombinedFeedItem(it, user, user?.avatar?.value)
   }
 
-internal fun DomainScope.combined(): Flow<List<CombinedFeedItem>> =
+internal fun EffectContext.combined(): Flow<List<CombinedFeedItem>> =
   listenPosts()
     .combine(listenUsers(), ::toCombinedFeedItem)
