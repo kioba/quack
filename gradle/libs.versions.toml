@@ -14,7 +14,7 @@ ksp = "2.1.0-1.0.29"
 # lib versions
 androidXTest = "1.5.0"
 androidXJunit = "1.2.1"
-espresso = "3.5.1"
+espresso = "3.6.1"
 junit4 = "4.13.2"
 mockK = "1.13.5"
 testRunner = "1.5.2"
