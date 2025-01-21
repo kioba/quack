@@ -19,7 +19,7 @@ androidXJunit = "1.2.1"
 espresso = "3.6.1"
 junit4 = "4.13.2"
 mockK = "1.13.5"
-testRunner = "1.5.2"
+testRunner = "1.6.2"
 
 # network
 moshi = "1.15.2"
