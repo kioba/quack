@@ -6,10 +6,12 @@ compileSdk = "34"
 targetSdk = "34"
 
 # development
-agp = "8.2.2"
+agp = "8.8.0"
 kotlin = "2.1.0"
 kotlinCoroutines = "1.7.1"
 ksp = "2.1.0-1.0.29"
+
+screenshot = "0.0.1-alpha07"
 
 # lib versions
 androidXTest = "1.5.0"
@@ -43,7 +45,7 @@ fragment = "1.8.5"
 coil = "2.7.0"
 
 # architecture
-anchor = "0.0.6"
+anchor = "0.0.7"
 foundationLayoutAndroid = "1.7.6"
 
 [plugins]
@@ -54,6 +56,7 @@ kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref =
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqlDelight" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+screenshot = { id = "com.android.compose.screenshot", version.ref = "screenshot"}
 
 [libraries]
 

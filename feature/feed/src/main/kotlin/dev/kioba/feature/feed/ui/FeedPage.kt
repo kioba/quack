@@ -18,6 +18,6 @@ private fun FeedEffects(context: Context): FeedEffects =
 @Composable
 public fun ComponentActivity.FeedPage() {
   RememberAnchor(
-    scope = { feedAnchor(FeedEffects(this)) },
+    scope = { feedAnchor(FeedEffects(this@FeedPage)) },
   ) { state -> FeedUi(state = state) }
 }
