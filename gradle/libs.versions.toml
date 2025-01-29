@@ -14,7 +14,7 @@ ksp = "2.1.0-1.0.29"
 screenshot = "0.0.1-alpha07"
 
 # lib versions
-androidXTest = "1.5.0"
+androidXTest = "1.6.1"
 androidXJunit = "1.2.1"
 espresso = "3.6.1"
 junit4 = "4.13.2"
