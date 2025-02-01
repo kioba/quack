@@ -60,6 +60,8 @@ jobs:
           name: "snapshot test"
           path: "**/build/test-results/**/*.xml"
           reporter: java-junit
+          token: ${{ secrets.GH_TOKEN_PACKAGE_READ }}
+
 
       - name: "upload artifacts"
         if: always()

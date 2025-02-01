@@ -25,6 +25,14 @@ android {
   }
   @Suppress("UnstableApiUsage")
   experimentalProperties["android.experimental.enableScreenshotTest"] = true
+
+  @Suppress("UnstableApiUsage")
+  testOptions {
+    screenshotTests {
+      imageDifferenceThreshold = 0.0010f // 0.10%
+    }
+
+  }
 }
 
 kotlin {
