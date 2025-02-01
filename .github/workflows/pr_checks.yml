@@ -26,6 +26,7 @@ jobs:
 
   checks:
     name: 'checks'
+    needs: checkout
     permissions:
       contents: read
 
@@ -38,6 +39,7 @@ jobs:
 
   snapshot_test:
     name: 'snapshot test'
+    needs: checkout
     permissions:
       contents: read
 
