@@ -70,5 +70,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           path: |
+            **/build/reports/screenshotTest/
             **/build/test-results/validateDebugScreenshotTest/
 
