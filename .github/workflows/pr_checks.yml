@@ -60,7 +60,7 @@ jobs:
           name: "snapshot test"
           path: "**/build/test-results/**/*.xml"
           reporter: java-junit
-          token: ${{ secrets.GH_TOKEN_PACKAGE_READ }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
 
       - name: "upload artifacts"
@@ -68,5 +68,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           path: |
-            **build/test-results/validateDebugScreenshotTest/
+            **/build/test-results/validateDebugScreenshotTest/
 
