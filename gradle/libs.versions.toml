@@ -1,9 +1,9 @@
 [versions]
 desugar_jdk_libs = "2.1.4"
-androidTools = "31.4.0"
+androidTools = "31.8.0"
 minSdk = "21"
-compileSdk = "34"
-targetSdk = "34"
+compileSdk = "35"
+targetSdk = "35"
 
 # development
 agp = "8.8.0"
