@@ -34,7 +34,9 @@ jobs:
     name: "snapshot test"
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      id-token: write
+      contents: read
+      checks: write
 
     steps:
       - name: "checkout project"
