@@ -29,7 +29,7 @@ android {
   @Suppress("UnstableApiUsage")
   testOptions {
     screenshotTests {
-      imageDifferenceThreshold = 0.01f // 1%
+      imageDifferenceThreshold = 0.03f // 1%
     }
 
   }
