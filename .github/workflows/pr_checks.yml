@@ -60,7 +60,7 @@ jobs:
         if: always()
         with:
           name: "snapshot test"
-          path: "**/build/reports/**/*.xml"
+          path: "**/build/test-results/**/*.xml"
           reporter: java-junit
           token: ${{ secrets.GITHUB_TOKEN }}
 
