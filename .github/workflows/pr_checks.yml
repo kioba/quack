@@ -27,6 +27,7 @@ jobs:
   checks:
     name: 'checks'
     needs: checkout
+    runs-on: ubuntu-latest
     permissions:
       contents: read
 
@@ -40,6 +41,7 @@ jobs:
   snapshot_test:
     name: 'snapshot test'
     needs: checkout
+    runs-on: ubuntu-latest
     permissions:
       contents: read
 
