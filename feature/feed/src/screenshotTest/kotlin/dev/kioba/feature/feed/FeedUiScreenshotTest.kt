@@ -1,8 +1,6 @@
 package dev.kioba.feature.feed
 
-import android.content.res.Configuration
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewDynamicColors
 import androidx.compose.ui.tooling.preview.PreviewFontScale
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -14,7 +12,7 @@ import dev.kioba.feature.feed.ui.FeedUi
 
 @Suppress("unused")
 internal class FeedUiScreenshotTest {
-//
+  //
 //  @Preview(
 //    group = "portrait",
 //    showBackground = true,
