@@ -6,32 +6,24 @@ on:
     branches:
       - master
       - main
-jobs:
-  checkout:
-    name: 'checkout'
+
+  checks:
+    name: 'checks'
     runs-on: ubuntu-latest
     permissions:
       contents: read
 
     steps:
-      - name: checkout project
+      - name: "checkout project"
         uses: actions/checkout@v4
 
-      - name: set up JDK
+      - name: "set up JDK"
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
           cache: 'gradle'
 
-  checks:
-    name: 'checks'
-    needs: checkout
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-
-    steps:
       - name: "run checks"
         env:
           USERNAME: ${{ secrets.GH_USER_PACKAGE_READ }}
@@ -40,12 +32,21 @@ jobs:
 
   snapshot_test:
     name: 'snapshot test'
-    needs: checkout
     runs-on: ubuntu-latest
     permissions:
       contents: read
 
     steps:
+      - name: "checkout project"
+        uses: actions/checkout@v4
+
+      - name: "set up JDK"
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+      
       - name: "run snapshot verification"
         env:
           USERNAME: ${{ secrets.GH_USER_PACKAGE_READ }}
