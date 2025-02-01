@@ -34,7 +34,7 @@ jobs:
     name: "snapshot test"
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
 
     steps:
       - name: "checkout project"
