@@ -6,8 +6,8 @@ on:
     branches:
       - master
       - main
-
-  checks:
+jobs:
+  checks_test:
     name: 'checks'
     runs-on: ubuntu-latest
     permissions:
@@ -31,7 +31,7 @@ on:
         run: ./gradlew check --no-daemon
 
   snapshot_test:
-    name: 'snapshot test'
+    name: "snapshot test"
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -46,7 +46,7 @@ on:
           distribution: 'temurin'
           java-version: '17'
           cache: 'gradle'
-      
+
       - name: "run snapshot verification"
         env:
           USERNAME: ${{ secrets.GH_USER_PACKAGE_READ }}
