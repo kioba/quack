@@ -1,9 +1,9 @@
 [versions]
 desugar_jdk_libs = "2.1.4"
-androidTools = "31.4.0"
+androidTools = "31.8.0"
 minSdk = "21"
-compileSdk = "34"
-targetSdk = "34"
+compileSdk = "35"
+targetSdk = "35"
 
 # development
 agp = "8.8.0"
@@ -37,7 +37,7 @@ sqlDelight = "2.0.2"
 compose-plugin = "1.8.0-alpha01"
 composeBom = "2025.01.01"
 accompanist = "0.36.0"
-activity = "1.9.3"
+activity = "1.10.0"
 appcompat = "1.7.0"
 fragment = "1.8.5"
 
