@@ -7,8 +7,8 @@ on:
       - master
       - main
 jobs:
-  pr_check:
-    name: 'build and test'
+  checkout:
+    name: 'checkout'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -24,8 +24,26 @@ jobs:
           java-version: '17'
           cache: 'gradle'
 
-      - name: run tests
+  checks:
+    name: 'checks'
+    permissions:
+      contents: read
+
+    steps:
+      - name: "run checks"
         env:
           USERNAME: ${{ secrets.GH_USER_PACKAGE_READ }}
           TOKEN: ${{ secrets.GH_TOKEN_PACKAGE_READ }}
         run: ./gradlew check --no-daemon
+
+  snapshot_test:
+    name: 'snapshot test'
+    permissions:
+      contents: read
+
+    steps:
+      - name: "run snapshot verification"
+        env:
+          USERNAME: ${{ secrets.GH_USER_PACKAGE_READ }}
+          TOKEN: ${{ secrets.GH_TOKEN_PACKAGE_READ }}
+        run: ./gradlew validateDebugScreenshotTest --no-daemon
