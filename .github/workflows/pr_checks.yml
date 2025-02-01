@@ -1,4 +1,4 @@
-name: 'pr check'
+name: "pr check"
 
 on:
   pull_request:
@@ -7,25 +7,69 @@ on:
       - master
       - main
 jobs:
-  pr_check:
-    name: 'build and test'
+  checks_test:
+    name: "checks"
     runs-on: ubuntu-latest
     permissions:
       contents: read
 
     steps:
-      - name: checkout project
+      - name: "checkout project"
         uses: actions/checkout@v4
 
-      - name: set up JDK
+      - name: "set up JDK"
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '17'
-          cache: 'gradle'
+          distribution: "temurin"
+          java-version: "17"
+          cache: "gradle"
 
-      - name: run tests
+      - name: "run checks"
         env:
           USERNAME: ${{ secrets.GH_USER_PACKAGE_READ }}
           TOKEN: ${{ secrets.GH_TOKEN_PACKAGE_READ }}
         run: ./gradlew check --no-daemon
+
+  snapshot_test:
+    name: "snapshot test"
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+      checks: write
+
+    steps:
+      - name: "checkout project"
+        uses: actions/checkout@v4
+
+      - name: "set up JDK"
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "17"
+          cache: "gradle"
+
+      - name: "run snapshot verification"
+        env:
+          USERNAME: ${{ secrets.GH_USER_PACKAGE_READ }}
+          TOKEN: ${{ secrets.GH_TOKEN_PACKAGE_READ }}
+        run: ./gradlew validateDebugScreenshotTest --no-daemon
+
+      - name: "run test report"
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: "snapshot test"
+          path: "**/build/test-results/**/*.xml"
+          reporter: java-junit
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+
+      - name: "upload artifacts"
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          path: |
+            **/build/reports/screenshotTest/
+            **/build/test-results/validateDebugScreenshotTest/
+
