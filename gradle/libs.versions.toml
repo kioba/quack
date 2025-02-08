@@ -34,7 +34,7 @@ arrowRetrofit = "2.0.1"
 sqlDelight = "2.0.2"
 
 # compose
-compose-plugin = "1.8.0-alpha01"
+compose-plugin = "1.8.0-dev1905"
 composeBom = "2025.01.01"
 accompanist = "0.36.0"
 activity = "1.10.0"
