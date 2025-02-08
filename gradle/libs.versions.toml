@@ -27,7 +27,7 @@ okHttp = "4.12.0"
 retrofit = "2.11.0"
 
 # arrow
-arrow = "2.0.1-alpha.1"
+arrow = "2.0.1"
 arrowRetrofit = "2.0.1"
 
 # database
