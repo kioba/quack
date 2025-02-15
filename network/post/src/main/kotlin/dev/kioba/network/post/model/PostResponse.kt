@@ -2,7 +2,6 @@ package dev.kioba.network.post.model
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import kotlinx.datetime.Instant
 
 @JsonClass(generateAdapter = true)
 public data class PostResponse(
