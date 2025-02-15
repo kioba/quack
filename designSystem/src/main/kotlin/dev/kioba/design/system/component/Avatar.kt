@@ -32,7 +32,7 @@ public fun Avatar(
     error = placeholder,
     contentDescription = contentDescription,
     modifier = modifier
-      .size(getSize(size))
+      .size(avatarSize(size))
       .clip(CircleShape)
   )
 }
@@ -42,7 +42,7 @@ public enum class AvatarSize {
   Medium;
 }
 
-private fun getSize(
+public fun avatarSize(
   size: AvatarSize,
 ): Dp =
   when (size) {

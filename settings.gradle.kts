@@ -37,6 +37,7 @@ include(
   ":domain:post:fakes",
   ":domain:user:api",
   ":domain:user:fakes",
+  ":feature:details",
   ":feature:feed",
   ":network:post",
   ":network:user",
