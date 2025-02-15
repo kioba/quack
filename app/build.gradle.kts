@@ -51,6 +51,7 @@ dependencies {
   implementation(libs.androidX.compose.activity)
   implementation(projects.feature.feed)
   implementation(projects.platform.domain)
+  implementation(libs.navigation.compose)
 
   testImplementation(libs.test.mockK)
   testImplementation(libs.test.junit4)
