@@ -119,7 +119,7 @@ private fun PostContent(item: CombinedFeedItem) {
         Gap(8.dp)
         Text(
             style = MaterialTheme.typography.bodyMedium,
-            text = item.post.body,
+            text = item.post.content,
         )
     }
 }

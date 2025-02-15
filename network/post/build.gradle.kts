@@ -19,7 +19,9 @@ dependencies {
   implementation(libs.arrow.core)
   implementation(libs.network.moshi.core)
   implementation(libs.network.retrofit.core)
+  implementation(libs.kotlinx.datetime)
 
-  ksp(libs.network.moshi.kotlinCodeGen)
+
+ksp(libs.network.moshi.kotlinCodeGen)
 
 }

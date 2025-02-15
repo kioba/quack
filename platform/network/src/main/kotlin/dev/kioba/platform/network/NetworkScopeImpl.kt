@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
 internal class NetworkScopeImpl : NetworkScope {
 
   companion object {
-    private const val api: String = "https://jsonplaceholder.typicode.com"
+    private const val api: String = "https://jsonplaceholder.org"
   }
 
   private val logInterceptor =
