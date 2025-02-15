@@ -1,3 +1,4 @@
+
 plugins {
   alias(libs.plugins.android.library)
   alias(libs.plugins.kotlin.android)
@@ -8,13 +9,16 @@ plugins {
 }
 
 android {
-  namespace = "dev.kioba.feature.feed"
+  namespace = "dev.kioba.feature.details"
+
   compileSdk = libs.versions.compileSdk
     .get()
     .toInt()
 
   defaultConfig {
     minSdk = 21
+
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
 
   kotlinOptions {
@@ -41,11 +45,11 @@ kotlin {
 }
 
 dependencies {
-  implementation(projects.designSystem)
-  implementation(projects.domain.post.api)
-  implementation(projects.domain.post.fakes)
-  implementation(projects.domain.user.api)
-  implementation(projects.domain.user.fakes)
+//  implementation(projects.designSystem)
+//  implementation(projects.domain.post.api)
+//  implementation(projects.domain.post.fakes)
+//  implementation(projects.domain.user.api)
+//  implementation(projects.domain.user.fakes)
   implementation(projects.platform.androidCompose)
   implementation(projects.platform.androidDatabase)
   implementation(projects.platform.database)

@@ -1,4 +1,4 @@
-package dev.kioba.feature.feed.ui
+package dev.kioba.feature.details.ui
 
 import android.content.Context
 import androidx.compose.runtime.Composable
@@ -8,29 +8,32 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import dev.kioba.anchor.compose.RememberAnchor
 import dev.kioba.android.database.buildDatabaseScope
-import dev.kioba.feature.feed.data.FeedEffects
-import dev.kioba.feature.feed.data.feedAnchor
+import dev.kioba.feature.details.data.DetailsEffects
+import dev.kioba.feature.details.data.detailsAnchor
 import dev.kioba.platform.network.buildNetworkScope
 import kotlinx.serialization.Serializable
 
-private fun FeedEffects(context: Context): FeedEffects =
-  FeedEffects(
+
+private fun DetailsEffects(
+  context: Context,
+): DetailsEffects =
+  DetailsEffects(
     networkScope = buildNetworkScope(),
-    databaseScope = buildDatabaseScope(context = context)
+    databaseScope = buildDatabaseScope(context),
   )
 
 public fun NavGraphBuilder.feedComposable(
 ) {
-  composable<FeedDestination> { stack -> stack.FeedPage() }
+  composable<DetailsDestination> { stack -> stack.DetailsPage() }
 }
 
 @Serializable
-public data object FeedDestination
+public data object DetailsDestination
 
 @Composable
-private fun NavBackStackEntry.FeedPage() {
+private fun NavBackStackEntry.DetailsPage() {
   val context = LocalContext.current
   RememberAnchor(
-    scope = { feedAnchor(FeedEffects(context)) },
-  ) { state -> FeedUi(state = state) }
+    scope = { detailsAnchor(DetailsEffects(context)) },
+  ) { state -> DetailsUi(state = state) }
 }
