@@ -10,7 +10,7 @@ internal fun PostResponse.toDomain(): Post =
   Post(
     id = PostId(id),
     userId = UserId(userId),
-    body = body,
+    content = content,
     title = title,
   )
 
@@ -18,7 +18,7 @@ internal fun PostEntity.toDomain(): Post =
   Post(
     id = PostId(id),
     userId = UserId(userId),
-    body = body,
+    content = content,
     title = title,
   )
 
@@ -26,6 +26,6 @@ internal fun Post.toEntity(): PostEntity =
   PostEntity(
     id = id.value,
     userId = userId.value,
-    body = body,
+    content = content,
     title = title,
   )

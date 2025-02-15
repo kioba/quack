@@ -1,6 +1,6 @@
 CREATE TABLE postEntity (
     id INTEGER NOT NULL PRIMARY KEY,
-    body TEXT NOT NULL,
+    content TEXT NOT NULL,
     title TEXT NOT NULL,
     userId INTEGER NOT NULL
 );

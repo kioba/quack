@@ -2,12 +2,10 @@ package dev.kioba.feature.feed.data
 
 import arrow.core.raise.either
 import dev.kioba.anchor.Anchor
-import dev.kioba.anchor.AnchorOf
 import dev.kioba.anchor.Created
 import dev.kioba.anchor.Effect
 import dev.kioba.anchor.RememberAnchorScope
 import dev.kioba.anchor.SubscriptionsScope
-import dev.kioba.anchor.anchorScope
 import dev.kioba.domain.post.api.syncPosts
 import dev.kioba.domain.user.api.syncUsers
 import dev.kioba.feature.feed.model.CombinedFeedItem
@@ -59,12 +57,10 @@ internal fun SubscriptionsScope<FeedEffects, FeedState>.onCreated(
   events: Flow<Created>,
 ): Flow<List<CombinedFeedItem>> =
   events.flatMapLatest { effect.combined() }
-    .anchor(::updateFeed)
+    .anchor(FeedAnchor::updateFeed)
 
-
-internal fun updateFeed(
+internal fun FeedAnchor.updateFeed(
   posts: List<CombinedFeedItem>,
-): AnchorOf<FeedAnchor> =
-  anchorScope {
-    reduce { fetchFeedSucceeded(posts) }
-  }
+) {
+  reduce { fetchFeedSucceeded(posts) }
+}

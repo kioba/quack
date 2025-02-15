@@ -12,8 +12,8 @@ import dev.kioba.persistence.UserEntity
 internal fun UserResponse.toDomain(): User =
   User(
     id = UserId(id),
-    username = UserName(username),
-    name = Name(name),
+    username = UserName(login.username),
+    name = Name("$firstname $lastname"),
     email = Email(email),
     avatar = Avatar("https://xsgames.co/randomusers/assets/avatars/male/5.jpg"),
   )
