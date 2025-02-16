@@ -48,6 +48,9 @@ coil = "2.7.0"
 anchor = "0.0.7"
 foundationLayoutAndroid = "1.7.7"
 
+# kotlin
+kotlinxDatetime = "0.6.1"
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
@@ -131,6 +134,9 @@ database-driver-jvm = { module = "app.cash.sqldelight:sqlite-driver", version.re
 database-gradlePlugin = { module = "app.cash.sqldelight:gradle-plugin", version.ref = "sqlDelight" }
 database-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqlDelight" }
 foundation-layout-android = { group = "androidx.compose.foundation", name = "foundation-layout-android", version.ref = "foundationLayoutAndroid" }
+
+# kotlin
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 
 [bundles]
 compose = [
