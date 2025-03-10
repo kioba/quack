@@ -1,5 +1,5 @@
 [versions]
-desugar_jdk_libs = "2.1.4"
+desugar_jdk_libs = "2.1.5"
 androidTools = "31.8.0"
 minSdk = "21"
 compileSdk = "35"
