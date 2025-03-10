@@ -64,3 +64,11 @@ internal fun FeedAnchor.updateFeed(
 ) {
   reduce { fetchFeedSucceeded(posts) }
 }
+
+internal fun FeedAnchor.dismissFeedError() {
+  reduce { copy(feedError = null) }
+}
+
+internal fun FeedAnchor.dismissUserError() {
+  reduce { copy(userError = null) }
+}

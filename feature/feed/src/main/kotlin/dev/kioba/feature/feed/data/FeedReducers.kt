@@ -10,7 +10,6 @@ internal fun FeedState.fetchFeedSucceeded(
     feedLoading = false,
     usersLoading = false,
     feed = posts.map { it.post },
-    feedError = null,
     users = posts.mapNotNull { it.user }.associateBy { it.id.value },
     combined = posts
   )

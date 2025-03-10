@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
 internal class NetworkScopeImpl : NetworkScope {
 
   companion object {
-    private const val api: String = "https://jsonplaceholder.org"
+    private const val JSON_PLACEHOLDER_BASE_URL: String = "https://jsonplaceholder.typicode.com"
   }
 
   private val logInterceptor =
@@ -28,7 +28,7 @@ internal class NetworkScopeImpl : NetworkScope {
   internal val retrofit: Retrofit =
     Retrofit
       .Builder()
-      .baseUrl(api)
+      .baseUrl(JSON_PLACEHOLDER_BASE_URL)
       .addConverterFactory(MoshiConverterFactory.create())
       .addConverterFactory(ScalarsConverterFactory.create())
       .addCallAdapterFactory(EitherCallAdapterFactory.create())
