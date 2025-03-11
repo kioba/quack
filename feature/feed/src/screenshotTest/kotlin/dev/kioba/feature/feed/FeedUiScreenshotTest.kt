@@ -11,7 +11,6 @@ import dev.kioba.platform.android.compose.SnapshotPreview
 @Suppress("unused")
 internal class FeedUiScreenshotTest {
 
-
   @OptIn(ExperimentalMaterial3Api::class)
   @SnapshotPreview
   @Composable
