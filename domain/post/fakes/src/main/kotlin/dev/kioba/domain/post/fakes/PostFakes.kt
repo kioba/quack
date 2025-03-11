@@ -11,7 +11,7 @@ public fun TestDataScope.givenPost(
   postId: PostId = givenPostIdOne(),
 ): Post =
   Post(
-    content = givenPostBody(),
+    body = givenPostBody(),
     id = postId,
     title = givenPostTitle(),
     userId = givenUserId(),
