@@ -1,6 +1,5 @@
 package dev.kioba.feature.details.data
 
-import androidx.navigation.NavHostController
 import dev.kioba.anchor.Anchor
 import dev.kioba.anchor.Created
 import dev.kioba.anchor.Effect
@@ -12,7 +11,6 @@ import dev.kioba.feature.details.model.DetailsBackIntent
 import dev.kioba.feature.details.model.DetailsDestination
 import dev.kioba.feature.details.model.DetailsViewState
 import dev.kioba.platform.android.compose.navigation.NavigationContext
-import dev.kioba.platform.android.compose.navigation.NavigationDestination
 import dev.kioba.platform.android.compose.navigation.NavigationIntent
 import dev.kioba.platform.android.compose.navigation.buildNavigationContext
 import dev.kioba.platform.android.compose.navigation.navigate
@@ -44,7 +42,7 @@ internal fun RememberAnchorScope.detailsAnchor(
   create(
     initialState = ::DetailsViewState,
     effectScope = { effectsScope },
-    init = DetailsAnchor::init,
+    init = { init() },
   ) {
     listen(::onCreated)
   }
@@ -58,7 +56,7 @@ internal fun DetailsSubscription.onCreated(
       .anchor(DetailsAnchor::onPost)
   }
 
-internal fun DetailsAnchor.init() {}
+internal fun init() {}
 
 internal suspend fun DetailsAnchor.navigateUp() {
   navigate { DetailsBackIntent }

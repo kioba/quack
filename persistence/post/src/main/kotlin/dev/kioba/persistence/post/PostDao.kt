@@ -9,7 +9,6 @@ import dev.kioba.platform.database.DatabaseScope
 import io.github.kioba.persistence.PostDB
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.selects.select
 
 private object DB {
   var query: PostEntityQueries? = null
@@ -41,7 +40,7 @@ public fun DatabaseScope.streamPost(
   id: Long,
 ): Flow<PostEntity> =
   postDao {
-    selectById(1)
+    selectById(id)
       .asFlow()
       .mapToOne(context = Dispatchers.IO)
   }

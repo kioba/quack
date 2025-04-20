@@ -17,6 +17,6 @@ internal class FeedUiScreenshotTest {
   fun FeedScreenshotTest(
     @PreviewParameter(FeedPreview::class) state: FeedState,
   ) {
-    FeedUi(state, navigateToDetails)
+    FeedUi(state)
   }
 }
