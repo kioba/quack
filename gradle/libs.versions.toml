@@ -1,7 +1,6 @@
 [versions]
 desugar_jdk_libs = "2.1.5"
 androidTools = "31.9.1"
-kotlinxDatetime = "0.6.1"
 kotlinxSerializationJson = "1.8.0"
 minSdk = "21"
 compileSdk = "35"
@@ -53,6 +52,8 @@ foundationLayoutAndroid = "1.7.8"
 
 # kotlin
 kotlinxDatetime = "0.6.2"
+coreKtx = "1.16.0"
+material = "1.12.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -144,6 +145,8 @@ foundation-layout-android = { group = "androidx.compose.foundation", name = "fou
 
 # kotlin
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
+core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [bundles]
 compose = [

@@ -2,12 +2,14 @@ package dev.kioba.persistence.post
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
+import app.cash.sqldelight.coroutines.mapToOne
 import dev.kioba.persistence.PostEntity
 import dev.kioba.persistence.PostEntityQueries
 import dev.kioba.platform.database.DatabaseScope
 import io.github.kioba.persistence.PostDB
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.selects.select
 
 private object DB {
   var query: PostEntityQueries? = null
@@ -33,6 +35,15 @@ public fun DatabaseScope.streamPosts(): Flow<List<PostEntity>> =
     selectAll()
       .asFlow()
       .mapToList(context = Dispatchers.IO)
+  }
+
+public fun DatabaseScope.streamPost(
+  id: Long,
+): Flow<PostEntity> =
+  postDao {
+    selectById(1)
+      .asFlow()
+      .mapToOne(context = Dispatchers.IO)
   }
 
 public fun DatabaseScope.insertPosts(

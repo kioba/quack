@@ -16,6 +16,6 @@ dependencies {
   implementation(projects.platform.database)
   implementation(projects.platform.network)
 
-  implementation(libs.jetbrains.kotlinx.coroutines.core)
   implementation(libs.arrow.core)
+  implementation(libs.jetbrains.kotlinx.coroutines.core)
 }

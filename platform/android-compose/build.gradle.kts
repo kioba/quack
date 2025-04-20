@@ -25,8 +25,9 @@ kotlin {
 }
 
 dependencies {
-  implementation(platform(libs.androidX.compose.bom))
-  implementation(libs.bundles.compose)
-  implementation(libs.architecture.anchor)
   implementation(libs.androidX.fragment)
+  implementation(libs.architecture.anchor)
+  implementation(libs.bundles.compose)
+  implementation(libs.navigation.compose)
+  implementation(platform(libs.androidX.compose.bom))
 }

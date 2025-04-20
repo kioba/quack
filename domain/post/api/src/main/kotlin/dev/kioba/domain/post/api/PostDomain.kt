@@ -5,9 +5,11 @@ import arrow.core.right
 import dev.kioba.domain.post.api.converter.toDomain
 import dev.kioba.domain.post.api.converter.toEntity
 import dev.kioba.domain.post.api.model.Post
+import dev.kioba.domain.post.api.model.PostId
 import dev.kioba.network.post.fetchPosts
 import dev.kioba.persistence.post.insertPosts
 import dev.kioba.persistence.post.readPosts
+import dev.kioba.persistence.post.streamPost
 import dev.kioba.persistence.post.streamPosts
 import dev.kioba.platform.domain.EffectContext
 import dev.kioba.platform.domain.UseCaseScope
@@ -40,3 +42,13 @@ public fun EffectContext.listenPosts(): Flow<List<Post>> =
     }
   }
     .catch { emit(emptyList()) }
+
+public fun EffectContext.listenPost(
+  id: PostId,
+): Flow<Post> =
+  useCaseFlow {
+    cacheOnlyFlowableStrategy {
+      streamPost(id.value)
+        .map { entity -> entity.toDomain() }
+    }
+  }

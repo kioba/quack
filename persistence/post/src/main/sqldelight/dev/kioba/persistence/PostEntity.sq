@@ -12,3 +12,8 @@ FROM postEntity;
 insertPost:
 INSERT INTO postEntity
 VALUES ?;
+
+selectById:
+SELECT *
+FROM postEntity
+WHERE id = ?;

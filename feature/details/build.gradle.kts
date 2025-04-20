@@ -45,17 +45,17 @@ kotlin {
 }
 
 dependencies {
-//  implementation(projects.designSystem)
-//  implementation(projects.domain.post.api)
-//  implementation(projects.domain.post.fakes)
-//  implementation(projects.domain.user.api)
-//  implementation(projects.domain.user.fakes)
+  implementation(projects.designSystem)
+  implementation(projects.domain.post.api)
+  implementation(projects.domain.post.fakes)
   implementation(projects.platform.androidCompose)
   implementation(projects.platform.androidDatabase)
   implementation(projects.platform.database)
   implementation(projects.platform.domain)
   implementation(projects.platform.network)
   implementation(projects.platform.test)
+//  implementation(projects.domain.user.api)
+//  implementation(projects.domain.user.fakes)
 
   implementation(libs.bundles.compose)
   implementation(libs.navigation.compose)

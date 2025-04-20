@@ -50,3 +50,4 @@ include(
   ":platform:network",
   ":platform:test",
 )
+include(":routes")
