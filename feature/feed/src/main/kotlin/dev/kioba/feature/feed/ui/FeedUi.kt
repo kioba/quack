@@ -5,7 +5,6 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,15 +18,11 @@ import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Cached
-import androidx.compose.material.icons.outlined.ChatBubbleOutline
-import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Insights
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -39,16 +34,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import dev.kioba.anchor.compose.anchor
 import dev.kioba.design.system.button.AboutButton
+import dev.kioba.design.system.button.CommentButton
+import dev.kioba.design.system.button.LikeButton
 import dev.kioba.design.system.button.ProfileButton
+import dev.kioba.design.system.button.RepostButton
 import dev.kioba.design.system.component.Avatar
-import dev.kioba.design.system.component.Gap
+import dev.kioba.design.system.post.PostContent
 import dev.kioba.design.system.post.PostItemBox
+import dev.kioba.design.system.post.PostTitle
 import dev.kioba.design.system.theme.appBarTitle
 import dev.kioba.feature.feed.data.FeedAnchor
 import dev.kioba.feature.feed.data.navigateToDetails
@@ -125,9 +123,15 @@ private fun FeedContent(
     ) { index, item ->
       val update = anchor<FeedAnchor> { navigateToDetails(item.post.id) }
       PostItemBox(
-        avatar = { PostAvatar(item) },
-        title = { PostTitle(item) },
-        description = { PostContent(item) },
+        avatar = { AnimatedPostAvatar(item) },
+        title = { AnimatedPostTitle(item) },
+        description = {
+          PostContent(
+            title = item.post.title,
+            content = item.post.body,
+            maxLines = 5,
+          )
+        },
         actions = { PostActionBar() },
         modifier = Modifier
           .clickable { update() }
@@ -142,7 +146,16 @@ private fun FeedContent(
 }
 
 @Composable
-private fun PostAvatar(
+private fun AnimatedPostTitle(
+  item: CombinedFeedItem,
+) {
+  AnimatedVisibility(item.user != null) {
+    item.user?.let { user -> PostTitle(user.name.value) }
+  }
+}
+
+@Composable
+private fun AnimatedPostAvatar(
   item: CombinedFeedItem,
 ) {
   AnimatedVisibility(item.avatar != null) {
@@ -178,64 +191,18 @@ private fun AppBarTitle() {
 }
 
 @Composable
-private fun PostContent(item: CombinedFeedItem) {
-  Column(modifier = Modifier) {
-    Text(
-      style = MaterialTheme.typography.titleMedium,
-      text = item.post.title,
-    )
-    Gap(8.dp)
-    Text(
-      style = MaterialTheme.typography.bodyMedium,
-      text = item.post.body,
-      maxLines = 5,
-      overflow = TextOverflow.Ellipsis
-    )
-  }
-}
-
-@Composable
 private fun PostActionBar() {
   Row(
     verticalAlignment = Alignment.CenterVertically,
   ) {
-    IconButton(onClick = { /*TODO*/ }) {
-      Icon(imageVector = Icons.Outlined.FavoriteBorder, contentDescription = null)
-    }
-    IconButton(onClick = { /*TODO*/ }) {
-      Icon(imageVector = Icons.Outlined.Cached, contentDescription = null)
-    }
-    IconButton(onClick = { /*TODO*/ }) {
-      Icon(imageVector = Icons.Outlined.ChatBubbleOutline, contentDescription = null)
-    }
+    LikeButton { /*TODO*/ }
+    RepostButton { /*TODO*/ }
+    CommentButton { /*TODO*/ }
     Spacer(modifier = Modifier.weight(1f))
     Icon(
       modifier = Modifier.size(24.dp),
       imageVector = Icons.Outlined.Insights,
       contentDescription = null,
-    )
-  }
-}
-
-@Composable
-private fun PostTitle(item: CombinedFeedItem) {
-  Row(verticalAlignment = Alignment.CenterVertically) {
-    item.user
-      ?.let {
-        Text(
-          style = MaterialTheme.typography.bodyLarge,
-          text = it.name.value,
-        )
-      }
-    Gap(4.dp)
-    Text(
-      style = MaterialTheme.typography.labelSmall,
-      text = "•",
-    )
-    Gap(4.dp)
-    Text(
-      style = MaterialTheme.typography.labelSmall,
-      text = "12m",
     )
   }
 }

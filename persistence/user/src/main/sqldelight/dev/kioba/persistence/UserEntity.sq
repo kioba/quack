@@ -10,7 +10,7 @@ selectAll:
 SELECT *
 FROM userEntity;
 
-select:
+selectById:
 SELECT *
 FROM userEntity
 WHERE id = ?;

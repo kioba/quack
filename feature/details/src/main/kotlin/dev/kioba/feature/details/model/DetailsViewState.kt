@@ -12,6 +12,18 @@ internal data class DetailsViewState(
 
 @Immutable
 internal data class DetailsContentViewState(
+  val user: UserViewState,
+  val post: PostViewState,
+)
+
+@Immutable
+internal data class PostViewState(
   val title: String,
   val body: String,
+)
+
+@Immutable
+internal data class UserViewState(
+  val avatar: String,
+  val name: String,
 )

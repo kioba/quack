@@ -4,17 +4,23 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Insights
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
@@ -25,7 +31,13 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import dev.kioba.anchor.compose.anchor
 import dev.kioba.design.system.button.BackButton
+import dev.kioba.design.system.button.CommentButton
+import dev.kioba.design.system.button.LikeButton
+import dev.kioba.design.system.button.RepostButton
+import dev.kioba.design.system.component.Avatar
 import dev.kioba.design.system.component.Gap
+import dev.kioba.design.system.post.PostContent
+import dev.kioba.design.system.post.PostTitle
 import dev.kioba.feature.details.data.DetailsAnchor
 import dev.kioba.feature.details.data.navigateUp
 import dev.kioba.feature.details.model.DetailsContentViewState
@@ -86,28 +98,45 @@ internal fun DetailsContent(
   modifier: Modifier,
 ) {
   LazyColumn(
-    contentPadding = PaddingValues(horizontal = 16.dp),
     modifier = modifier,
   ) {
     item {
+      PostDetailBox(
+        avatar = { Avatar(state.user.avatar) },
+        title = { PostTitle(state.user.name) },
+        description = { PostContent(state.post.title, state.post.body) },
+        actions = { PostActionBar() },
+        modifier = Modifier
+          .padding(top = 8.dp, bottom = 8.dp)
+          .padding(horizontal = 16.dp),
+      )
+    }
+    item { HorizontalDivider() }
+  }
+}
 
+@Composable
+private fun PostDetailBox(
+  avatar: @Composable () -> Unit,
+  title: @Composable () -> Unit,
+  description: @Composable () -> Unit,
+  actions: @Composable () -> Unit,
+  modifier: Modifier,
+) {
+  Column(
+    modifier = modifier,
+  ) {
+    Row(
+      verticalAlignment = Alignment.CenterVertically,
+    ) {
+      avatar()
+      Gap(6.dp)
+      title()
     }
-    item {
-      Gap(16.dp)
-    }
-    item {
-      Text(
-        text = state.title,
-        style = MaterialTheme.typography.titleMedium,
-      )
-    }
-    item { Gap(16.dp) }
-    item {
-      Text(
-        text = state.body,
-        style = MaterialTheme.typography.bodyMedium,
-      )
-    }
+    Gap(8.dp)
+    description()
+    Gap(2.dp)
+    actions()
   }
 }
 
@@ -122,4 +151,24 @@ private fun DetailsAppBar(
     navigationIcon = { BackButton(anchor(DetailsAnchor::navigateUp)) },
     scrollBehavior = scrollBehavior,
   )
+}
+
+@Composable
+private fun PostActionBar(
+  modifier: Modifier = Modifier,
+) {
+  Row(
+    modifier = modifier,
+    verticalAlignment = Alignment.CenterVertically,
+  ) {
+    LikeButton { /*TODO*/ }
+    RepostButton { /*TODO*/ }
+    CommentButton { /*TODO*/ }
+    Spacer(modifier = Modifier.weight(1f))
+    Icon(
+      modifier = Modifier.size(24.dp),
+      imageVector = Icons.Outlined.Insights,
+      contentDescription = null,
+    )
+  }
 }

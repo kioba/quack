@@ -5,8 +5,10 @@ import dev.kioba.anchor.Created
 import dev.kioba.anchor.Effect
 import dev.kioba.anchor.RememberAnchorScope
 import dev.kioba.anchor.SubscriptionsScope
+import dev.kioba.domain.placeholder.user.model.User
 import dev.kioba.domain.post.api.listenPost
 import dev.kioba.domain.post.api.model.Post
+import dev.kioba.domain.user.api.listenUser
 import dev.kioba.feature.details.model.DetailsBackIntent
 import dev.kioba.feature.details.model.DetailsDestination
 import dev.kioba.feature.details.model.DetailsViewState
@@ -21,6 +23,7 @@ import dev.kioba.platform.network.NetworkScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
 
 
 internal typealias DetailsAnchor = Anchor<DetailsEffects, DetailsViewState>
@@ -53,7 +56,8 @@ internal fun DetailsSubscription.onCreated(
 ): Flow<*> =
   with(effect) {
     event.flatMapLatest { listenPost(destination.postId) }
-      .anchor(DetailsAnchor::onPost)
+      .flatMapLatest { post -> listenUser(post.userId).map { user -> post to user } }
+      .anchor(DetailsAnchor::onUpdateDetails)
   }
 
 internal fun init() {}
@@ -66,11 +70,12 @@ internal fun DetailsAnchor.dismissError() {
   reduce { hideError() }
 }
 
-internal fun DetailsAnchor.onPost(
-  post: Post,
+internal fun DetailsAnchor.onUpdateDetails(
+  initData: Pair<Post, User>,
 ) {
+  val (post, user) = initData
   reduce {
-    withPost(post)
+    initWithPostAndUser(post, user)
       .hideLoading()
   }
 }
