@@ -6,9 +6,15 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.scaleOut
-import androidx.compose.ui.graphics.TransformOrigin
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.VisibilityThreshold
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.ui.unit.IntOffset
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
@@ -33,33 +39,40 @@ internal class MainActivity : AppCompatActivity() {
       NavHost(
         navController = navController,
         startDestination = FeedDestination,
-        popExitTransition = {
-          scaleOut(
-            targetScale = 0.9f,
-            transformOrigin = TransformOrigin(pivotFractionX = 0.5f, pivotFractionY = 0.5f)
-          )
-        },
         popEnterTransition = {
           EnterTransition.None
         },
+        popExitTransition = {
+          slideOutOfContainer(
+            animationSpec = spring(
+              visibilityThreshold = IntOffset.VisibilityThreshold
+            ),
+            towards = AnimatedContentTransitionScope.SlideDirection.End,
+            targetOffset = { offsetForFullSlide -> (offsetForFullSlide * 2f / 6f).toInt() },
+          ).plus(fadeOut(animationSpec = tween(300, delayMillis = 90)))
+
+        },
+        enterTransition = {
+          slideIntoContainer(
+            towards = AnimatedContentTransitionScope.SlideDirection.Start,
+          ).plus(fadeIn(animationSpec = tween(300, delayMillis = 90)))
+        },
       ) {
-        feedPage(mainHarbour(navController))
-        detailsComposable(mainHarbour(navController))
+        feedPage { navController.mainHarbour(it) }
+        detailsComposable { navController.mainHarbour(it) }
       }
     }
   }
 
-  private fun mainHarbour(
-    navController: NavController,
-  ): suspend (NavigationIntent) -> Unit =
-    {
-      withContext(Dispatchers.Main) {
-        when (it) {
-          is DetailsSelectedIntent ->
-            navController.navigate(DetailsDestination(it.postId))
+  private suspend fun NavController.mainHarbour(
+    intent: NavigationIntent,
+  ): Unit =
+    withContext(Dispatchers.Main) {
+      when (intent) {
+        is DetailsSelectedIntent ->
+          navigate(DetailsDestination(intent.postId))
 
-          is DetailsBackIntent -> navController.popBackStack()
-        }
+        is DetailsBackIntent -> popBackStack()
       }
     }
 }

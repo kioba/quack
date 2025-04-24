@@ -16,5 +16,5 @@ FROM userEntity
 WHERE id = ?;
 
 insertUser:
-INSERT INTO userEntity(id, username, name, email, avatar)
+INSERT OR REPLACE INTO userEntity(id, username, name, email, avatar)
 VALUES ?;

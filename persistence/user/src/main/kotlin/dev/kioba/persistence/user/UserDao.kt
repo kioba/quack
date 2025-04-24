@@ -6,7 +6,7 @@ import app.cash.sqldelight.coroutines.mapToOne
 import dev.kioba.persistence.UserEntity
 import dev.kioba.persistence.UserEntityQueries
 import dev.kioba.platform.database.DatabaseScope
-import io.github.kioba.persistence.UserDB
+import dev.kioba.persistence.UserDB
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 

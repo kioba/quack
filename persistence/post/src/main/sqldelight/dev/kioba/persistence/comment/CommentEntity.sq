@@ -1,0 +1,32 @@
+CREATE TABLE commentEntity (
+    id INTEGER NOT NULL PRIMARY KEY,
+    postId INTEGER NOT NULL,
+    userName TEXT NOT NULL,
+    userEmail TEXT NOT NULL,
+    body TEXT NOT NULL,
+    FOREIGN KEY (postId) REFERENCES postEntity(id) ON DELETE CASCADE
+);
+
+selectAll:
+SELECT *
+FROM commentEntity;
+
+selectAllByPostId:
+SELECT *
+FROM postEntity
+INNER JOIN commentEntity ON postEntity.id = commentEntity.postId
+WHERE postEntity.id = ?;
+
+insertPost:
+INSERT OR REPLACE INTO commentEntity
+VALUES ?;
+
+selectById:
+SELECT *
+FROM commentEntity
+WHERE id = ?;
+
+selectByPostId:
+SELECT *
+FROM commentEntity
+WHERE postId = ?;
