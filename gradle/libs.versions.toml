@@ -1,7 +1,7 @@
 [versions]
 desugar_jdk_libs = "2.1.5"
 androidTools = "31.9.1"
-minSdk = "21"
+minSdk = "24"
 compileSdk = "35"
 targetSdk = "35"
 
