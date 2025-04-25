@@ -1,7 +1,6 @@
 package dev.kioba.domain.post.api.converter
 
 import dev.kioba.domain.placeholder.user.model.Email
-import dev.kioba.domain.placeholder.user.model.UserId
 import dev.kioba.domain.placeholder.user.model.UserName
 import dev.kioba.domain.post.api.model.Comment
 import dev.kioba.domain.post.api.model.CommentId
