@@ -27,12 +27,10 @@ android {
   @Suppress("UnstableApiUsage")
   experimentalProperties["android.experimental.enableScreenshotTest"] = true
 
-  @Suppress("UnstableApiUsage")
   testOptions {
     screenshotTests {
       imageDifferenceThreshold = 0.05f // 5%
     }
-
   }
 }
 

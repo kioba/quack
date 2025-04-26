@@ -1,4 +1,3 @@
-
 plugins {
   alias(libs.plugins.android.library)
   alias(libs.plugins.kotlin.android)
@@ -28,6 +27,7 @@ android {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
   }
+
   @Suppress("UnstableApiUsage")
   experimentalProperties["android.experimental.enableScreenshotTest"] = true
 
@@ -35,7 +35,6 @@ android {
     screenshotTests {
       imageDifferenceThreshold = 0.05f // 5%
     }
-
   }
 }
 
