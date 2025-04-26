@@ -18,25 +18,26 @@ import dev.kioba.platform.domain.syncFirstStrategy
 import dev.kioba.platform.domain.useCase
 
 
-public suspend fun EffectContext.syncPosts(): Either<Throwable, List<Post>> =
-  useCase {
-    syncFirstStrategy(
-      sync = { fetchPosts().map { it.map { response -> response.toDomain() } } },
-      insert = { insertPosts(it.map { post -> post.toEntity() }) },
-      read = { readPosts().map { it.toDomain() }.right() },
-    )
-  }
+public suspend fun EffectContext.syncPosts(): Either<Throwable, List<Post>> = useCase {
+  syncFirstStrategy(
+    sync = { fetchPosts().map { it.map { response -> response.toDomain() } } },
+    insert = { insertPosts(it.map { post -> post.toEntity() }) },
+    read = { readPosts().map { it.toDomain() }.right() },
+  )
+}
 
 
 public suspend fun EffectContext.syncComments(
   postId: PostId,
-): Either<Throwable, List<Comment>> =
-  useCase {
-    syncFirstStrategy(
-      sync = { fetchCommentsByPost(postId.value).map { it.map { response -> response.toDomain() } } },
-      insert = { insertComments(it.map { post -> post.toEntity() }) },
-      read = { readCommentsByPost(postId.value).map { it.toDomain() }.right() },
-    )
-  }
+): Either<Throwable, List<Comment>> = useCase {
+  syncFirstStrategy(
+    sync = {
+      fetchCommentsByPost(postId.value)
+        .map { comments -> comments.map { response -> response.toDomain() } }
+    },
+    insert = { insertComments(it.map { comment -> comment.toEntity() }) },
+    read = { readCommentsByPost(postId.value).map { entity -> entity.toDomain() }.right() },
+  )
+}
 
 
