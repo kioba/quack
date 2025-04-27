@@ -14,18 +14,11 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.ui.unit.IntOffset
-import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import dev.kioba.feature.details.model.DetailsBackIntent
-import dev.kioba.feature.details.model.DetailsDestination
-import dev.kioba.feature.details.ui.detailsComposable
-import dev.kioba.feature.feed.model.DetailsSelectedIntent
+import dev.kioba.feature.details.ui.detailsPage
 import dev.kioba.feature.feed.model.FeedDestination
 import dev.kioba.feature.feed.ui.feedPage
-import dev.kioba.platform.android.compose.navigation.NavigationIntent
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 internal class MainActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,21 +50,9 @@ internal class MainActivity : AppCompatActivity() {
           ).plus(fadeIn(animationSpec = tween(300, delayMillis = 90)))
         },
       ) {
-        feedPage { navController.mainHarbour(it) }
-        detailsComposable { navController.mainHarbour(it) }
+        feedPage(navController::mainHarbour)
+        detailsPage(navController::mainHarbour)
       }
     }
   }
-
-  private suspend fun NavController.mainHarbour(
-    intent: NavigationIntent,
-  ): Unit =
-    withContext(Dispatchers.Main) {
-      when (intent) {
-        is DetailsSelectedIntent ->
-          navigate(DetailsDestination(intent.postId))
-
-        is DetailsBackIntent -> popBackStack()
-      }
-    }
 }

@@ -27,7 +27,7 @@ public fun PostContent(
       modifier = Modifier.fillMaxWidth(),
       style = MaterialTheme.typography.bodyMedium,
       text = content,
-      maxLines = 5,
+      maxLines = maxLines,
       overflow = TextOverflow.Ellipsis
     )
   }

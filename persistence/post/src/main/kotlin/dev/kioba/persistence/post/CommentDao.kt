@@ -35,11 +35,11 @@ public fun DatabaseScope.streamComment(
 
 public fun DatabaseScope.streamCommentsByPost(
   postId: Long,
-): Flow<CommentEntity> =
+): Flow<List<CommentEntity>> =
   commentDao {
     selectByPostId(postId)
       .asFlow()
-      .mapToOne(context = Dispatchers.IO)
+      .mapToList(context = Dispatchers.IO)
   }
 
 public fun DatabaseScope.insertComments(

@@ -5,13 +5,23 @@ import dev.kioba.anchor.ViewState
 
 @Immutable
 internal data class DetailsViewState(
-  val isLoading: Boolean = true,
+  val isPostLoading: Boolean = true,
+  val areCommentsLoading: Boolean = true,
   val error: Throwable? = null,
-  val content: DetailsContentViewState? = null,
+  val content: DetailsContentViewState = DetailsContentViewState(
+    postAndUser = null,
+    comments = null,
+  ),
 ) : ViewState
 
 @Immutable
 internal data class DetailsContentViewState(
+  val postAndUser: PostAndUserViewState?,
+  val comments: List<CommentViewState>?,
+)
+
+@Immutable
+internal data class PostAndUserViewState(
   val user: UserViewState,
   val post: PostViewState,
 )
@@ -26,4 +36,17 @@ internal data class PostViewState(
 internal data class UserViewState(
   val avatar: String,
   val name: String,
+)
+
+@Immutable
+internal data class CommentUserViewState(
+  val email: String,
+  val name: String,
+)
+
+@Immutable
+internal data class CommentViewState(
+  val id: Long,
+  val user: CommentUserViewState,
+  val body: String,
 )

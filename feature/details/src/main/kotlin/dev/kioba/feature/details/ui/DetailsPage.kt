@@ -1,9 +1,7 @@
 package dev.kioba.feature.details.ui
 
 import android.content.Context
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
-import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
@@ -18,27 +16,6 @@ import dev.kioba.platform.android.compose.navigation.NavigationIntent
 import dev.kioba.platform.network.buildNetworkScope
 import kotlin.reflect.typeOf
 
-
-public fun NavGraphBuilder.detailsComposable(
-  navFlow: suspend (NavigationIntent) -> Unit,
-) {
-  composable<DetailsDestination>(
-    typeMap = mapOf(typeOf<PostId>() to PostIdParameterType)
-  ) { stack -> stack.DetailsPage(stack.toRoute(), navFlow) }
-}
-
-@Composable
-private fun NavBackStackEntry.DetailsPage(
-  destination: DetailsDestination,
-  navFlow: suspend (NavigationIntent) -> Unit,
-) {
-  val context = LocalContext.current
-  RememberAnchor(
-    scope = { detailsAnchor(effectBuilder(context, destination, navFlow)) },
-  ) { state -> DetailsUi(state = state) }
-}
-
-
 private fun effectBuilder(
   context: Context,
   destination: DetailsDestination,
@@ -50,3 +27,16 @@ private fun effectBuilder(
     destination = destination,
     navFlow = navFlow,
   )
+
+public fun NavGraphBuilder.detailsPage(
+  navFlow: suspend (NavigationIntent) -> Unit,
+) {
+  composable<DetailsDestination>(
+    typeMap = mapOf(typeOf<PostId>() to PostIdParameterType)
+  ) { stack ->
+    val context = LocalContext.current
+    stack.RememberAnchor(
+      scope = { detailsAnchor(effectBuilder(context, stack.toRoute(), navFlow)) },
+    ) { state -> DetailsUi(state = state) }
+  }
+}

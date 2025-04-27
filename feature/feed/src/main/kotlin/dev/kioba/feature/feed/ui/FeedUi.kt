@@ -9,12 +9,10 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
@@ -72,12 +70,12 @@ internal fun FeedUi(
 
       Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        contentWindowInsets = WindowInsets.safeDrawing,
         topBar = { FeedAppBar(state, scrollBehavior) },
-        contentWindowInsets = WindowInsets.statusBars,
       ) { paddingValues ->
         FeedContent(
           state = state,
-          modifier = Modifier.padding(paddingValues),
+          contentPadding = paddingValues,
         )
       }
 
@@ -107,13 +105,11 @@ private fun BoxScope.LoadingUi(
 @Composable
 private fun FeedContent(
   state: FeedState,
+  contentPadding: PaddingValues,
   modifier: Modifier = Modifier,
 ) {
   LazyColumn(
-    contentPadding = PaddingValues(
-      top = 16.dp,
-      bottom = 16.dp + WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding(),
-    ),
+    contentPadding = contentPadding,
     modifier = modifier,
   ) {
     itemsIndexed(
@@ -134,9 +130,10 @@ private fun FeedContent(
         },
         actions = { PostActionBar() },
         modifier = Modifier
-          .clickable { update() }
+          .clickable(onClick = update)
           .padding(top = 8.dp)
-          .padding(horizontal = 16.dp),
+          .padding(horizontal = 16.dp)
+          .animateItem()
       )
       if (index != state.combined.lastIndex) {
         HorizontalDivider()

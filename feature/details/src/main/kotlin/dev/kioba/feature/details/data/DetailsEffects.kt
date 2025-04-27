@@ -6,8 +6,11 @@ import dev.kioba.anchor.Effect
 import dev.kioba.anchor.RememberAnchorScope
 import dev.kioba.anchor.SubscriptionsScope
 import dev.kioba.domain.placeholder.user.model.User
+import dev.kioba.domain.post.api.listenCommentsByPost
 import dev.kioba.domain.post.api.listenPost
+import dev.kioba.domain.post.api.model.Comment
 import dev.kioba.domain.post.api.model.Post
+import dev.kioba.domain.post.api.syncComments
 import dev.kioba.domain.user.api.listenUser
 import dev.kioba.feature.details.model.DetailsBackIntent
 import dev.kioba.feature.details.model.DetailsDestination
@@ -45,9 +48,10 @@ internal fun RememberAnchorScope.detailsAnchor(
   create(
     initialState = ::DetailsViewState,
     effectScope = { effectsScope },
-    init = { init() },
+    init = DetailsAnchor::init,
   ) {
     listen(::onCreated)
+    listen(::onCreatedFetchComments)
   }
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -60,7 +64,9 @@ internal fun DetailsSubscription.onCreated(
       .anchor(DetailsAnchor::onUpdateDetails)
   }
 
-internal fun init() {}
+internal suspend fun DetailsAnchor.init() {
+  effect { syncComments(destination.postId) }
+}
 
 internal suspend fun DetailsAnchor.navigateUp() {
   navigate { DetailsBackIntent }
@@ -74,8 +80,20 @@ internal fun DetailsAnchor.onUpdateDetails(
   initData: Pair<Post, User>,
 ) {
   val (post, user) = initData
-  reduce {
-    initWithPostAndUser(post, user)
-      .hideLoading()
+  reduce { updatePostAndUser(post, user) }
+}
+
+@OptIn(ExperimentalCoroutinesApi::class)
+internal fun DetailsSubscription.onCreatedFetchComments(
+  event: Flow<Created>,
+): Flow<*> =
+  with(effect) {
+    event.flatMapLatest { listenCommentsByPost(destination.postId) }
+      .anchor(DetailsAnchor::onUpdateComments)
   }
+
+internal fun DetailsAnchor.onUpdateComments(
+  comments: List<Comment>,
+) {
+  reduce { updateComments(comments) }
 }

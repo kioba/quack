@@ -7,6 +7,7 @@ import dev.kioba.domain.user.fakes.givenPostBody
 import dev.kioba.domain.user.fakes.givenPostTitle
 import dev.kioba.feature.details.model.DetailsContentViewState
 import dev.kioba.feature.details.model.DetailsViewState
+import dev.kioba.feature.details.model.PostAndUserViewState
 import dev.kioba.feature.details.model.PostViewState
 import dev.kioba.feature.details.model.UserViewState
 import dev.kioba.platform.test.TestDataScope
@@ -22,17 +23,20 @@ internal class DetailsPreview : PreviewParameterProvider<DetailsViewState> {
 
   private fun TestDataScope.defaultState() =
     DetailsViewState(
-      isLoading = false,
+      isPostLoading = false,
       error = null,
       content = DetailsContentViewState(
-        user = UserViewState(
-          avatar = givenAvatar().value,
-          name = givenName().value,
+        postAndUser = PostAndUserViewState(
+          user = UserViewState(
+            avatar = givenAvatar().value,
+            name = givenName().value,
+          ),
+          post = PostViewState(
+            title = givenPostTitle(),
+            body = givenPostBody(),
+          ),
         ),
-        post = PostViewState(
-          title = givenPostTitle(),
-          body = givenPostBody(),
-        ),
+        comments = emptyList(),
       ),
     )
 }
