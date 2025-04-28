@@ -18,6 +18,6 @@ internal fun toCombinedFeedItem(
     CombinedFeedItem(it, user, user?.avatar?.value)
   }
 
-internal fun EffectContext.combined(): Flow<List<CombinedFeedItem>> =
+internal fun EffectContext.listenPostAndUserCombined(): Flow<List<CombinedFeedItem>> =
   listenPosts()
     .combine(listenUsers(), ::toCombinedFeedItem)

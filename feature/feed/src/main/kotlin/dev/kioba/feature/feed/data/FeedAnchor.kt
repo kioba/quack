@@ -6,10 +6,16 @@ import dev.kioba.anchor.Created
 import dev.kioba.anchor.Effect
 import dev.kioba.anchor.RememberAnchorScope
 import dev.kioba.anchor.SubscriptionsScope
+import dev.kioba.domain.post.api.model.PostId
 import dev.kioba.domain.post.api.syncPosts
 import dev.kioba.domain.user.api.syncUsers
 import dev.kioba.feature.feed.model.CombinedFeedItem
 import dev.kioba.feature.feed.model.FeedState
+import dev.kioba.feature.feed.model.DetailsSelectedIntent
+import dev.kioba.platform.android.compose.navigation.NavigationContext
+import dev.kioba.platform.android.compose.navigation.NavigationIntent
+import dev.kioba.platform.android.compose.navigation.buildNavigationContext
+import dev.kioba.platform.android.compose.navigation.navigate
 import dev.kioba.platform.database.DatabaseScope
 import dev.kioba.platform.domain.EffectContext
 import dev.kioba.platform.domain.buildEffectContext
@@ -20,11 +26,16 @@ import kotlinx.coroutines.flow.flatMapLatest
 
 
 internal typealias FeedAnchor = Anchor<FeedEffects, FeedState>
+internal typealias FeedSubscription = SubscriptionsScope<FeedEffects, FeedState>
 
 public class FeedEffects(
   databaseScope: DatabaseScope,
   networkScope: NetworkScope,
-) : EffectContext by buildEffectContext(databaseScope, networkScope), Effect
+  navFlow: suspend (NavigationIntent) -> Unit,
+) :
+  EffectContext by buildEffectContext(databaseScope, networkScope),
+  NavigationContext by buildNavigationContext(navFlow),
+  Effect
 
 internal fun RememberAnchorScope.feedAnchor(
   effectsScope: FeedEffects,
@@ -53,10 +64,10 @@ internal suspend fun FeedAnchor.init() {
 }
 
 @OptIn(ExperimentalCoroutinesApi::class)
-internal fun SubscriptionsScope<FeedEffects, FeedState>.onCreated(
+internal fun FeedSubscription.onCreated(
   events: Flow<Created>,
 ): Flow<List<CombinedFeedItem>> =
-  events.flatMapLatest { effect.combined() }
+  events.flatMapLatest { effect.listenPostAndUserCombined() }
     .anchor(FeedAnchor::updateFeed)
 
 internal fun FeedAnchor.updateFeed(
@@ -71,4 +82,10 @@ internal fun FeedAnchor.dismissFeedError() {
 
 internal fun FeedAnchor.dismissUserError() {
   reduce { copy(userError = null) }
+}
+
+internal suspend fun FeedAnchor.navigateToDetails(
+  postId: PostId,
+) {
+  navigate { DetailsSelectedIntent(postId)  }
 }

@@ -39,6 +39,16 @@ public inline fun <E, R> UseCaseScope.syncFirstStrategy(
     .recover { read(databaseManager.databaseScope).bind() }
 
 @DomainDsl
+public inline fun <E, R> UseCaseScope.syncOnMissingStrategy(
+  sync: @DomainDsl NetworkScope.() -> Either<E, R>,
+  insert: @DomainDsl DatabaseScope.(R) -> Unit,
+  read: @DomainDsl DatabaseScope.() -> Either<E, R>,
+): Either<E, R> =
+  sync(networkManager.networkScope)
+    .onRight { insert(databaseManager.databaseScope, it) }
+    .recover { read(databaseManager.databaseScope).bind() }
+
+@DomainDsl
 public inline fun <R> UseCaseScope.cacheOnlyStrategy(
   read: @DomainDsl DatabaseScope.() -> R,
 ): R =

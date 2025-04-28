@@ -1,48 +1,53 @@
 package dev.kioba.feature.feed.ui
 
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.Column
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Cached
-import androidx.compose.material.icons.outlined.ChatBubbleOutline
-import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Insights
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import dev.kioba.anchor.compose.anchor
 import dev.kioba.design.system.button.AboutButton
+import dev.kioba.design.system.button.CommentButton
+import dev.kioba.design.system.button.LikeButton
 import dev.kioba.design.system.button.ProfileButton
+import dev.kioba.design.system.button.RepostButton
 import dev.kioba.design.system.component.Avatar
-import dev.kioba.design.system.component.Gap
-import dev.kioba.design.system.post.PostItem
+import dev.kioba.design.system.post.PostContent
+import dev.kioba.design.system.post.PostItemBox
+import dev.kioba.design.system.post.PostTitle
 import dev.kioba.design.system.theme.appBarTitle
 import dev.kioba.feature.feed.data.FeedAnchor
-import dev.kioba.feature.feed.data.dismissFeedError
-import dev.kioba.feature.feed.data.dismissUserError
+import dev.kioba.feature.feed.data.navigateToDetails
 import dev.kioba.feature.feed.model.CombinedFeedItem
 import dev.kioba.feature.feed.model.FeedState
 import dev.kioba.feature.feed.model.StringsR
@@ -60,84 +65,112 @@ internal fun FeedUi(
   @PreviewParameter(FeedPreview::class) state: FeedState,
 ) {
   MaterialTheme {
-    Scaffold(
-      topBar = { FeedAppBar(state) },
-      contentWindowInsets = WindowInsets.statusBars,
-    ) { paddingValues ->
-      FeedContent(state, Modifier.padding(paddingValues))
-    }
+    Box(Modifier.fillMaxSize()) {
+      val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
-    when {
-      state.feedError != null ->
-        AlertDialog(
-          onDismissRequest = anchor(FeedAnchor::dismissFeedError),
-          confirmButton = {
-            Button(onClick = anchor(FeedAnchor::dismissFeedError)) {
-              Text(text = "Ok")
-            }
-          },
-          text = {
-            Text(
-              text = "Feed error: ${state.feedError.message}" +
-                "state: ${state.feedError.printStackTrace()}",
-            )
-          }
+      Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        contentWindowInsets = WindowInsets.safeDrawing,
+        topBar = { FeedAppBar(state, scrollBehavior) },
+      ) { paddingValues ->
+        FeedContent(
+          state = state,
+          contentPadding = paddingValues,
         )
+      }
 
-      state.userError != null ->
-        AlertDialog(
-          onDismissRequest = anchor(FeedAnchor::dismissUserError),
-          confirmButton = {
-            Button(onClick = anchor(FeedAnchor::dismissUserError)) {
-              Text(text = "Ok")
-            }
-          },
-          text = {
-            Text(
-              text = "Feed error: ${state.userError.message}" +
-                "state: ${state.userError.printStackTrace()}",
-            )
-          }
-        )
+      LoadingUi(state)
+
+      ErrorUI(state)
+
     }
   }
 }
 
+@Composable
+private fun BoxScope.LoadingUi(
+  state: FeedState,
+) {
+  AnimatedVisibility(
+    visible = state.feedLoading || state.usersLoading,
+    modifier = Modifier.Companion.align(Alignment.Center),
+  ) {
+    CircularProgressIndicator(
+      modifier = Modifier.Companion
+        .align(Alignment.Center),
+    )
+  }
+}
 
 @Composable
 private fun FeedContent(
   state: FeedState,
+  contentPadding: PaddingValues,
   modifier: Modifier = Modifier,
 ) {
   LazyColumn(
-    modifier = modifier.fillMaxSize(),
-    contentPadding = PaddingValues(vertical = 16.dp),
+    contentPadding = contentPadding,
+    modifier = modifier,
   ) {
     itemsIndexed(
       items = state.combined,
       key = { _, item -> item.post.id.value },
       contentType = { _, _ -> CombinedFeedItem::class },
     ) { index, item ->
-      if (index != 0) {
-        Gap(16.dp)
-      }
-
-      PostItem(
-        header = { PostHeader(item) },
-        body = { PostContent(item) },
+      val update = anchor<FeedAnchor> { navigateToDetails(item.post.id) }
+      PostItemBox(
+        avatar = { AnimatedPostAvatar(item) },
+        title = { AnimatedPostTitle(item) },
+        description = {
+          PostContent(
+            title = item.post.title,
+            content = item.post.body,
+            maxLines = 5,
+          )
+        },
         actions = { PostActionBar() },
+        modifier = Modifier
+          .clickable(onClick = update)
+          .padding(top = 8.dp)
+          .padding(horizontal = 16.dp)
+          .animateItem()
       )
+      if (index != state.combined.lastIndex) {
+        HorizontalDivider()
+      }
     }
   }
 }
 
 @Composable
+private fun AnimatedPostTitle(
+  item: CombinedFeedItem,
+) {
+  AnimatedVisibility(item.user != null) {
+    item.user?.let { user -> PostTitle(user.name.value) }
+  }
+}
+
+@Composable
+private fun AnimatedPostAvatar(
+  item: CombinedFeedItem,
+) {
+  AnimatedVisibility(item.avatar != null) {
+    item.avatar?.let { avatarUrl -> Avatar(avatarUrl) }
+  }
+}
+
+@Composable
 @OptIn(ExperimentalMaterial3Api::class)
-private fun FeedAppBar(state: FeedState) {
+private fun FeedAppBar(
+  state: FeedState,
+  scrollBehavior: TopAppBarScrollBehavior,
+) {
   TopAppBar(
     navigationIcon = { ProfileButton(url = state.user.avatar.value) {} },
     title = { AppBarTitle() },
     actions = { FeedAboutButton() },
+    scrollBehavior = scrollBehavior
   )
 }
 
@@ -155,71 +188,18 @@ private fun AppBarTitle() {
 }
 
 @Composable
-private fun PostContent(item: CombinedFeedItem) {
-  Column(
-    modifier = Modifier.padding(horizontal = 16.dp),
-  ) {
-    Text(
-      style = MaterialTheme.typography.titleSmall,
-      text = item.post.title,
-    )
-    Gap(8.dp)
-    Text(
-      style = MaterialTheme.typography.bodyMedium,
-      text = item.post.body,
-    )
-  }
-}
-
-@Composable
 private fun PostActionBar() {
   Row(
-    modifier = Modifier.padding(start = 4.dp, end = 16.dp),
     verticalAlignment = Alignment.CenterVertically,
   ) {
-    IconButton(onClick = { /*TODO*/ }) {
-      Icon(imageVector = Icons.Outlined.FavoriteBorder, contentDescription = null)
-    }
-    IconButton(onClick = { /*TODO*/ }) {
-      Icon(imageVector = Icons.Outlined.Cached, contentDescription = null)
-    }
-    IconButton(onClick = { /*TODO*/ }) {
-      Icon(imageVector = Icons.Outlined.ChatBubbleOutline, contentDescription = null)
-    }
+    LikeButton { /*TODO*/ }
+    RepostButton { /*TODO*/ }
+    CommentButton { /*TODO*/ }
     Spacer(modifier = Modifier.weight(1f))
     Icon(
       modifier = Modifier.size(24.dp),
       imageVector = Icons.Outlined.Insights,
       contentDescription = null,
-    )
-  }
-}
-
-@Composable
-private fun PostHeader(item: CombinedFeedItem) {
-  Row(
-    modifier = Modifier.padding(horizontal = 16.dp),
-    verticalAlignment = Alignment.CenterVertically,
-  ) {
-    item.avatar
-      ?.let { avatarUrl -> Avatar(avatarUrl) }
-    Gap(6.dp)
-    item.user
-      ?.let {
-        Text(
-          style = MaterialTheme.typography.titleMedium,
-          text = it.name.value,
-        )
-      }
-    Gap(4.dp)
-    Text(
-      style = MaterialTheme.typography.labelSmall,
-      text = "•",
-    )
-    Gap(4.dp)
-    Text(
-      style = MaterialTheme.typography.labelSmall,
-      text = "12m",
     )
   }
 }

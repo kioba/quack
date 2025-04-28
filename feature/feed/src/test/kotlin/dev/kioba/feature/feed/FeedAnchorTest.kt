@@ -21,13 +21,13 @@ class FeedAnchorTest {
 
   @Before
   fun before() {
-    mockkStatic("dev.kioba.domain.post.api.PostDomainKt")
+    mockkStatic("dev.kioba.domain.post.api.PostUseCaseKt")
     mockkStatic("dev.kioba.domain.user.api.UserDomainKt")
   }
 
   @After
   fun after() {
-    unmockkStatic("dev.kioba.domain.post.api.PostDomainKt")
+    unmockkStatic("dev.kioba.domain.post.api.PostUseCaseKt")
     unmockkStatic("dev.kioba.domain.user.api.UserDomainKt")
   }
 

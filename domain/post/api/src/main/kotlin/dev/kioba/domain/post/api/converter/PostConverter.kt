@@ -4,7 +4,7 @@ import dev.kioba.domain.placeholder.user.model.UserId
 import dev.kioba.domain.post.api.model.Post
 import dev.kioba.domain.post.api.model.PostId
 import dev.kioba.network.post.model.PostResponse
-import dev.kioba.persistence.PostEntity
+import dev.kioba.persistence.post.PostEntity
 
 internal fun PostResponse.toDomain(): Post =
   Post(

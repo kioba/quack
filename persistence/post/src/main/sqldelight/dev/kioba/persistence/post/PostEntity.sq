@@ -10,5 +10,10 @@ SELECT *
 FROM postEntity;
 
 insertPost:
-INSERT INTO postEntity
+INSERT OR REPLACE INTO postEntity
 VALUES ?;
+
+selectById:
+SELECT *
+FROM postEntity
+WHERE id = ?;

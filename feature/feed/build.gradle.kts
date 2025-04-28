@@ -1,9 +1,10 @@
 plugins {
-  id("com.android.library")
-  kotlin("android")
-  alias(libs.plugins.jetbrainsCompose)
+  alias(libs.plugins.android.library)
+  alias(libs.plugins.kotlin.android)
   alias(libs.plugins.composeCompiler)
+  alias(libs.plugins.jetbrainsCompose)
   alias(libs.plugins.screenshot)
+  alias(libs.plugins.serialization)
 }
 
 android {
@@ -26,12 +27,10 @@ android {
   @Suppress("UnstableApiUsage")
   experimentalProperties["android.experimental.enableScreenshotTest"] = true
 
-  @Suppress("UnstableApiUsage")
   testOptions {
     screenshotTests {
       imageDifferenceThreshold = 0.05f // 5%
     }
-
   }
 }
 
@@ -52,15 +51,16 @@ dependencies {
   implementation(projects.platform.network)
   implementation(projects.platform.test)
 
-  implementation(platform(libs.androidX.compose.bom))
   implementation(libs.bundles.compose)
-  implementation(libs.androidX.fragment)
+  implementation(libs.navigation.compose)
+  implementation(platform(libs.androidX.compose.bom))
 
   implementation(libs.arrow.core)
 
   implementation(libs.architecture.anchor)
   implementation(libs.kotlinX.coroutines.core)
   implementation(libs.kotlinX.coroutines.android)
+  implementation(libs.kotlinx.serialization.json)
 
   testImplementation(libs.test.mockK)
   testImplementation(libs.test.junit4)

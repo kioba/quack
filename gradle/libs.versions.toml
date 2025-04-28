@@ -1,8 +1,10 @@
 [versions]
 desugar_jdk_libs = "2.1.5"
 androidTools = "31.9.1"
+kotlinxSerializationJson = "1.8.0"
 minSdk = "21"
 compileSdk = "35"
+navigationCompose = "2.8.7"
 targetSdk = "35"
 
 # development
@@ -10,7 +12,7 @@ agp = "8.9.1"
 kotlin = "2.1.20"
 kotlinCoroutines = "1.10.2"
 ksp = "2.1.20-2.0.0"
-
+serialization = "2.1.10"
 screenshot = "0.0.1-alpha09"
 
 # lib versions
@@ -50,6 +52,8 @@ foundationLayoutAndroid = "1.7.8"
 
 # kotlin
 kotlinxDatetime = "0.6.2"
+coreKtx = "1.16.0"
+material = "1.12.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -60,6 +64,8 @@ composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "k
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqlDelight" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 screenshot = { id = "com.android.compose.screenshot", version.ref = "screenshot"}
+serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "serialization" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 
 [libraries]
 
@@ -67,10 +73,11 @@ android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", ver
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 android-tools-common = { group = "com.android.tools", name = "common", version.ref = "androidTools" }
+desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
 
 # network
-desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
 jetbrains-kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinCoroutines" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 network-moshi-adapters = { module = "com.squareup.moshi:moshi-adapters", version.ref = "moshi" }
 network-moshi-core = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
 network-moshi-kotlinCodeGen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }
@@ -101,6 +108,7 @@ androidX-compose-activity = { module = "androidx.activity:activity-compose", ver
 androidX-activity = { module = "androidx.activity:activity-ktx", version.ref = "activity" }
 androidX-compose-animation = { module = "androidx.compose.animation:animation" }
 androidX-compose-animationCore = { module = "androidx.compose.animation:animation-core" }
+navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 androidX-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
 androidX-compose-coil = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 androidX-compose-foundation = { module = "androidx.compose.foundation:foundation" }
@@ -137,6 +145,8 @@ foundation-layout-android = { group = "androidx.compose.foundation", name = "fou
 
 # kotlin
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
+core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [bundles]
 compose = [
