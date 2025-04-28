@@ -9,9 +9,11 @@ plugins {
 
 android {
   namespace = "dev.kioba.feature.feed"
-  compileSdk = libs.versions.compileSdk
-    .get()
-    .toInt()
+  compileSdk = libs.versions.compileSdk.get().toInt()
+
+  defaultConfig {
+    minSdk = libs.versions.minSdk.get().toInt()
+  }
 
   kotlinOptions {
     jvmTarget = JavaVersion.VERSION_17.toString()
@@ -20,6 +22,7 @@ android {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
   }
+
   @Suppress("UnstableApiUsage")
   experimentalProperties["android.experimental.enableScreenshotTest"] = true
 

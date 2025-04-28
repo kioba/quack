@@ -9,15 +9,10 @@ plugins {
 
 android {
   namespace = "dev.kioba.feature.details"
-
-  compileSdk = libs.versions.compileSdk
-    .get()
-    .toInt()
+  compileSdk = libs.versions.compileSdk.get().toInt()
 
   defaultConfig {
-    minSdk = 21
-
-    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    minSdk = libs.versions.minSdk.get().toInt()
   }
 
   kotlinOptions {
