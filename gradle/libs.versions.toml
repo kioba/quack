@@ -30,7 +30,7 @@ retrofit = "2.11.0"
 
 # arrow
 arrow = "2.0.1"
-arrowRetrofit = "2.0.1"
+arrowRetrofit = "2.1.0"
 
 # database
 sqlDelight = "2.0.2"
