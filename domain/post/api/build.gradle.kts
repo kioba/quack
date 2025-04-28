@@ -1,5 +1,6 @@
 plugins {
   kotlin("jvm")
+  alias(libs.plugins.serialization)
 }
 
 kotlin {
@@ -14,6 +15,7 @@ dependencies {
   implementation(projects.platform.database)
   implementation(projects.platform.domain)
   implementation(projects.platform.network)
+  implementation(libs.kotlinx.serialization.json)
 
   implementation(libs.jetbrains.kotlinx.coroutines.core)
   implementation(libs.arrow.core)

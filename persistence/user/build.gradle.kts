@@ -14,7 +14,7 @@ kotlin {
 sqldelight {
   databases {
     create("UserDB") {
-      packageName = "io.github.kioba.persistence"
+      packageName = "dev.kioba.persistence"
     }
   }
 }

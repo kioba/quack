@@ -12,6 +12,7 @@ import dev.kioba.persistence.user.insertUser
 import dev.kioba.persistence.user.insertUsers
 import dev.kioba.persistence.user.readUser
 import dev.kioba.persistence.user.readUsers
+import dev.kioba.persistence.user.streamUser
 import dev.kioba.persistence.user.streamUsers
 import dev.kioba.platform.domain.EffectContext
 import dev.kioba.platform.domain.cacheOnlyFlowableStrategy
@@ -36,7 +37,7 @@ public suspend fun EffectContext.syncUser(
   useCase {
     syncFirstStrategy(
       sync = { fetchUser(userId.value).map { it.toDomain() } },
-      insert = { it?.toEntity()?.let(::insertUser) },
+      insert = { user -> user?.toEntity()?.let(::insertUser) },
       read = { readUser(userId.value)?.toDomain().right() },
     )
   }
@@ -45,4 +46,12 @@ public fun EffectContext.listenUsers(): Flow<List<User>> =
   useCaseFlow {
     cacheOnlyFlowableStrategy { streamUsers() }
       .map { it.map { entity -> entity.toDomain() } }
+  }
+
+public fun EffectContext.listenUser(
+  id: UserId,
+): Flow<User> =
+  useCaseFlow {
+    cacheOnlyFlowableStrategy { streamUser(id.value) }
+      .map { entity -> entity.toDomain() }
   }

@@ -2,10 +2,11 @@ package dev.kioba.persistence.user
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
+import app.cash.sqldelight.coroutines.mapToOne
 import dev.kioba.persistence.UserEntity
 import dev.kioba.persistence.UserEntityQueries
 import dev.kioba.platform.database.DatabaseScope
-import io.github.kioba.persistence.UserDB
+import dev.kioba.persistence.UserDB
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 
@@ -30,10 +31,20 @@ public fun DatabaseScope.readUsers(): List<UserEntity> =
 public fun DatabaseScope.readUser(
   id: Long,
 ): UserEntity? =
-  userDao { select(id).executeAsOneOrNull() }
+  userDao { selectById(id).executeAsOneOrNull() }
 
 public fun DatabaseScope.streamUsers(): Flow<List<UserEntity>> =
   userDao { selectAll().asFlow().mapToList(Dispatchers.IO) }
+
+public fun DatabaseScope.streamUser(
+  id: Long,
+): Flow<UserEntity> =
+  userDao {
+    selectById(id)
+      .asFlow()
+      .mapToOne(context = Dispatchers.IO)
+  }
+
 
 public fun DatabaseScope.insertUser(
   user: UserEntity,

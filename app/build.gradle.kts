@@ -49,7 +49,12 @@ dependencies {
   implementation(libs.androidX.activity)
   implementation(libs.androidX.appcompat)
   implementation(libs.androidX.compose.activity)
+  implementation(libs.navigation.compose)
+  implementation(projects.domain.post.api)
+  implementation(projects.domain.user.api)
+  implementation(projects.feature.details)
   implementation(projects.feature.feed)
+  implementation(projects.platform.androidCompose)
   implementation(projects.platform.domain)
 
   testImplementation(libs.test.mockK)

@@ -1,6 +1,8 @@
 package dev.kioba.domain.post.api.model
 
-@JvmInline
-public value class PostId(
+import kotlinx.serialization.Serializable
+
+@Serializable
+public data class PostId(
   public val value: Long,
 )
