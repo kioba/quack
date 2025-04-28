@@ -12,7 +12,7 @@ agp = "8.9.2"
 kotlin = "2.1.20"
 kotlinCoroutines = "1.10.2"
 ksp = "2.1.20-2.0.0"
-serialization = "2.1.10"
+serialization = "2.1.20"
 screenshot = "0.0.1-alpha09"
 
 # lib versions
