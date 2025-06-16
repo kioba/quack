@@ -11,7 +11,7 @@ targetSdk = "35"
 agp = "8.9.2"
 kotlin = "2.1.21"
 kotlinCoroutines = "1.10.2"
-ksp = "2.1.21-2.0.1"
+ksp = "2.1.21-2.0.2"
 serialization = "2.1.21"
 screenshot = "0.0.1-alpha10"
 
