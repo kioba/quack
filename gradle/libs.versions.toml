@@ -1,6 +1,6 @@
 [versions]
 desugar_jdk_libs = "2.1.5"
-androidTools = "31.9.2"
+androidTools = "31.11.0"
 kotlinxSerializationJson = "1.8.1"
 minSdk = "24"
 compileSdk = "35"
