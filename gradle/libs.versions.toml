@@ -9,10 +9,10 @@ targetSdk = "35"
 
 # development
 agp = "8.9.2"
-kotlin = "2.1.21"
+kotlin = "2.2.0"
 kotlinCoroutines = "1.10.2"
-ksp = "2.1.21-2.0.1"
-serialization = "2.1.21"
+ksp = "2.1.21-2.0.2"
+serialization = "2.2.0"
 screenshot = "0.0.1-alpha10"
 
 # lib versions
@@ -20,7 +20,7 @@ androidXTest = "1.6.1"
 androidXJunit = "1.2.1"
 espresso = "3.6.1"
 junit4 = "4.13.2"
-mockK = "1.14.2"
+mockK = "1.14.4"
 testRunner = "1.6.2"
 
 # network
@@ -36,19 +36,19 @@ arrowRetrofit = "2.1.2"
 sqlDelight = "2.0.2"
 
 # compose
-compose-plugin = "1.8.1"
-composeBom = "2025.04.01"
+compose-plugin = "1.8.2"
+composeBom = "2025.06.01"
 accompanist = "0.36.0"
 activity = "1.10.1"
-appcompat = "1.7.0"
-fragment = "1.8.7"
+appcompat = "1.7.1"
+fragment = "1.8.8"
 
 # image loading
 coil = "2.7.0"
 
 # architecture
 anchor = "0.0.7"
-foundationLayoutAndroid = "1.8.2"
+foundationLayoutAndroid = "1.8.3"
 
 # kotlin
 kotlinxDatetime = "0.6.2"
