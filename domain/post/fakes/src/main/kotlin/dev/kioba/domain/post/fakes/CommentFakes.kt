@@ -1,7 +1,8 @@
 package dev.kioba.domain.post.fakes
 
 import dev.kioba.domain.placeholder.user.model.Email
-import dev.kioba.domain.placeholder.user.model.Name
+import dev.kioba.domain.placeholder.user.model.UserName
+import dev.kioba.domain.post.api.model.Comment
 import dev.kioba.domain.post.api.model.CommentId
 import dev.kioba.platform.test.TestDataScope
 
@@ -30,16 +31,16 @@ public fun TestDataScope.givenCommentUserEmailTwo(): Email =
   Email(value = "test_comment_user_two@email.com")
 
 @Suppress("UnusedReceiverParameter")
-public fun TestDataScope.givenCommentUserName(): Name =
-  Name("Sorrell Winmore")
+public fun TestDataScope.givenCommentUserName(): UserName =
+  UserName("Sorrell Winmore")
 
 @Suppress("UnusedReceiverParameter")
-public fun TestDataScope.givenCommentUserNameOne(): Name =
-  Name("Terry Blade")
+public fun TestDataScope.givenCommentUserNameOne(): UserName =
+  UserName("Terry Blade")
 
 @Suppress("UnusedReceiverParameter")
-public fun TestDataScope.givenCommentUserNameTwo(): Name =
-  Name("Jaquez bleakfire")
+public fun TestDataScope.givenCommentUserNameTwo(): UserName =
+  UserName("Jaquez bleakfire")
 
 @Suppress("UnusedReceiverParameter")
 public fun TestDataScope.givenCommentBody(): String =
@@ -51,3 +52,29 @@ public fun TestDataScope.givenCommentBody(): String =
     " eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, " +
     "sunt in culpa qui officia deserunt mollit anim id est laborum."
 
+public fun TestDataScope.givenComment(): Comment =
+  Comment(
+    id = givenCommentId(),
+    postId = givenPostId(),
+    userName = givenCommentUserName(),
+    userEmail = givenCommentUserEmail(),
+    body = givenCommentBody(),
+  )
+
+public fun TestDataScope.givenCommentOne(): Comment =
+  Comment(
+    id = givenCommentIdOne(),
+    postId = givenPostIdOne(),
+    userName = givenCommentUserNameOne(),
+    userEmail = givenCommentUserEmailOne(),
+    body = givenCommentBody(),
+  )
+
+public fun TestDataScope.givenCommentTwo(): Comment =
+  Comment(
+    id = givenCommentIdTwo(),
+    postId = givenPostIdTwo(),
+    userName = givenCommentUserNameTwo(),
+    userEmail = givenCommentUserEmailTwo(),
+    body = givenCommentBody(),
+  )

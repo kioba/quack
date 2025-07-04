@@ -19,6 +19,10 @@ public fun TestDataScope.givenPost(
 
 
 @Suppress("UnusedReceiverParameter")
+public fun TestDataScope.givenPostId(): PostId =
+  PostId(1)
+
+@Suppress("UnusedReceiverParameter")
 public fun TestDataScope.givenPostIdOne(): PostId =
   PostId(1)
 
