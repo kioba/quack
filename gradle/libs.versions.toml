@@ -51,7 +51,7 @@ anchor = "0.0.7"
 foundationLayoutAndroid = "1.8.3"
 
 # kotlin
-kotlinxDatetime = "0.7.0-0.6.x-compat"
+kotlinxDatetime = "0.7.1-0.6.x-compat"
 coreKtx = "1.16.0"
 material = "1.12.0"
 
