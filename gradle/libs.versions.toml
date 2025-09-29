@@ -8,7 +8,7 @@ navigationCompose = "2.9.5"
 targetSdk = "35"
 
 # development
-agp = "8.11.1"
+agp = "8.13.0"
 kotlin = "2.2.20"
 kotlinCoroutines = "1.10.2"
 ksp = "2.2.20-2.0.3"
