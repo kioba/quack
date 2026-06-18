@@ -1,6 +1,7 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
   alias(libs.plugins.android.library)
-  alias(libs.plugins.kotlin.android)
   alias(libs.plugins.composeCompiler)
   alias(libs.plugins.jetbrainsCompose)
   alias(libs.plugins.screenshot)
@@ -15,9 +16,6 @@ android {
     minSdk = libs.versions.minSdk.get().toInt()
   }
 
-  kotlinOptions {
-    jvmTarget = JavaVersion.VERSION_17.toString()
-  }
   compileOptions {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
@@ -35,6 +33,9 @@ android {
 
 kotlin {
   explicitApi()
+  compilerOptions {
+    jvmTarget = JvmTarget.JVM_17
+  }
 }
 
 dependencies {
@@ -65,6 +66,7 @@ dependencies {
   testImplementation(libs.test.mockK)
   testImplementation(libs.test.junit4)
   testImplementation(libs.architecture.anchorTest)
+  screenshotTestImplementation(libs.screenshot.validation.api)
   androidTestImplementation(libs.androidTest.androidXTest.core)
   androidTestImplementation(libs.androidTest.androidXTest.junit)
   androidTestImplementation(libs.androidTest.testRunner)

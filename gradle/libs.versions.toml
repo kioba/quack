@@ -3,17 +3,17 @@ desugar_jdk_libs = "2.1.5"
 androidTools = "32.2.1"
 kotlinxSerializationJson = "1.9.0"
 minSdk = "24"
-compileSdk = "36"
+compileSdk = "37"
 navigationCompose = "2.9.5"
 targetSdk = "35"
 
 # development
 agp = "9.2.1"
-kotlin = "2.2.21"
+kotlin = "2.4.0"
 kotlinCoroutines = "1.10.2"
-ksp = "2.3.0"
-serialization = "2.2.20"
-screenshot = "0.0.1-alpha11"
+ksp = "2.3.9"
+serialization = "2.4.0"
+screenshot = "0.0.1-alpha15"
 
 # lib versions
 androidXTest = "1.6.1"
@@ -29,11 +29,11 @@ okHttp = "5.3.0"
 retrofit = "3.0.0"
 
 # arrow
-arrow = "2.1.2"
-arrowRetrofit = "2.1.2"
+arrow = "2.2.3"
+arrowRetrofit = "2.2.3"
 
 # database
-sqlDelight = "2.1.0"
+sqlDelight = "2.3.2"
 
 # compose
 compose-plugin = "1.9.2"
@@ -65,7 +65,6 @@ sqldelight = { id = "app.cash.sqldelight", version.ref = "sqlDelight" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 screenshot = { id = "com.android.compose.screenshot", version.ref = "screenshot"}
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "serialization" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 
 [libraries]
 
@@ -74,6 +73,7 @@ kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-pl
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 android-tools-common = { group = "com.android.tools", name = "common", version.ref = "androidTools" }
 desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
+screenshot-validation-api = { group = "com.android.tools.screenshot", name = "screenshot-validation-api", version.ref = "screenshot" }
 
 # network
 jetbrains-kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinCoroutines" }
