@@ -1,5 +1,6 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
-  kotlin("android")
   alias(libs.plugins.android.library)
   alias(libs.plugins.sqldelight)
 }
@@ -7,10 +8,6 @@ plugins {
 android {
   namespace = "dev.kioba.platform.database"
   compileSdk = libs.versions.compileSdk.get().toInt()
-
-  kotlinOptions {
-    jvmTarget = JavaVersion.VERSION_17.toString()
-  }
 
   compileOptions {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -21,6 +18,9 @@ android {
 
 kotlin {
   explicitApi()
+  compilerOptions {
+    jvmTarget = JvmTarget.JVM_17
+  }
 }
 
 dependencies {

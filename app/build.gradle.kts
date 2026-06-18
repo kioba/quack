@@ -1,6 +1,7 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
   id("com.android.application")
-  kotlin("android")
   alias(libs.plugins.jetbrainsCompose)
   alias(libs.plugins.composeCompiler)
 }
@@ -31,15 +32,14 @@ android {
     targetCompatibility = JavaVersion.VERSION_17
   }
 
-  kotlinOptions {
-    jvmTarget = JavaVersion.VERSION_17.toString()
-  }
-
   sourceSets.map { it.java.srcDir("src/${it.name}/kotlin") }
 }
 
 kotlin {
   explicitApi()
+  compilerOptions {
+    jvmTarget = JvmTarget.JVM_17
+  }
 }
 
 dependencies {
