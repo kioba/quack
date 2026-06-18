@@ -35,8 +35,8 @@ public fun NavGraphBuilder.detailsPage(
     typeMap = mapOf(typeOf<PostId>() to PostIdParameterType)
   ) { stack ->
     val context = LocalContext.current
-    stack.RememberAnchor(
+    RememberAnchor(
       scope = { detailsAnchor(effectBuilder(context, stack.toRoute(), navFlow)) },
-    ) { state -> DetailsUi(state = state) }
+    ) { DetailsUi(state = state) }
   }
 }
