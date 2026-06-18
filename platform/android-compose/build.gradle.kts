@@ -1,6 +1,7 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
   id("com.android.library")
-  kotlin("android")
   alias(libs.plugins.jetbrainsCompose)
   alias(libs.plugins.composeCompiler)
 }
@@ -8,10 +9,6 @@ plugins {
 android {
   namespace = "dev.kioba.platform.android.compose"
   compileSdk = libs.versions.compileSdk.get().toInt()
-
-  kotlinOptions {
-    jvmTarget = JavaVersion.VERSION_17.toString()
-  }
 
   compileOptions {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -22,6 +19,9 @@ android {
 
 kotlin {
   explicitApi()
+  compilerOptions {
+    jvmTarget = JvmTarget.JVM_17
+  }
 }
 
 dependencies {
