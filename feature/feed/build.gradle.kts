@@ -57,6 +57,7 @@ dependencies {
   implementation(libs.arrow.core)
 
   implementation(libs.architecture.anchor)
+  implementation(libs.architecture.anchorCompose)
   implementation(libs.kotlinX.coroutines.core)
   implementation(libs.kotlinX.coroutines.android)
   implementation(libs.kotlinx.serialization.json)

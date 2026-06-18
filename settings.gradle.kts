@@ -18,13 +18,6 @@ dependencyResolutionManagement {
   repositories {
     google()
     mavenCentral()
-    maven {
-      url = uri("https://maven.pkg.github.com/kioba/anchor")
-      credentials {
-        username = providers.gradleProperty("gpr.user").orNull ?: System.getenv("USERNAME")
-        password = providers.gradleProperty("gpr.key").orNull ?: System.getenv("TOKEN")
-      }
-    }
   }
 }
 

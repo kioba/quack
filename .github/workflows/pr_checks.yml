@@ -25,10 +25,8 @@ jobs:
           cache: "gradle"
 
       - name: "run checks"
-        env:
-          USERNAME: ${{ secrets.GH_USER_PACKAGE_READ }}
-          TOKEN: ${{ secrets.GH_TOKEN_PACKAGE_READ }}
-        run: ./gradlew check --no-daemon
+        # config cache can't serialize KotlinCompile's classpath snapshot; disable it on CI only
+        run: ./gradlew check --no-daemon --no-configuration-cache
 
   snapshot_test:
     name: "snapshot test"
@@ -50,10 +48,8 @@ jobs:
           cache: "gradle"
 
       - name: "run snapshot verification"
-        env:
-          USERNAME: ${{ secrets.GH_USER_PACKAGE_READ }}
-          TOKEN: ${{ secrets.GH_TOKEN_PACKAGE_READ }}
-        run: ./gradlew validateDebugScreenshotTest --no-daemon
+        # config cache can't serialize KotlinCompile's classpath snapshot; disable it on CI only
+        run: ./gradlew validateDebugScreenshotTest --no-daemon --no-configuration-cache
 
       - name: "run test report"
         uses: dorny/test-reporter@v1
