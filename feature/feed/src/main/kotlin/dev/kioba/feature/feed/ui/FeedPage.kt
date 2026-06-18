@@ -27,10 +27,10 @@ private fun effectBuilder(
 public fun NavGraphBuilder.feedPage(
   navFlow: suspend (NavigationIntent) -> Unit
 ) {
-  composable<FeedDestination> { stack ->
+  composable<FeedDestination> {
     val context = LocalContext.current
-    stack.RememberAnchor(
+    RememberAnchor(
       scope = { feedAnchor(effectBuilder(context, navFlow)) },
-    ) { state -> FeedUi(state) }
+    ) { FeedUi(state) }
   }
 }
