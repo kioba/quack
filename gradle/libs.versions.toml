@@ -4,7 +4,7 @@ androidTools = "32.2.1"
 kotlinxSerializationJson = "1.9.0"
 minSdk = "24"
 compileSdk = "37"
-navigationCompose = "2.9.5"
+navigationCompose = "2.9.8"
 targetSdk = "35"
 
 # development
