@@ -25,7 +25,7 @@ testRunner = "1.7.0"
 
 # network
 moshi = "1.15.2"
-okHttp = "5.3.0"
+okHttp = "5.4.0"
 retrofit = "3.0.0"
 
 # arrow
