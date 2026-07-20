@@ -10,7 +10,7 @@ targetSdk = "35"
 # development
 agp = "9.2.1"
 kotlin = "2.4.10"
-kotlinCoroutines = "1.10.2"
+kotlinCoroutines = "1.11.0"
 ksp = "2.3.10"
 serialization = "2.4.10"
 screenshot = "0.0.1-alpha15"
