@@ -13,7 +13,7 @@ kotlin = "2.4.10"
 kotlinCoroutines = "1.10.2"
 ksp = "2.3.11"
 serialization = "2.4.10"
-screenshot = "0.0.1-alpha15"
+screenshot = "0.0.1-alpha16"
 
 # lib versions
 androidXTest = "1.7.0"
