@@ -53,7 +53,7 @@ foundationLayoutAndroid = "1.11.4"
 # kotlin
 kotlinxDatetime = "0.7.1-0.6.x-compat"
 coreKtx = "1.19.0"
-material = "1.13.0"
+material = "1.14.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
