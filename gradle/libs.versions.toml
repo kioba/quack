@@ -37,7 +37,7 @@ sqlDelight = "2.3.2"
 
 # compose
 compose-plugin = "1.9.2"
-composeBom = "2026.03.01"
+composeBom = "2026.08.00"
 accompanist = "0.36.0"
 activity = "1.13.0"
 appcompat = "1.7.1"
