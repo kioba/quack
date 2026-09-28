@@ -33,7 +33,7 @@ arrow = "2.2.3"
 arrowRetrofit = "2.2.3"
 
 # database
-sqlDelight = "2.3.2"
+sqlDelight = "2.4.0"
 
 # compose
 compose-plugin = "1.9.2"
