@@ -52,7 +52,7 @@ foundationLayoutAndroid = "1.11.4"
 
 # kotlin
 kotlinxDatetime = "0.7.1-0.6.x-compat"
-coreKtx = "1.19.0"
+coreKtx = "1.19.1"
 material = "1.13.0"
 
 [plugins]
